@@ -16,7 +16,7 @@
 package BoismortierSonate_1;
 
 import de.free_creations.importexport.ChannelCleaner;
-import de.free_creations.importexport.ControllerRemover;
+import de.free_creations.importexport.InstrumentExchanger;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -33,40 +33,40 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class CreateSonate {
+public class Create_5_Gayment {
 
   private URL voicesFileURL;
   private URL orchestraFileURL;
   private File outputMidiFile;
   private File outputSongFile;
   private Handler loggingHandler;
-  final static private String description = "J. B.de Boismortier Sonate I Op. 7 Nr. 1";
-  final static private String number = "1";
-  final static private String camelTitle = "B_Sonate";
+  final static private String piece = "Sonate I";
+  final static private String description = "Sonate I, Gayment";
+  final static private String number = "5";
+  final static private String camelTitle = "Gayment";
   final static private int resolution = 480;
 
-  private CreateSonate() throws IOException {
+  private Create_5_Gayment() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/Sonate1-orchestra.mid");
+    orchestraFileURL = this.getClass().getResource("resources/Gayment-orchestra.MID");
     if (orchestraFileURL == null) {
-      throw new RuntimeException("Sonate1-orchestra.mid file not found.");
+      throw new RuntimeException("Gayment-orchestra.MID file not found.");
     }
-    voicesFileURL = this.getClass().getResource("resources/Sonate1-voices.mid");
+    voicesFileURL = this.getClass().getResource("resources/Gayment-voices.MID");
     if (voicesFileURL == null) {
-      throw new RuntimeException("Voices file not found.");
+      throw new RuntimeException("Gayment-voices.MID file not found.");
     }
 
     File tempDir = new File("../temp");
-    //File outDir = new File("../../../../../SongExplorer/src/de/free_creations/songexplorer/resources");
-
+ 
     if (!tempDir.exists()) {
       throw new RuntimeException(tempDir + " not found.");
     }
     if (!tempDir.isDirectory()) {
       throw new RuntimeException(tempDir + " is not a directory.");
     }
-    File outDir = new File(tempDir, number + "_" + camelTitle);
+    File outDir = new File(tempDir, piece);
     if (!outDir.exists()) {
       if (!outDir.mkdir()) {
         throw new RuntimeException("Could not make : " + outDir.getPath());
@@ -84,10 +84,10 @@ public class CreateSonate {
     Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
     Sequence voicesSequence = MidiSystem.getSequence(voicesFileURL);
 
-    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contAllControllersOff, loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence, ControllerRemover.contProgramChange, loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contModulationWheel_MSB, loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contMainVolume_MSB, loggingHandler);
+    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, MidiUtil.contAllControllersOff, -1, loggingHandler);
+    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, InstrumentExchanger.contProgramChange, -1, loggingHandler);
+    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, MidiUtil.contModulationWheel_MSB, -1, loggingHandler);
+    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, MidiUtil.contMainVolume_MSB, -1, loggingHandler);
 
 
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
@@ -232,7 +232,7 @@ public class CreateSonate {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    CreateSonate processor = new CreateSonate();
+    Create_5_Gayment processor = new Create_5_Gayment();
     System.out.println("############ Creating \"Boismortier " + number + " " + camelTitle + "\"");
     processor.process();
 

@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package BoismortierSonate_1;
+package VivaldiTrios;
+
 
 import de.free_creations.mediacontainer.ContainerInfo;
 import java.io.*;
@@ -26,10 +27,10 @@ import java.util.zip.ZipOutputStream;
  *
  * @author harald
  */
-public class CreateSonateContainer {
+public class CreateTriosContainer {
 
   private static final File tempDir = new File("../temp");
-  private static final String outFilename = "Boismortier_Sonate.fmc";
+  private static final String outFilename = "VivaldiTrios.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
   private static class ZipItem {
@@ -61,28 +62,20 @@ public class CreateSonateContainer {
     "mk_1_rhodes.sf2",
     false),
     //--------------------------------------------------------------------------
-    // ---- 1 Gravement.mid (create with Create_1_Gravement.java)
+    // ---- 1 Allegro.mid (create with Create_1_Allegro.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/1_Gravement.mid"),
-    "Sonate1/1_Gravement.mid",
+    new File(tempDir, "Vivaldi Trios/1_Allegro.mid"),
+    "VivaldiTrios/1_Allegro.mid",
     false),
-    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    // ---- 1 Gravement.xml (create with Create_1_Allegro.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/1_Gravement.xml"),
-    "Sonate1/1_Gravement.xml",
+    new File(tempDir, "Vivaldi Trios/1_Allegro.xml"),
+    "VivaldiTrios/1_Allegro.xml",
     true),
-    // ---- 5 Gayment.mid (create with Create_5_Gayment.java)
-    new ZipItem(
-    new File(tempDir, "Sonate I/5_Gayment.mid"),
-    "Sonate1/5_Gayment.mid",
-    false),
-    // ---- 5 Gayment.xml (create with Create_5_Gayment.java)
-    new ZipItem(
-    new File(tempDir, "Sonate I/5_Gayment.xml"),
-    "Sonate1/5_Gayment.xml",
-    true),};
 
-  private CreateSonateContainer() {
+  };
+
+  private CreateTriosContainer() {
 
     if (!tempDir.exists()) {
       throw new RuntimeException("No temp Directory found.");
@@ -96,7 +89,7 @@ public class CreateSonateContainer {
    * @param args the command line arguments
    */
   public static void main(String[] args) throws Exception {
-    CreateSonateContainer processor = new CreateSonateContainer();
+    CreateTriosContainer processor = new CreateTriosContainer();
     System.out.println("############ creating container info.");
     processor.createContainerInfo();
     System.out.println("############ packing the files.");
