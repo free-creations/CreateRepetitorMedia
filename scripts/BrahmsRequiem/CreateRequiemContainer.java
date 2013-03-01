@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package BoismortierSonate_1;
+package BrahmsRequiem;
 
 import de.free_creations.mediacontainer.ContainerInfo;
 import java.io.*;
@@ -26,10 +26,11 @@ import java.util.zip.ZipOutputStream;
  *
  * @author harald
  */
-public class CreateSonateContainer {
+public class CreateRequiemContainer {
 
   private static final File tempDir = new File("../temp");
-  private static final String outFilename = "Boismortier_Sonate.fmc";
+  private static final File resourceDir = new File("scripts/BrahmsRequiem/resources");
+  private static final String outFilename = "BrahmsRequiem.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
   private static class ZipItem {
@@ -50,49 +51,29 @@ public class CreateSonateContainer {
     tempContainerInfoFile,
     "META-INF/container.xml",
     false),
-    // ---- Chorium Sound Font (please copy it to the temp dir)
+    // ---- Orchestra sound font
     new ZipItem(
-    new File(tempDir, "Chorium.SF2"),
-    "Chorium.SF2",
+    new File(resourceDir, "Requiem.sf2"),
+    "Requiem.sf2",
     false),
-    // ---- Rhodes Sound Font (please copy it to the temp dir)
+    // ---- Piano sound font
     new ZipItem(
-    new File(tempDir, "mk_1_rhodes.sf2"),
-    "mk_1_rhodes.sf2",
+    new File(resourceDir, "SingingPiano.sf2"),
+    "SingingPiano.sf2",
     false),
     //--------------------------------------------------------------------------
-    // ---- 1 Gravement.mid (create with Create_1_Gravement.java)
+    // ---- 2_DennAllesFleisch.mid (create with Create_2_DennAllesFleisch.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/1_Gravement.mid"),
-    "Sonate1/1_Gravement.mid",
+    new File(tempDir, "BrahmsRequiem/2_DennAllesFleisch.mid"),
+    "BrahmsRequiem/2_DennAllesFleisch.mid",
     false),
-    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    // ---- 2_DennAllesFleisch.xml (create with Create_2_DennAllesFleisch.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/1_Gravement.xml"),
-    "Sonate1/1_Gravement.xml",
-    true),
-    // ---- 2_AllemandeGayment.mid (create with Create_2_AllemandeGayment.java)
-    new ZipItem(
-    new File(tempDir, "Sonate I/2_AllemandeGayment.mid"),
-    "Sonate1/2_AllemandeGayment.mid",
-    false),
-    // ---- 2_AllemandeGayment.xml (create with Create_2_AllemandeGayment.java)
-    new ZipItem(
-    new File(tempDir, "Sonate I/2_AllemandeGayment.xml"),
-    "Sonate1/2_AllemandeGayment.xml",
-    true),
-    // ---- 5 Gayment.mid (create with Create_5_Gayment.java)
-    new ZipItem(
-    new File(tempDir, "Sonate I/5_Gayment.mid"),
-    "Sonate1/5_Gayment.mid",
-    false),
-    // ---- 5 Gayment.xml (create with Create_5_Gayment.java)
-    new ZipItem(
-    new File(tempDir, "Sonate I/5_Gayment.xml"),
-    "Sonate1/5_Gayment.xml",
+    new File(tempDir, "BrahmsRequiem/2_DennAllesFleisch.xml"),
+    "BrahmsRequiem/2_DennAllesFleisch.xml",
     true),};
 
-  private CreateSonateContainer() {
+  private CreateRequiemContainer() {
 
     if (!tempDir.exists()) {
       throw new RuntimeException("No temp Directory found.");
@@ -100,13 +81,19 @@ public class CreateSonateContainer {
     if (!tempDir.isDirectory()) {
       throw new RuntimeException("../temp is not a directory.");
     }
+    if (!resourceDir.exists()) {
+      throw new RuntimeException("Resource Directory not found.");
+    }
+    if (!resourceDir.isDirectory()) {
+      throw new RuntimeException("resourceDir is not a directory.");
+    }
   }
 
   /**
    * @param args the command line arguments
    */
   public static void main(String[] args) throws Exception {
-    CreateSonateContainer processor = new CreateSonateContainer();
+    CreateRequiemContainer processor = new CreateRequiemContainer();
     System.out.println("############ creating container info.");
     processor.createContainerInfo();
     System.out.println("############ packing the files.");

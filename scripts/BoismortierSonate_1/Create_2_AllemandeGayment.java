@@ -33,7 +33,7 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_1_Gravement {
+public class Create_2_AllemandeGayment {
 
   private URL voicesFileURL;
   private URL orchestraFileURL;
@@ -41,19 +41,19 @@ public class Create_1_Gravement {
   private File outputSongFile;
   private Handler loggingHandler;
   final static private String piece = "Sonate I";
-  final static private String description = "Sonate I, Gravement";
-  final static private String number = "1";
-  final static private String camelTitle = "Gravement";
+  final static private String description = "Sonate I, Allemande Gayment";
+  final static private String number = "2";
+  final static private String camelTitle = "AllemandeGayment";
   final static private int resolution = 480;
 
-  private Create_1_Gravement() throws IOException {
+  private Create_2_AllemandeGayment() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/Gravement-orchestra.mid");
+    orchestraFileURL = this.getClass().getResource("resources/AllemandeGayment-orchestra.mid");
     if (orchestraFileURL == null) {
-      throw new RuntimeException("Gravement-orchestra.mid file not found.");
+      throw new RuntimeException("AllemandeGayment-orchestra file not found.");
     }
-    voicesFileURL = this.getClass().getResource("resources/Gravement-voices.mid");
+    voicesFileURL = this.getClass().getResource("resources/AllemandeGayment-voices.mid");
     if (voicesFileURL == null) {
       throw new RuntimeException("Voices file not found.");
     }
@@ -232,7 +232,7 @@ public class Create_1_Gravement {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_1_Gravement processor = new Create_1_Gravement();
+    Create_2_AllemandeGayment processor = new Create_2_AllemandeGayment();
     System.out.println("############ Creating \"Boismortier " + number + " " + camelTitle + "\"");
     processor.process();
 

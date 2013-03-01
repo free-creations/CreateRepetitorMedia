@@ -15,10 +15,7 @@
  */
 package de.free_creations.importexport;
 
-import de.free_creations.midiutil.MidiUtil;
 import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
@@ -33,8 +30,7 @@ import javax.sound.midi.Track;
  */
 public class InstrumentExchanger {
 
-  public final static int contProgramChange = 1001;
-  public final static int contPitchBend = 1002;
+
 
   /**
    *

@@ -17,7 +17,7 @@ package VivaldiTrios;
 
 
 import de.free_creations.importexport.ChannelCleaner;
-import de.free_creations.importexport.InstrumentExchanger;
+import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -87,8 +87,8 @@ public class Create_1_Allegro {
     Sequence voiceSequence = new Sequence(Sequence.PPQ, resolution);
 
     voiceSequence = TrackMerger.process(voiceSequence, orchestraSequence, new int[]{5}, -1, "Basso", loggingHandler); //
-    voiceSequence = InstrumentExchanger.process(voiceSequence, 0, InstrumentExchanger.contProgramChange, -1, loggingHandler);
-    voiceSequence = InstrumentExchanger.process(voiceSequence, 0, MidiUtil.contEffectsLevel, -1, loggingHandler);
+    voiceSequence = ControllerRemover.process(voiceSequence,  ControllerRemover.contProgramChange,  loggingHandler);
+    voiceSequence = ControllerRemover.process(voiceSequence, MidiUtil.contEffectsLevel,  loggingHandler);
  
 
     // next copy the orchestra tracks

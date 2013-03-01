@@ -1,0 +1,25 @@
+Internal name = Requiem.sf2
+Version = 2.1
+Creation Date = 27.01.2013 13:37:50
+Designer = Harald@free-creations.de
+Copyright = Creative Commons (CC)
+Comments = 
+Target Engine = E-mu 10K1
+
+Bank:Preset = Program(Instrument)
+000:019 = Church Organ
+000:041 = Violas
+000:042 = Celli
+000:043 = Contrabass
+000:045 = Pizzicato
+000:046 = Harp
+000:047 = Timpani
+000:048 = Strings - 1st Violi
+000:050 = Synth Strings 1
+000:056 = Trumpet
+000:057 = Trombone
+000:060 = French Horns
+000:068 = Oboe
+000:070 = Bassoon
+000:071 = Clarinet
+000:073 = Querflöte

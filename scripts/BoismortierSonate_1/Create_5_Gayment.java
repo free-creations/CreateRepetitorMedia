@@ -16,7 +16,7 @@
 package BoismortierSonate_1;
 
 import de.free_creations.importexport.ChannelCleaner;
-import de.free_creations.importexport.InstrumentExchanger;
+import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -84,10 +84,10 @@ public class Create_5_Gayment {
     Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
     Sequence voicesSequence = MidiSystem.getSequence(voicesFileURL);
 
-    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, MidiUtil.contAllControllersOff, -1, loggingHandler);
-    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, InstrumentExchanger.contProgramChange, -1, loggingHandler);
-    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, MidiUtil.contModulationWheel_MSB, -1, loggingHandler);
-    voicesSequence = InstrumentExchanger.process(voicesSequence, 0, MidiUtil.contMainVolume_MSB, -1, loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence,  MidiUtil.contAllControllersOff,  loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, ControllerRemover.contProgramChange,  loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contModulationWheel_MSB,  loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence,  MidiUtil.contMainVolume_MSB,  loggingHandler);
 
 
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
