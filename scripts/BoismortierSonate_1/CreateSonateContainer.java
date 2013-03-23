@@ -50,10 +50,10 @@ public class CreateSonateContainer {
     tempContainerInfoFile,
     "META-INF/container.xml",
     false),
-    // ---- Chorium Sound Font (please copy it to the temp dir)
+    // ---- Boimortier.sf2 Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "Chorium.SF2"),
-    "Chorium.SF2",
+    new File(tempDir, "Boimortier.sf2"),
+    "Boimortier.sf2",
     false),
     // ---- Rhodes Sound Font (please copy it to the temp dir)
     new ZipItem(
@@ -80,6 +80,26 @@ public class CreateSonateContainer {
     new ZipItem(
     new File(tempDir, "Sonate I/2_AllemandeGayment.xml"),
     "Sonate1/2_AllemandeGayment.xml",
+    true),
+    // ---- 3_Gravement.mid (create with Create_3_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Sonate I/3_Gravement.mid"),
+    "Sonate1/3_Gravement.mid",
+    false),
+    // ---- 3_Gravement.xml (create with Create_3_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Sonate I/3_Gravement.xml"),
+    "Sonate1/3_Gravement.xml",
+    true),
+    // ---- 4_GavotteEnRondeau.mid (create with Create_4_GavotteEnRondeau.java)
+    new ZipItem(
+    new File(tempDir, "Sonate I/4_GavotteEnRondeau.mid"),
+    "Sonate1/4_GavotteEnRondeau.mid",
+    false),
+    // ---- 4_GavotteEnRondeau.xml (create with Create_4_GavotteEnRondeau.java)
+    new ZipItem(
+    new File(tempDir, "Sonate I/4_GavotteEnRondeau.xml"),
+    "Sonate1/4_GavotteEnRondeau.xml",
     true),
     // ---- 5 Gayment.mid (create with Create_5_Gayment.java)
     new ZipItem(

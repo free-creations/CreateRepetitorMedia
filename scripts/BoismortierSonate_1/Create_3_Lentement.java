@@ -33,7 +33,7 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_5_Gayment {
+public class Create_3_Lentement {
 
   private URL voicesFileURL;
   private URL orchestraFileURL;
@@ -41,21 +41,21 @@ public class Create_5_Gayment {
   private File outputSongFile;
   private Handler loggingHandler;
   final static private String piece = "Sonate I";
-  final static private String description = "Sonate I, Gayment";
-  final static private String number = "5";
-  final static private String camelTitle = "Gayment";
+  final static private String description = "Sonate I, Lentement";
+  final static private String number = "3";
+  final static private String camelTitle = "Gravement";
   final static private int resolution = 480;
 
-  private Create_5_Gayment() throws IOException {
+  private Create_3_Lentement() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/Gayment-orchestra.MID");
+    orchestraFileURL = this.getClass().getResource("resources/Lentement-orchestra.mid");
     if (orchestraFileURL == null) {
-      throw new RuntimeException("Gayment-orchestra.MID file not found.");
+      throw new RuntimeException("Gravement-orchestra.mid file not found.");
     }
-    voicesFileURL = this.getClass().getResource("resources/Gayment-voices.MID");
+    voicesFileURL = this.getClass().getResource("resources/Lentement-voices.mid");
     if (voicesFileURL == null) {
-      throw new RuntimeException("Gayment-voices.MID file not found.");
+      throw new RuntimeException("Voices file not found.");
     }
 
     File tempDir = new File("../temp");
@@ -84,8 +84,8 @@ public class Create_5_Gayment {
     Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
     Sequence voicesSequence = MidiSystem.getSequence(voicesFileURL);
 
-    voicesSequence = ControllerRemover.process(voicesSequence,  MidiUtil.contAllControllersOff,  loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence, ControllerRemover.contProgramChange,  loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contAllControllersOff,  loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence,  ControllerRemover.contProgramChange,  loggingHandler);
     voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contModulationWheel_MSB,  loggingHandler);
     voicesSequence = ControllerRemover.process(voicesSequence,  MidiUtil.contMainVolume_MSB,  loggingHandler);
 
@@ -232,7 +232,7 @@ public class Create_5_Gayment {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_5_Gayment processor = new Create_5_Gayment();
+    Create_3_Lentement processor = new Create_3_Lentement();
     System.out.println("############ Creating \"Boismortier " + number + " " + camelTitle + "\"");
     processor.process();
 
