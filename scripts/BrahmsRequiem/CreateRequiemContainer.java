@@ -15,7 +15,7 @@
  */
 package BrahmsRequiem;
 
-import de.free_creations.mediacontainer.ContainerInfo;
+import de.free_creations.mediacontainer2.ContainerInfo;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
@@ -58,8 +58,8 @@ public class CreateRequiemContainer {
     false),
     // ---- Piano sound font
     new ZipItem(
-    new File(resourceDir, "SingingPiano.sf2"),
-    "SingingPiano.sf2",
+    new File(resourceDir, "StringPiano.sf2"),
+    "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
     // ---- 2_DennAllesFleisch.mid (create with Create_2_DennAllesFleisch.java)
@@ -98,6 +98,8 @@ public class CreateRequiemContainer {
     processor.createContainerInfo();
     System.out.println("############ packing the files.");
     processor.packFiles(files);
+    System.out.println("############ Result written to " + (new File(tempDir, outFilename)).getCanonicalPath());
+
   }
 
   private void createContainerInfo() throws FileNotFoundException, Exception {

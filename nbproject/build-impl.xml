@@ -892,8 +892,8 @@ is divided into following sections:
         </propertyfile>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.de_free_creations_mediacontainer}" name="call.subproject"/>
-            <param location="${project.de_free_creations_mediacontainer}/build.xml" name="call.script"/>
+            <param location="${project.de_free_creations_mediacontainer2}" name="call.subproject"/>
+            <param location="${project.de_free_creations_mediacontainer2}/build.xml" name="call.script"/>
             <param name="call.target" value="netbeans"/>
             <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
         </antcall>
@@ -1407,8 +1407,8 @@ is divided into following sections:
         </propertyfile>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.de_free_creations_mediacontainer}" name="call.subproject"/>
-            <param location="${project.de_free_creations_mediacontainer}/build.xml" name="call.script"/>
+            <param location="${project.de_free_creations_mediacontainer2}" name="call.subproject"/>
+            <param location="${project.de_free_creations_mediacontainer2}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
         </antcall>

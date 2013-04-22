@@ -16,7 +16,7 @@
 package VivaldiTrios;
 
 
-import de.free_creations.mediacontainer.ContainerInfo;
+import de.free_creations.mediacontainer2.ContainerInfo;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
