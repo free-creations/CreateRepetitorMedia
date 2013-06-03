@@ -62,6 +62,17 @@ public class CreateRequiemContainer {
     "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
+    // ---- 1_SeligSind.mid (create with 1_SeligSind.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/1_SeligSind.mid"),
+    "BrahmsRequiem/1_SeligSind.mid",
+    false),
+    // ---- 1_SeligSind.xml (create with Create_1_SeligSind.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/1_SeligSind.xml"),
+    "BrahmsRequiem/1_SeligSind.xml",
+    true),
+    //--------------------------------------------------------------------------
     // ---- 2_DennAllesFleisch.mid (create with Create_2_DennAllesFleisch.java)
     new ZipItem(
     new File(tempDir, "BrahmsRequiem/2_DennAllesFleisch.mid"),
@@ -71,6 +82,57 @@ public class CreateRequiemContainer {
     new ZipItem(
     new File(tempDir, "BrahmsRequiem/2_DennAllesFleisch.xml"),
     "BrahmsRequiem/2_DennAllesFleisch.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 3_HerrLehreMichDoch.mid (create with Create_3_HerrLehreMichDoch.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/3_HerrLehreMichDoch.mid"),
+    "BrahmsRequiem/3_HerrLehreMichDoch.mid",
+    false),
+    // ---- 3_HerrLehreMichDoch.xml (create with Create_3_HerrLehreMichDoch.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/3_HerrLehreMichDoch.xml"),
+    "BrahmsRequiem/3_HerrLehreMichDoch.xml",
+    true),
+    // ---- 4_WieLieblichSind.mid (create with Create_4_WieLieblichSind.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/4_WieLieblichSind.mid"),
+    "BrahmsRequiem/4_WieLieblichSind.mid",
+    false),
+    // ---- 4_WieLieblichSind.xml (create with Create_4_WieLieblichSind.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/4_WieLieblichSind.xml"),
+    "BrahmsRequiem/4_WieLieblichSind.xml",
+    true),
+    // ---- 5_IhrHabtNunTraurigkeit.mid (create with Create_5_IhrHabtNunTraurigkeit.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/5_IhrHabtNunTraurigkeit.mid"),
+    "BrahmsRequiem/5_IhrHabtNunTraurigkeit.mid",
+    false),
+    // ---- 5_IhrHabtNunTraurigkeit.xml (create with Create_5_IhrHabtNunTraurigkeit.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/5_IhrHabtNunTraurigkeit.xml"),
+    "BrahmsRequiem/5_IhrHabtNunTraurigkeit.xml",
+    true),
+    // ---- 6_DennWirHaben.mid (create with Create_6_DennWirHaben.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/6_DennWirHaben.mid"),
+    "BrahmsRequiem/6_DennWirHaben.mid",
+    false),
+    // ---- 6_DennWirHaben.xml (create with Create_6_DennWirHaben.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/6_DennWirHaben.xml"),
+    "BrahmsRequiem/6_DennWirHaben.xml",
+    true),
+    // ---- 7_SeligSindDieToten.mid (create with Create_7_SeligSindDieToten.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/7_SeligSindDieToten.mid"),
+    "BrahmsRequiem/7_SeligSindDieToten.mid",
+    false),
+    // ---- 7_SeligSindDieToten.xml (create with Create_7_SeligSindDieToten.java)
+    new ZipItem(
+    new File(tempDir, "BrahmsRequiem/7_SeligSindDieToten.xml"),
+    "BrahmsRequiem/7_SeligSindDieToten.xml",
     true),};
 
   private CreateRequiemContainer() {
