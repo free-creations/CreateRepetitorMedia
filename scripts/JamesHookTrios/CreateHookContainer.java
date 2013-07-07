@@ -70,17 +70,28 @@ public class CreateHookContainer {
     new ZipItem(
     new File(tempDir, "Hook_Trios/1_Allegro.xml"),
     "Hook_Trios/1_Allegro.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 2_Menuetto.mid
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/2_Menuetto.mid"),
+    "Hook_Trios/2_Menuetto.mid",
+    false),
+    // ---- 2_Menuetto.xml 
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/2_Menuetto.xml"),
+    "Hook_Trios/2_Menuetto.xml",
+    true),
+    // ---- 3_Rondo.mid (create with Create_3Rondo.java)
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/3_Rondo.mid"),
+    "Hook_Trios/3_Rondo.mid",
+    false),
+    // ---- 3_Rondo.xml (create with Create_3Rondo.java)
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/3_Rondo.xml"),
+    "Hook_Trios/3_Rondo.xml",
     true),};
-//    // ---- 2_AllemandeGayment.mid (create with Create_2_AllemandeGayment.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/2_AllemandeGayment.mid"),
-//    "Sonate1/2_AllemandeGayment.mid",
-//    false),
-//    // ---- 2_AllemandeGayment.xml (create with Create_2_AllemandeGayment.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/2_AllemandeGayment.xml"),
-//    "Sonate1/2_AllemandeGayment.xml",
-//    true),
 //    // ---- 3_Gravement.mid (create with Create_3_Gravement.java)
 //    new ZipItem(
 //    new File(tempDir, "Sonate I/3_Gravement.mid"),

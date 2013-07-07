@@ -33,7 +33,7 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_1_Allegro {
+public class Create_3Rondo {
 
   private URL voicesFileURL;
   private URL orchestraFileURL;
@@ -41,19 +41,19 @@ public class Create_1_Allegro {
   private File outputSongFile;
   private Handler loggingHandler;
   final static private String piece = "Hook_Trios";
-  final static private String description = "Trio I, Allegro Con Spirito";
-  final static private String number = "1";
-  final static private String camelTitle = "Allegro";
+  final static private String description = "Trio III, Rondo Allegretto";
+  final static private String number = "3";
+  final static private String camelTitle = "Rondo";
   final static private int resolution = 480;
 
-  private Create_1_Allegro() throws IOException {
+  private Create_3Rondo() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/Trio_1Orchestra.mid");
+    orchestraFileURL = this.getClass().getResource("resources/Trio_3Orchestra.mid");
     if (orchestraFileURL == null) {
-      throw new RuntimeException("Trio_1Orchestra.mid file not found.");
+      throw new RuntimeException("Trio_3Orchestra.mid file not found.");
     }
-    voicesFileURL = this.getClass().getResource("resources/Trio_1Voices.MID");
+    voicesFileURL = this.getClass().getResource("resources/Trio_3Voices.mid");
     if (voicesFileURL == null) {
       throw new RuntimeException("Voices file not found.");
     }
@@ -231,7 +231,7 @@ public class Create_1_Allegro {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_1_Allegro processor = new Create_1_Allegro();
+    Create_3Rondo processor = new Create_3Rondo();
     System.out.println("############ Creating \"Hook " + number + " " + camelTitle + "\"");
     processor.process();
 

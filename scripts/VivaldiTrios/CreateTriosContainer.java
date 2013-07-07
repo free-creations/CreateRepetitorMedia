@@ -53,8 +53,8 @@ public class CreateTriosContainer {
     false),
     // ---- Chorium Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "Chorium.SF2"),
-    "Chorium.SF2",
+    new File(tempDir, "VivaldiTrios.sf2"),
+    "VivaldiTrios.sf2",
     false),
     // ---- Rhodes Sound Font (please copy it to the temp dir)
     new ZipItem(
@@ -64,15 +64,25 @@ public class CreateTriosContainer {
     //--------------------------------------------------------------------------
     // ---- 1 Allegro.mid (create with Create_1_Allegro.java)
     new ZipItem(
-    new File(tempDir, "Vivaldi Trios/1_Allegro.mid"),
+    new File(tempDir, "VivaldiTrios/1_Allegro.mid"),
     "VivaldiTrios/1_Allegro.mid",
     false),
-    // ---- 1 Gravement.xml (create with Create_1_Allegro.java)
+    // ---- 1 Allegro.xml (create with Create_1_Allegro.java)
     new ZipItem(
-    new File(tempDir, "Vivaldi Trios/1_Allegro.xml"),
+    new File(tempDir, "VivaldiTrios/1_Allegro.xml"),
     "VivaldiTrios/1_Allegro.xml",
     true),
-
+    //--------------------------------------------------------------------------
+    // ---- 3 Allegro.mid (create with Create_3_Allegro.java)
+    new ZipItem(
+    new File(tempDir, "VivaldiTrios/3_Allegro.mid"),
+    "VivaldiTrios/3_Allegro.mid",
+    false),
+    // ---- 3 Allegro.xml (create with Create_3_Allegro.java)
+    new ZipItem(
+    new File(tempDir, "VivaldiTrios/3_Allegro.xml"),
+    "VivaldiTrios/3_Allegro.xml",
+    true),
   };
 
   private CreateTriosContainer() {

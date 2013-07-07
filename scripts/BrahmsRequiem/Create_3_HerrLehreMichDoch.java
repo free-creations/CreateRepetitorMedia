@@ -78,7 +78,7 @@ public class Create_3_HerrLehreMichDoch {
       }
     }
     outputMidiFile = new File(outDir, number + "_" + camelTitle + ".mid");
-    outputMidiFileTemp = new File(outDir, number + "_" + camelTitle +"Temp"+ ".mid");
+    outputMidiFileTemp = new File(outDir, number + "_" + camelTitle + "Temp" + ".mid");
     outputSongFile = new File(outDir, number + "_" + camelTitle + ".xml");
 
 
@@ -114,13 +114,13 @@ public class Create_3_HerrLehreMichDoch {
     masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{11}, 5, "Trumpet", loggingHandler); // 7
     masterSequence = InstrumentExchanger.process(masterSequence, 6, -1, 56, loggingHandler);
     // Track 7 - Trombones
-    masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{12,13}, 6, "Trombones, Tuba", loggingHandler); // 8
+    masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{12, 13}, 6, "Trombones, Tuba", loggingHandler); // 8
     //masterSequence = InstrumentExchanger.process(masterSequence, 7, -1, 57, loggingHandler);// 
     // Track 8 - Timpani
     masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{14}, 7, "Timpani", loggingHandler); // 9
     masterSequence = InstrumentExchanger.process(masterSequence, 8, -1, 47, loggingHandler);
     // Track 9 - Baritone Solo / Bassoon
-    masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{15,31}, 8, "Baritone", loggingHandler); // 10
+    masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{15, 31}, 8, "Baritone", loggingHandler); // 10
     masterSequence = InstrumentExchanger.process(masterSequence, 9, -1, 57, loggingHandler);
     // Track 10 - Choir
     masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{16, 17, 18, 19}, 10, "Choir", loggingHandler); // 11
@@ -143,23 +143,23 @@ public class Create_3_HerrLehreMichDoch {
 //
     masterSequence = Randomizer.process(masterSequence,
             new int[]{
-              0, //Director
-              0, //Track 1 -  Flutes
-              10, //Track 2 -  Oboe
-              10, //Track 3 -  Clarinet
-              10, //Track 4 -  Bassoon
-              10, //Track 5 -  Horns
-              0, //Track 6 -  Trumpet
-              0, //Track 7 -  Trombones
-              20, //Track 8 -  Timpani
-              0, //Track 9 -  Baritone Solo
-              0, //Track 10 - Choir
-              15, //Track 11 - Violins 1
-              30, //Track 12 - Violins 2
-              30, //Track 13 - Violas
-              10, //Track 14 - Celli
-              10, //Track 15 - Contrabass
-            },
+      0, //Director
+      0, //Track 1 -  Flutes
+      10, //Track 2 -  Oboe
+      10, //Track 3 -  Clarinet
+      10, //Track 4 -  Bassoon
+      10, //Track 5 -  Horns
+      0, //Track 6 -  Trumpet
+      0, //Track 7 -  Trombones
+      20, //Track 8 -  Timpani
+      0, //Track 9 -  Baritone Solo
+      0, //Track 10 - Choir
+      15, //Track 11 - Violins 1
+      30, //Track 12 - Violins 2
+      30, //Track 13 - Violas
+      10, //Track 14 - Celli
+      10, //Track 15 - Contrabass
+    },
             true,
             loggingHandler);
 
@@ -167,19 +167,24 @@ public class Create_3_HerrLehreMichDoch {
     // import the choir voices
     Sequence voicesSequence = MidiSystem.getSequence(voicesFile);
 
+    // remove one quarter at bar 163
+    int quarter = voicesSequence.getResolution();
+    long pos = 104 * (4 * quarter) + (162 - 104) * (6 * quarter);
+    voicesSequence = MidiUtil.stretch(voicesSequence, pos, pos + 7 * quarter, pos + 6 * quarter);
+
 
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{2}, 0, "Sopran", loggingHandler); // 16
     masterSequence = InstrumentExchanger.process(masterSequence, 16, -1, 0, loggingHandler);
-    
+
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{3}, 1, "Alt", loggingHandler); // 17
     masterSequence = InstrumentExchanger.process(masterSequence, 17, -1, 0, loggingHandler);
-    
+
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{4}, 2, "Tenor", loggingHandler); // 18
     masterSequence = InstrumentExchanger.process(masterSequence, 18, -1, 0, loggingHandler);
-    
+
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{5}, 3, "Bass", loggingHandler); // 19
     masterSequence = InstrumentExchanger.process(masterSequence, 19, -1, 0, loggingHandler);
-    
+
     ChannelCleaner sequenceImporter = new ChannelCleaner(masterSequence, loggingHandler);
     masterSequence = sequenceImporter.getResult();
 
@@ -189,10 +194,10 @@ public class Create_3_HerrLehreMichDoch {
     double barLen = 8 * quarterLen;
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
-    
+
     // write the sequence to file
     MidiSystem.write(masterSequence, 1, outputMidiFile);
-    
+
 //MidiSystem.write(orchestraSequence, 1, outputMidiFileTemp); //<<<<<<<<<<<<<remove
 
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());

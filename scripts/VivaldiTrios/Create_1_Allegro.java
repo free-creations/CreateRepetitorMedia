@@ -15,7 +15,6 @@
  */
 package VivaldiTrios;
 
-
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.TrackMerger;
@@ -36,12 +35,11 @@ import javax.xml.bind.JAXBException;
  */
 public class Create_1_Allegro {
 
-
   private URL orchestraFileURL;
   private File outputMidiFile;
   private File outputSongFile;
   private Handler loggingHandler;
-  final static private String piece = "Vivaldi Trios";
+  final static private String piece = "VivaldiTrios";
   final static private String description = "Vivaldi Trios RV103";
   final static private String number = "1";
   final static private String camelTitle = "Allegro";
@@ -50,14 +48,14 @@ public class Create_1_Allegro {
   private Create_1_Allegro() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/Allegro.MID");
+    orchestraFileURL = this.getClass().getResource("resources/1_Allegro.mid");
     if (orchestraFileURL == null) {
-      throw new RuntimeException("Allegro.MID file not found.");
+      throw new RuntimeException("1_Allegro.mid file not found.");
     }
 
 
     File tempDir = new File("../temp");
- 
+
     if (!tempDir.exists()) {
       throw new RuntimeException(tempDir + " not found.");
     }
@@ -82,14 +80,14 @@ public class Create_1_Allegro {
     Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
 
 
- 
+
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
     Sequence voiceSequence = new Sequence(Sequence.PPQ, resolution);
 
     voiceSequence = TrackMerger.process(voiceSequence, orchestraSequence, new int[]{5}, -1, "Basso", loggingHandler); //
-    voiceSequence = ControllerRemover.process(voiceSequence,  ControllerRemover.contProgramChange,  loggingHandler);
-    voiceSequence = ControllerRemover.process(voiceSequence, MidiUtil.contEffectsLevel,  loggingHandler);
- 
+    voiceSequence = ControllerRemover.process(voiceSequence, ControllerRemover.contProgramChange, loggingHandler);
+    voiceSequence = ControllerRemover.process(voiceSequence, MidiUtil.contEffectsLevel, loggingHandler);
+
 
     // next copy the orchestra tracks
     //... master track 0
@@ -149,7 +147,7 @@ public class Create_1_Allegro {
     orchestraSuperTrack.setName("Orchester");
     mastertrack.addSubtrack(orchestraSuperTrack);
     BuiltinSynthesizer OrchestraSynt = new BuiltinSynthesizer();
-    OrchestraSynt.setSoundbankfile("../Chorium.SF2");
+    OrchestraSynt.setSoundbankfile("../VivaldiTrios.sf2");
     orchestraSuperTrack.setSynthesizer(OrchestraSynt);
 
     //create a super track that will collect the voices tracs
@@ -161,7 +159,7 @@ public class Create_1_Allegro {
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
     //link all the orchestra tracks 
-        //link all the orchestra tracks 
+    //link all the orchestra tracks 
     int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     int orchestraEnd = 5; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     for (int i = orchestraBase; i <= orchestraEnd; i++) {
@@ -172,7 +170,7 @@ public class Create_1_Allegro {
       songTrack.setInstrumentDescription(sequenceImporter.getInstrumentDescription(i));
       orchestraSuperTrack.addSubtrack(songTrack);
     }
-    
+
 
 
 
