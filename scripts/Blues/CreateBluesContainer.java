@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package VivaldiTrios;
+package Blues;
 
 import de.free_creations.mediacontainer2.ContainerInfo;
 import java.io.*;
@@ -26,10 +26,10 @@ import java.util.zip.ZipOutputStream;
  *
  * @author harald
  */
-public class CreateTriosContainer {
+public class CreateBluesContainer {
 
   private static final File tempDir = new File("../temp");
-  private static final String outFilename = "VivaldiTrios.fmc";
+  private static final String outFilename = "Blues.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
   private static class ZipItem {
@@ -50,51 +50,45 @@ public class CreateTriosContainer {
     tempContainerInfoFile,
     "META-INF/container.xml",
     false),
-    // ---- Chorium Sound Font (please copy it to the temp dir)
+    // ---- Boimortier.sf2 Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "VivaldiTrios.sf2"),
-    "VivaldiTrios.sf2",
-    false),
-    // ---- Rhodes Sound Font (please copy it to the temp dir)
-    new ZipItem(
-    new File(tempDir, "mk_1_rhodes.sf2"),
-    "mk_1_rhodes.sf2",
+    new File(tempDir, "Chorium.sf2"),
+    "Chorium.sf2",
     false),
     //--------------------------------------------------------------------------
-    // ---- 1 Allegro.mid (create with Create_1_Allegro.java)
+    // ---- 1 BluesInD.mid (create with BluesInD.java)
     new ZipItem(
-    new File(tempDir, "VivaldiTrios/1_Allegro.mid"),
-    "VivaldiTrios/1_Allegro.mid",
+    new File(tempDir, "Blues/1_BluesInD.mid"),
+    "Blues/1_BluesInD.mid",
     false),
-    // ---- 1 Allegro.xml (create with Create_1_Allegro.java)
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
     new ZipItem(
-    new File(tempDir, "VivaldiTrios/1_Allegro.xml"),
-    "VivaldiTrios/1_Allegro.xml",
+    new File(tempDir, "Blues/1_BluesInD.xml"),
+    "Blues/1_BluesInD.xml",
     true),
     //--------------------------------------------------------------------------
-    // ---- 2 Largo.mid (create with Create_2_Largo.java)
+    // ---- 2 BluesInA.mid (create with BluesInA.java)
     new ZipItem(
-    new File(tempDir, "VivaldiTrios/2_Largo.mid"),
-    "VivaldiTrios/2_Largo.mid",
+    new File(tempDir, "Blues/2_BluesInA.mid"),
+    "Blues/2_BluesInA.mid",
     false),
-    // ---- 2_Largo.xml (create with Create_2_Largo.java)
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
     new ZipItem(
-    new File(tempDir, "VivaldiTrios/2_Largo.xml"),
-    "VivaldiTrios/2_Largo.xml",
-    true),
-    //--------------------------------------------------------------------------
-    // ---- 3 Allegro.mid (create with Create_3_Allegro.java)
+    new File(tempDir, "Blues/2_BluesInA.xml"),
+    "Blues/2_BluesInA.xml",
+    true), //--------------------------------------------------------------------------
+    // ---- 3 Chuck Berry Blues in D
     new ZipItem(
-    new File(tempDir, "VivaldiTrios/3_Allegro.mid"),
-    "VivaldiTrios/3_Allegro.mid",
+    new File(tempDir, "Blues/3_ChuckBerryD.mid"),
+    "Blues/3_ChuckBerryD.mid",
     false),
-    // ---- 3 Allegro.xml (create with Create_3_Allegro.java)
+    // ---- 3
     new ZipItem(
-    new File(tempDir, "VivaldiTrios/3_Allegro.xml"),
-    "VivaldiTrios/3_Allegro.xml",
+    new File(tempDir, "Blues/3_ChuckBerryD.xml"),
+    "Blues/3_ChuckBerryD.xml",
     true),};
 
-  private CreateTriosContainer() {
+  private CreateBluesContainer() {
 
     if (!tempDir.exists()) {
       throw new RuntimeException("No temp Directory found.");
@@ -108,7 +102,7 @@ public class CreateTriosContainer {
    * @param args the command line arguments
    */
   public static void main(String[] args) throws Exception {
-    CreateTriosContainer processor = new CreateTriosContainer();
+    CreateBluesContainer processor = new CreateBluesContainer();
     System.out.println("############ creating container info.");
     processor.createContainerInfo();
     System.out.println("############ packing the files.");
