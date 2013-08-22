@@ -29,6 +29,7 @@ import java.util.zip.ZipOutputStream;
 public class CreateTriosContainer {
 
   private static final File tempDir = new File("../temp");
+  private static final File resourceDir = new File("scripts/VivaldiTrios/resources");
   private static final String outFilename = "VivaldiTrios.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
@@ -50,15 +51,15 @@ public class CreateTriosContainer {
     tempContainerInfoFile,
     "META-INF/container.xml",
     false),
-    // ---- Chorium Sound Font (please copy it to the temp dir)
+    // ---- Orchestra Sound Font 
     new ZipItem(
-    new File(tempDir, "VivaldiTrios.sf2"),
+    new File(resourceDir, "VivaldiTrios.sf2"),
     "VivaldiTrios.sf2",
     false),
     // ---- Rhodes Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "mk_1_rhodes.sf2"),
-    "mk_1_rhodes.sf2",
+    new File(resourceDir, "StringPiano.sf2"),
+    "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
     // ---- 1 Allegro.mid (create with Create_1_Allegro.java)

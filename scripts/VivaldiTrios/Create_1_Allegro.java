@@ -17,6 +17,7 @@ package VivaldiTrios;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
+import de.free_creations.importexport.MetronomeCreator;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -24,7 +25,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Handler;
 import javax.sound.midi.*;
 import javax.xml.bind.JAXBException;
@@ -35,7 +35,7 @@ import javax.xml.bind.JAXBException;
  */
 public class Create_1_Allegro {
 
-  private URL orchestraFileURL;
+  private File orchestraFile;
   private File outputMidiFile;
   private File outputSongFile;
   private Handler loggingHandler;
@@ -44,12 +44,13 @@ public class Create_1_Allegro {
   final static private String number = "1";
   final static private String camelTitle = "Allegro";
   final static private int resolution = 480;
+  static final private File resourceDir = new File("scripts/VivaldiTrios/resources");
 
   private Create_1_Allegro() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/1_Allegro.mid");
-    if (orchestraFileURL == null) {
+    orchestraFile = new File(resourceDir, "1_Allegro.mid");
+    if (!orchestraFile.exists()) {
       throw new RuntimeException("1_Allegro.mid file not found.");
     }
 
@@ -77,13 +78,15 @@ public class Create_1_Allegro {
   private void process() throws InvalidMidiDataException, IOException, JAXBException {
 
 
-    Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
+    Sequence orchestraSequence = MidiSystem.getSequence(orchestraFile);
 
 
 
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
     Sequence voiceSequence = new Sequence(Sequence.PPQ, resolution);
 
+    voiceSequence = TrackMerger.process(voiceSequence, orchestraSequence, new int[]{1}, -1, "Flauto 1", loggingHandler); //
+    voiceSequence = TrackMerger.process(voiceSequence, orchestraSequence, new int[]{2}, -1, "Flauto 2", loggingHandler); //
     voiceSequence = TrackMerger.process(voiceSequence, orchestraSequence, new int[]{5}, -1, "Basso", loggingHandler); //
     voiceSequence = ControllerRemover.process(voiceSequence, ControllerRemover.contProgramChange, loggingHandler);
     voiceSequence = ControllerRemover.process(voiceSequence, MidiUtil.contEffectsLevel, loggingHandler);
@@ -108,8 +111,12 @@ public class Create_1_Allegro {
 
     // next copy the voice track
     //... Bass track 5
-    masterSequence = TrackMerger.process(masterSequence, voiceSequence, new int[]{0}, 5, "Guitar", loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, voiceSequence, new int[]{0}, 10, "Flauto 1", loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, voiceSequence, new int[]{1}, 11, "Flauto 2", loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, voiceSequence, new int[]{2}, 12, "Bass", loggingHandler); //
 
+    // add track 20; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, loggingHandler);
 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
@@ -155,7 +162,7 @@ public class Create_1_Allegro {
     voicesSuperTrack.setName("Guitar");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
-    voicesSynt.setSoundbankfile("../mk_1_rhodes.sf2");
+    voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
     //link all the orchestra tracks 
@@ -177,18 +184,44 @@ public class Create_1_Allegro {
     // link the voices
     int voiceBase = 6; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     MidiTrack newSongTrack;
-    // -- Sopran
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Guitar");
+    newSongTrack.setName("Flauto 1");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
-
-
+    voiceBase = 7; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Flauto 2");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(0);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+    
+    voiceBase = 8; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Basso");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(0);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+    
+    voiceBase = 9; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
 
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());

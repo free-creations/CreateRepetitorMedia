@@ -17,6 +17,7 @@ package BrahmsRequiem;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.InstrumentExchanger;
+import de.free_creations.importexport.MetronomeCreator;
 import de.free_creations.importexport.Randomizer;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.BuiltinSynthesizer;
@@ -138,30 +139,30 @@ public class Create_2_DennAllesFleisch {
 
     masterSequence = Randomizer.process(masterSequence,
             new int[]{
-              0,   //Director
-              0,   //Track 1 -  Flutes
-              10,  //Track 2 -  Oboe
-              10,  //Track 3 -  Clarinet
-              10,  //Track 4 -  Bassoon
-              10,  //Track 5 -  Horns
-              0,   //Track 6 -  Trumpet
-              0,   //Track 7 -  Trombones
-              0,   //Track 8 -  Timpani
-              120, //Track 9 -  Harp
-              0,   //Track 10 - Choir
-              0,   //Track 11 - Violins 1
-              30,  //Track 12 - Violins 2
-              10,  //Track 13 - Violas
-              10,  //Track 14 - Celli
-              10,  //Track 15 - Contrabass
-            },
+      0, //Director
+      0, //Track 1 -  Flutes
+      10, //Track 2 -  Oboe
+      10, //Track 3 -  Clarinet
+      10, //Track 4 -  Bassoon
+      10, //Track 5 -  Horns
+      0, //Track 6 -  Trumpet
+      0, //Track 7 -  Trombones
+      0, //Track 8 -  Timpani
+      120, //Track 9 -  Harp
+      0, //Track 10 - Choir
+      0, //Track 11 - Violins 1
+      30, //Track 12 - Violins 2
+      10, //Track 13 - Violas
+      10, //Track 14 - Celli
+      10, //Track 15 - Contrabass
+    },
             true,
             loggingHandler);
 
 
     // import the choir voices
     Sequence voicesSequence = MidiSystem.getSequence(voicesFile);
-    voicesSequence = MidiUtil.cut(voicesSequence,0, 2* voicesSequence.getResolution());
+    voicesSequence = MidiUtil.cut(voicesSequence, 0, 2 * voicesSequence.getResolution());
 
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{1}, 0, "Sopran", loggingHandler); // 16
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{2}, 1, "Alt", loggingHandler); // 17
@@ -171,13 +172,16 @@ public class Create_2_DennAllesFleisch {
     ChannelCleaner sequenceImporter = new ChannelCleaner(masterSequence, loggingHandler);
     masterSequence = sequenceImporter.getResult();
 
+    // add track 20; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, loggingHandler);
+
     // make the track 0 as long as the whole sequence and round up to a whole bar
     double rawSeqLen = masterSequence.getTickLength();
     double quarterLen = masterSequence.getResolution();
     double barLen = 4 * quarterLen;
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
-    
+
     // write the sequence to file
     MidiSystem.write(masterSequence, 1, outputMidiFile);
 
@@ -235,7 +239,7 @@ public class Create_2_DennAllesFleisch {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
     // -- Alt
     voiceBase++; //17
@@ -244,7 +248,7 @@ public class Create_2_DennAllesFleisch {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
     // -- Tenor
     voiceBase++; //18
@@ -253,7 +257,7 @@ public class Create_2_DennAllesFleisch {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
     // -- Bass
     voiceBase++; //19
@@ -262,8 +266,19 @@ public class Create_2_DennAllesFleisch {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- Metronome
+    voiceBase++; //20
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
 
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());
