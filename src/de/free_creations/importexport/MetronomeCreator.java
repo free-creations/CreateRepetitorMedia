@@ -41,8 +41,13 @@ public class MetronomeCreator {
   private static final int Claves = 75;
   private static final int HighWoodBlock = 76;
   private static final int LowWoodBlock = 77;
+  public static final int perf4beats = 1;
+  public static final int perf2beats = 2;
+  private static int choosenPrefs = 0;
 
-  public static Sequence process(final Sequence inputSequence, Handler loggingHandler) throws InvalidMidiDataException {
+  public static Sequence process(final Sequence inputSequence, int preferences, Handler loggingHandler) throws InvalidMidiDataException {
+    choosenPrefs = preferences;
+
     Sequence outputSequence = new Sequence(inputSequence.getDivisionType(), inputSequence.getResolution());
     Track[] inputTracks = inputSequence.getTracks();
 
@@ -64,6 +69,10 @@ public class MetronomeCreator {
 
     return outputSequence;
 
+  }
+
+  public static Sequence process(final Sequence inputSequence, Handler loggingHandler) throws InvalidMidiDataException {
+    return process(inputSequence, perf2beats, loggingHandler);
   }
 
   private static void createMetronomeClicks(TimeSignatureTrack timeSignatureTrack, Track metronomeTrack) {
@@ -135,10 +144,15 @@ public class MetronomeCreator {
   }
 
   private static void create4ClicksMeasure(Track track, long startTick, long beatLength) {
-    addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
-    //addClick(track, startTick, beatLength, 1, HighWoodBlock, 54);
-    addClick(track, startTick, beatLength, 2, HighWoodBlock, 84);
-    //addClick(track, startTick, beatLength, 3, HighWoodBlock, 34);
+    if ((choosenPrefs & perf2beats)!=0) {
+      addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
+      addClick(track, startTick, beatLength, 2, HighWoodBlock, 84);
+    } else {
+      addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
+      addClick(track, startTick, beatLength, 1, HighWoodBlock, 54);
+      addClick(track, startTick, beatLength, 2, HighWoodBlock, 74);
+      addClick(track, startTick, beatLength, 3, HighWoodBlock, 34);
+    }
   }
 
   private static void create6ClicksMeasure(Track track, long startTick, long beatLength) {
