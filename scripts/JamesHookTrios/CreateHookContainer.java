@@ -29,6 +29,7 @@ import java.util.zip.ZipOutputStream;
 public class CreateHookContainer {
 
   private static final File tempDir = new File("../temp");
+  private static final File resourceDir =  new File("scripts/JamesHookTrios/resources");
   private static final String outFilename = "Hook_Trios.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
@@ -52,13 +53,13 @@ public class CreateHookContainer {
     false),
     // ---- Hook.sf2 Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "Hook.sf2"),
+    new File(resourceDir, "Hook.sf2"),
     "Hook.sf2",
     false),
     // ---- Rhodes Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "mk_1_rhodes.sf2"),
-    "mk_1_rhodes.sf2",
+    new File(resourceDir, "StringPiano.sf2"),
+    "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
     // ---- 1_Allegro.mid (create with Create_1_Allegro.java)
@@ -92,36 +93,7 @@ public class CreateHookContainer {
     new File(tempDir, "Hook_Trios/3_Rondo.xml"),
     "Hook_Trios/3_Rondo.xml",
     true),};
-//    // ---- 3_Gravement.mid (create with Create_3_Gravement.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/3_Gravement.mid"),
-//    "Sonate1/3_Gravement.mid",
-//    false),
-//    // ---- 3_Gravement.xml (create with Create_3_Gravement.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/3_Gravement.xml"),
-//    "Sonate1/3_Gravement.xml",
-//    true),
-//    // ---- 4_GavotteEnRondeau.mid (create with Create_4_GavotteEnRondeau.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/4_GavotteEnRondeau.mid"),
-//    "Sonate1/4_GavotteEnRondeau.mid",
-//    false),
-//    // ---- 4_GavotteEnRondeau.xml (create with Create_4_GavotteEnRondeau.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/4_GavotteEnRondeau.xml"),
-//    "Sonate1/4_GavotteEnRondeau.xml",
-//    true),
-//    // ---- 5 Gayment.mid (create with Create_5_Gayment.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/5_Gayment.mid"),
-//    "Sonate1/5_Gayment.mid",
-//    false),
-//    // ---- 5 Gayment.xml (create with Create_5_Gayment.java)
-//    new ZipItem(
-//    new File(tempDir, "Sonate I/5_Gayment.xml"),
-//    "Sonate1/5_Gayment.xml",
-//    true),};
+
 
   private CreateHookContainer() {
 

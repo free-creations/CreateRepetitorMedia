@@ -144,7 +144,7 @@ public class MetronomeCreator {
   }
 
   private static void create4ClicksMeasure(Track track, long startTick, long beatLength) {
-    if ((choosenPrefs & perf2beats)!=0) {
+    if ((choosenPrefs & perf2beats) != 0) {
       addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
       addClick(track, startTick, beatLength, 2, HighWoodBlock, 84);
     } else {
@@ -156,12 +156,17 @@ public class MetronomeCreator {
   }
 
   private static void create6ClicksMeasure(Track track, long startTick, long beatLength) {
-    addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
-    addClick(track, startTick, beatLength, 1, HighWoodBlock, 64);
-    addClick(track, startTick, beatLength, 2, HighWoodBlock, 64);
-    addClick(track, startTick, beatLength, 3, HighWoodBlock, 84);
-    addClick(track, startTick, beatLength, 4, HighWoodBlock, 64);
-    addClick(track, startTick, beatLength, 5, HighWoodBlock, 64);
+    if ((choosenPrefs & perf2beats) != 0) {
+      addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
+      addClick(track, startTick, beatLength, 3, HighWoodBlock, 84);
+    } else {
+      addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
+      addClick(track, startTick, beatLength, 1, HighWoodBlock, 64);
+      addClick(track, startTick, beatLength, 2, HighWoodBlock, 64);
+      addClick(track, startTick, beatLength, 3, HighWoodBlock, 84);
+      addClick(track, startTick, beatLength, 4, HighWoodBlock, 64);
+      addClick(track, startTick, beatLength, 5, HighWoodBlock, 64);
+    }
   }
 
   private static void createAnyClicksMeasure(Track track, long startTick, int beatCount, long beatLength) {

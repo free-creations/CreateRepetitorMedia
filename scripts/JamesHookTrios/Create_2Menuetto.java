@@ -17,6 +17,7 @@ package JamesHookTrios;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
+import de.free_creations.importexport.MetronomeCreator;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -24,7 +25,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Handler;
 import javax.sound.midi.*;
 import javax.xml.bind.JAXBException;
@@ -35,8 +35,8 @@ import javax.xml.bind.JAXBException;
  */
 public class Create_2Menuetto {
 
-  private URL voicesFileURL;
-  private URL orchestraFileURL;
+  private File voicesFile;
+  private File orchestraFile;
   private File outputMidiFile;
   private File outputSongFile;
   private Handler loggingHandler;
@@ -45,21 +45,25 @@ public class Create_2Menuetto {
   final static private String number = "2";
   final static private String camelTitle = "Menuetto";
   final static private int resolution = 480;
+  static final private File resourceDir = new File("scripts/JamesHookTrios/resources");
 
   private Create_2Menuetto() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/Trio_2Orchestra.mid");
-    if (orchestraFileURL == null) {
-      throw new RuntimeException("Trio_2Orchestra.mid file not found.");
-    }
-    voicesFileURL = this.getClass().getResource("resources/Trio_2Voices.mid");
-    if (voicesFileURL == null) {
-      throw new RuntimeException("Voices file not found.");
+
+    orchestraFile = new File(resourceDir, "Trio_2Orchestra.mid");
+    if (!orchestraFile.exists()) {
+      throw new RuntimeException(orchestraFile.getPath() + " not found.");
     }
 
+    voicesFile = new File(resourceDir, "Trio_2Voices.mid");
+    if (!voicesFile.exists()) {
+      throw new RuntimeException(voicesFile.getPath() + " not found.");
+    }
+
+
     File tempDir = new File("../temp");
- 
+
     if (!tempDir.exists()) {
       throw new RuntimeException(tempDir + " not found.");
     }
@@ -81,13 +85,13 @@ public class Create_2Menuetto {
   private void process() throws InvalidMidiDataException, IOException, JAXBException {
 
 
-    Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
-    Sequence voicesSequence = MidiSystem.getSequence(voicesFileURL);
+    Sequence orchestraSequence = MidiSystem.getSequence(orchestraFile);
+    Sequence voicesSequence = MidiSystem.getSequence(voicesFile);
 
-    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contAllControllersOff,  loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence,  ControllerRemover.contProgramChange,  loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contModulationWheel_MSB,  loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence,  MidiUtil.contMainVolume_MSB,  loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contAllControllersOff, loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, ControllerRemover.contProgramChange, loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contModulationWheel_MSB, loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contMainVolume_MSB, loggingHandler);
 
 
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
@@ -104,7 +108,8 @@ public class Create_2Menuetto {
     //... Bass track 3
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{3}, 5, "Flauto 3", loggingHandler); //
 
-
+    // add track 4; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, loggingHandler);
 
     // next copy all the orchestra tracks
     for (int i = 1; i < orchestraSequence.getTracks().length; i++) {
@@ -156,7 +161,7 @@ public class Create_2Menuetto {
     voicesSuperTrack.setName("Flöte");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
-    voicesSynt.setSoundbankfile("../mk_1_rhodes.sf2");
+    voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
     //link all the orchestra tracks 
@@ -173,7 +178,7 @@ public class Create_2Menuetto {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
     // -- Flauto 
     voiceBase++; //2
@@ -182,7 +187,7 @@ public class Create_2Menuetto {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
     // -- Bass
     voiceBase++; //3
@@ -191,12 +196,23 @@ public class Create_2Menuetto {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- Metronome
+    voiceBase++; //4
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     //link all the orchestra tracks 
-    int orchestraBase = 4; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    int orchestraEnd = 6; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraBase = 5; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraEnd = 7; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     for (int i = orchestraBase; i <= orchestraEnd; i++) {
       MidiTrack songTrack = new MidiTrack();
       songTrack.setName(sequenceImporter.getTrackName(i));
