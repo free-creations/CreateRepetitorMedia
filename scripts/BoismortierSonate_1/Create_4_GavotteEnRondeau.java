@@ -17,6 +17,9 @@ package BoismortierSonate_1;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
+import de.free_creations.importexport.MetronomeCreator;
+import static de.free_creations.importexport.MetronomeCreator.*;
+
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -24,7 +27,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Handler;
 import javax.sound.midi.*;
 import javax.xml.bind.JAXBException;
@@ -35,12 +37,13 @@ import javax.xml.bind.JAXBException;
  */
 public class Create_4_GavotteEnRondeau {
 
-  private URL voicesFileURL;
-  private URL orchestraFileURL;
+  private File voicesFile;
+  private File orchestraFile;
+  private static final File resourceDir = new File("scripts/BoismortierSonate_1/resources");
   private File outputMidiFile;
   private File outputSongFile;
   private Handler loggingHandler;
-  final static private String piece = "Sonate I";
+  final static private String piece = "Boismortier Sonate I";
   final static private String description = "Sonate I, Gavotte en Rondeau";
   final static private String number = "4";
   final static private String camelTitle = "GavotteEnRondeau";
@@ -49,17 +52,23 @@ public class Create_4_GavotteEnRondeau {
   private Create_4_GavotteEnRondeau() throws IOException {
     loggingHandler = null;
 
-    orchestraFileURL = this.getClass().getResource("resources/GavotteEnRondeau-orchestra.mid");
-    if (orchestraFileURL == null) {
+    if (!resourceDir.exists()) {
+      if (!resourceDir.isDirectory()) {
+        throw new RuntimeException("resourceDir not found.");
+      }
+    }
+
+    orchestraFile = new File(resourceDir, "GavotteEnRondeau-orchestra.mid");
+    if (!orchestraFile.exists()) {
       throw new RuntimeException("Orchestra file not found.");
     }
-    voicesFileURL = this.getClass().getResource("resources/GavotteEnRondeau-voices.mid");
-    if (voicesFileURL == null) {
+    voicesFile = new File(resourceDir, "GavotteEnRondeau-voices.mid");
+    if (!voicesFile.exists()) {
       throw new RuntimeException("Voices file not found.");
     }
 
     File tempDir = new File("../temp");
- 
+
     if (!tempDir.exists()) {
       throw new RuntimeException(tempDir + " not found.");
     }
@@ -81,13 +90,13 @@ public class Create_4_GavotteEnRondeau {
   private void process() throws InvalidMidiDataException, IOException, JAXBException {
 
 
-    Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
-    Sequence voicesSequence = MidiSystem.getSequence(voicesFileURL);
+    Sequence orchestraSequence = MidiSystem.getSequence(orchestraFile);
+    Sequence voicesSequence = MidiSystem.getSequence(voicesFile);
 
-    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contAllControllersOff,  loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence,  ControllerRemover.contProgramChange,  loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contModulationWheel_MSB,  loggingHandler);
-    voicesSequence = ControllerRemover.process(voicesSequence,  MidiUtil.contMainVolume_MSB,  loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contAllControllersOff, loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, ControllerRemover.contProgramChange, loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contModulationWheel_MSB, loggingHandler);
+    voicesSequence = ControllerRemover.process(voicesSequence, MidiUtil.contMainVolume_MSB, loggingHandler);
 
 
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
@@ -98,11 +107,11 @@ public class Create_4_GavotteEnRondeau {
     //... master track 0
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{0}, -1, null, loggingHandler); //
     //... Sopran track 1
-    masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{1}, 0, "Flauto 1", loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{1}, 3, "Flauto 1", loggingHandler); //
     //... Floeten track 2
-    masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{2}, 1, "Flauto 2", loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{2}, 4, "Flauto 2", loggingHandler); //
     //... Bass track 3
-    masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{3}, 2, "Flauto 3", loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{3}, 5, "Flauto 3", loggingHandler); //
 
     // insert an empty bar into the voices in order to allign with pre-count at the beginning
     //masterSequence = MidiUtil.insertSilence(masterSequence, 4 * resolution);
@@ -111,7 +120,8 @@ public class Create_4_GavotteEnRondeau {
     for (int i = 1; i < orchestraSequence.getTracks().length; i++) {
       masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
     }
-
+    // add track 7; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, perf4beats, loggingHandler);
 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
@@ -174,7 +184,7 @@ public class Create_4_GavotteEnRondeau {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
     // -- Flauto 
     voiceBase++; //2
@@ -183,7 +193,7 @@ public class Create_4_GavotteEnRondeau {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(false);
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
     // -- Bass
     voiceBase++; //3
@@ -192,6 +202,16 @@ public class Create_4_GavotteEnRondeau {
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(false);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- Metronome
+    voiceBase = 7; //
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
     newSongTrack.setMute(false);
     voicesSuperTrack.addSubtrack(newSongTrack);
 

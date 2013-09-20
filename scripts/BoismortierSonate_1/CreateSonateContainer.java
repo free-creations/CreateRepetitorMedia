@@ -29,7 +29,8 @@ import java.util.zip.ZipOutputStream;
 public class CreateSonateContainer {
 
   private static final File tempDir = new File("../temp");
-  private static final String outFilename = "Boismortier_Sonate.fmc";
+  private static final String outFilename = "BoismortierSonate1.fmc";
+  private static final File resourceDir = new File("scripts/BoismortierSonate_1/resources");
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
   private static class ZipItem {
@@ -52,64 +53,64 @@ public class CreateSonateContainer {
     false),
     // ---- Boimortier.sf2 Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "Boimortier.sf2"),
+    new File(resourceDir, "Boimortier.sf2"),
     "Boimortier.sf2",
     false),
     // ---- Rhodes Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "mk_1_rhodes.sf2"),
-    "mk_1_rhodes.sf2",
+    new File(resourceDir, "StringPiano.sf2"),
+    "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
     // ---- 1 Gravement.mid (create with Create_1_Gravement.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/1_Gravement.mid"),
-    "Sonate1/1_Gravement.mid",
+    new File(tempDir, "Boismortier Sonate I/1_Gravement.mid"),
+    "BoismortierSonate1/1_Gravement.mid",
     false),
     // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/1_Gravement.xml"),
-    "Sonate1/1_Gravement.xml",
+    new File(tempDir, "Boismortier Sonate I/1_Gravement.xml"),
+    "BoismortierSonate1/1_Gravement.xml",
     true),
     // ---- 2_AllemandeGayment.mid (create with Create_2_AllemandeGayment.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/2_AllemandeGayment.mid"),
-    "Sonate1/2_AllemandeGayment.mid",
+    new File(tempDir, "Boismortier Sonate I/2_AllemandeGayment.mid"),
+    "BoismortierSonate1/2_AllemandeGayment.mid",
     false),
     // ---- 2_AllemandeGayment.xml (create with Create_2_AllemandeGayment.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/2_AllemandeGayment.xml"),
-    "Sonate1/2_AllemandeGayment.xml",
+    new File(tempDir, "Boismortier Sonate I/2_AllemandeGayment.xml"),
+    "BoismortierSonate1/2_AllemandeGayment.xml",
     true),
     // ---- 3_Gravement.mid (create with Create_3_Gravement.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/3_Gravement.mid"),
-    "Sonate1/3_Gravement.mid",
+    new File(tempDir, "Boismortier Sonate I/3_Gravement.mid"),
+    "BoismortierSonate1/3_Gravement.mid",
     false),
     // ---- 3_Gravement.xml (create with Create_3_Gravement.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/3_Gravement.xml"),
-    "Sonate1/3_Gravement.xml",
+    new File(tempDir, "Boismortier Sonate I/3_Gravement.xml"),
+    "BoismortierSonate1/3_Gravement.xml",
     true),
     // ---- 4_GavotteEnRondeau.mid (create with Create_4_GavotteEnRondeau.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/4_GavotteEnRondeau.mid"),
-    "Sonate1/4_GavotteEnRondeau.mid",
+    new File(tempDir, "Boismortier Sonate I/4_GavotteEnRondeau.mid"),
+    "BoismortierSonate1/4_GavotteEnRondeau.mid",
     false),
     // ---- 4_GavotteEnRondeau.xml (create with Create_4_GavotteEnRondeau.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/4_GavotteEnRondeau.xml"),
-    "Sonate1/4_GavotteEnRondeau.xml",
+    new File(tempDir, "Boismortier Sonate I/4_GavotteEnRondeau.xml"),
+    "BoismortierSonate1/4_GavotteEnRondeau.xml",
     true),
     // ---- 5 Gayment.mid (create with Create_5_Gayment.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/5_Gayment.mid"),
-    "Sonate1/5_Gayment.mid",
+    new File(tempDir, "Boismortier Sonate I/5_Gayment.mid"),
+    "BoismortierSonate1/5_Gayment.mid",
     false),
     // ---- 5 Gayment.xml (create with Create_5_Gayment.java)
     new ZipItem(
-    new File(tempDir, "Sonate I/5_Gayment.xml"),
-    "Sonate1/5_Gayment.xml",
+    new File(tempDir, "Boismortier Sonate I/5_Gayment.xml"),
+    "BoismortierSonate1/5_Gayment.xml",
     true),};
 
   private CreateSonateContainer() {

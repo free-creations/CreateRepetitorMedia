@@ -38,11 +38,15 @@ public class MetronomeCreator {
 
   //General Midi Percussion Map
   private static final int SideStick = 37;
-  private static final int Claves = 75;
+  private static final int Claves = 74;
   private static final int HighWoodBlock = 76;
   private static final int LowWoodBlock = 77;
+  private static final int MuteTriangle = 80;
+  private static final int OpenTriangle = 81;
+
   public static final int perf4beats = 1;
   public static final int perf2beats = 2;
+  public static final int perfFirstBeatAccetuated = 2;
   private static int choosenPrefs = 0;
 
   public static Sequence process(final Sequence inputSequence, int preferences, Handler loggingHandler) throws InvalidMidiDataException {
@@ -135,12 +139,20 @@ public class MetronomeCreator {
   private static void create2ClicksMeasure(Track track, long startTick, long beatLength) {
     addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
     addClick(track, startTick, beatLength, 1, HighWoodBlock, 64);
+
   }
 
   private static void create3ClicksMeasure(Track track, long startTick, long beatLength) {
     addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
-    addClick(track, startTick, beatLength, 1, HighWoodBlock, 54);
-    addClick(track, startTick, beatLength, 2, HighWoodBlock, 74);
+
+    if ((choosenPrefs & perfFirstBeatAccetuated) != 0) {
+      addClick(track, startTick, beatLength, 1, HighWoodBlock, 32);
+      addClick(track, startTick, beatLength, 2, HighWoodBlock, 30);
+
+    } else {
+      addClick(track, startTick, beatLength, 1, HighWoodBlock, 74);
+      addClick(track, startTick, beatLength, 2, HighWoodBlock, 54);
+    }
   }
 
   private static void create4ClicksMeasure(Track track, long startTick, long beatLength) {
