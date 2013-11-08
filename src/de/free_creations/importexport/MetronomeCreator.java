@@ -43,10 +43,10 @@ public class MetronomeCreator {
   private static final int LowWoodBlock = 77;
   private static final int MuteTriangle = 80;
   private static final int OpenTriangle = 81;
-
   public static final int perf4beats = 1;
   public static final int perf2beats = 2;
-  public static final int perfFirstBeatAccetuated = 2;
+  public static final int perf3beats = 4;
+  public static final int perfFirstBeatAccetuated = 8;
   private static int choosenPrefs = 0;
 
   public static Sequence process(final Sequence inputSequence, int preferences, Handler loggingHandler) throws InvalidMidiDataException {
@@ -171,7 +171,12 @@ public class MetronomeCreator {
     if ((choosenPrefs & perf2beats) != 0) {
       addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
       addClick(track, startTick, beatLength, 3, HighWoodBlock, 84);
+    } else if ((choosenPrefs & perf3beats) != 0) {
+      addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
+      addClick(track, startTick, beatLength, 2, HighWoodBlock, 64);
+      addClick(track, startTick, beatLength, 4, HighWoodBlock, 44);
     } else {
+
       addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
       addClick(track, startTick, beatLength, 1, HighWoodBlock, 64);
       addClick(track, startTick, beatLength, 2, HighWoodBlock, 64);
