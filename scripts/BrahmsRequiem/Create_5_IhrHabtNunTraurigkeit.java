@@ -18,6 +18,7 @@ package BrahmsRequiem;
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.MetaMessageFilter;
 import de.free_creations.importexport.InstrumentExchanger;
+import de.free_creations.importexport.MetronomeCreator;
 import de.free_creations.importexport.Randomizer;
 import de.free_creations.importexport.SlurBinderA;
 import de.free_creations.importexport.TrackMerger;
@@ -82,7 +83,6 @@ public class Create_5_IhrHabtNunTraurigkeit {
     outputMidiFile = new File(outDir, number + "_" + camelTitle + ".mid");
     outputMidiFileTemp = new File(outDir, number + "_" + camelTitle + "Temp" + ".mid");
     outputSongFile = new File(outDir, number + "_" + camelTitle + ".xml");
-
 
   }
 
@@ -158,26 +158,25 @@ public class Create_5_IhrHabtNunTraurigkeit {
 //
     masterSequence = Randomizer.process(masterSequence,
             new int[]{
-      0, //Director
-      0, //Track 1 -  Flutes
-      10, //Track 2 -  Oboe
-      10, //Track 3 -  Clarinet
-      10, //Track 4 -  Bassoon
-      10, //Track 5 -  Horns
-      0, //Track 6 -  Trumpet
-      0, //Track 7 -  Trombones
-      20, //Track 8 -  Timpani
-      0, //Track 9 -  Baritone Solo
-      0, //Track 10 - Choir
-      15, //Track 11 - Violins 1
-      30, //Track 12 - Violins 2
-      30, //Track 13 - Violas
-      10, //Track 14 - Celli
-      10, //Track 15 - Contrabass
-    },
+              0, //Director
+              0, //Track 1 -  Flutes
+              10, //Track 2 -  Oboe
+              10, //Track 3 -  Clarinet
+              10, //Track 4 -  Bassoon
+              10, //Track 5 -  Horns
+              0, //Track 6 -  Trumpet
+              0, //Track 7 -  Trombones
+              20, //Track 8 -  Timpani
+              0, //Track 9 -  Baritone Solo
+              0, //Track 10 - Choir
+              15, //Track 11 - Violins 1
+              30, //Track 12 - Violins 2
+              30, //Track 13 - Violas
+              10, //Track 14 - Celli
+              10, //Track 15 - Contrabass
+            },
             true,
             loggingHandler);
-
 
     // import the choir voices
     Sequence textSequence = MidiSystem.getSequence(voicesFile);
@@ -199,7 +198,6 @@ public class Create_5_IhrHabtNunTraurigkeit {
     voiceSequence = TrackMerger.process(voiceSequence, orchestraSequence, new int[]{14}, 0, "BassVoice", loggingHandler);
     voiceSequence = TrackMerger.process(voiceSequence, textSequence, new int[]{5}, 0, "BassText", loggingHandler);
 
-
     // merge voices into master
     masterSequence = TrackMerger.process(masterSequence, voiceSequence, new int[]{1, 2}, 0, "Sopran", loggingHandler); // 16
     masterSequence = InstrumentExchanger.process(masterSequence, 16, -1, 0, loggingHandler);
@@ -216,6 +214,9 @@ public class Create_5_IhrHabtNunTraurigkeit {
     ChannelCleaner sequenceImporter = new ChannelCleaner(masterSequence, loggingHandler);
     masterSequence = sequenceImporter.getResult();
 
+    // add track 20; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, MetronomeCreator.perf2beats, loggingHandler);
+
     MidiSystem.write(masterSequence, 1, outputMidiFile);
     //MidiSystem.write(orchestraSequence, 1, outputMidiFileTemp); //<<<<<<<<<<<<<remove
 
@@ -228,10 +229,8 @@ public class Create_5_IhrHabtNunTraurigkeit {
 
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());
 
-
     //----------------------------------------------------------------------------------------
     // create the appropriate song object
-
     Song songObject = new Song();
     songObject.setName(description);
 
@@ -240,7 +239,6 @@ public class Create_5_IhrHabtNunTraurigkeit {
     mastertrack.setName(sequenceImporter.getTrackName(0));
     mastertrack.setMidiTrackIndex(0);
     mastertrack.setMidiChannel(sequenceImporter.getChannel(0));
-
 
     //create a super track that will collect all orchestra tracs
     MidiSynthesizerTrack orchestraSuperTrack = new MidiSynthesizerTrack();
@@ -308,6 +306,16 @@ public class Create_5_IhrHabtNunTraurigkeit {
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(false);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- Metronome
+    voiceBase++; //20
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     songObject.marshal(new FileOutputStream(outputSongFile));

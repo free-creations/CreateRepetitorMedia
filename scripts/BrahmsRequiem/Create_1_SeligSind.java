@@ -18,6 +18,7 @@ package BrahmsRequiem;
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.MetaMessageFilter;
 import de.free_creations.importexport.InstrumentExchanger;
+import de.free_creations.importexport.MetronomeCreator;
 import de.free_creations.importexport.Randomizer;
 import de.free_creations.importexport.SlurBinderA;
 import de.free_creations.importexport.TrackMerger;
@@ -83,7 +84,6 @@ public class Create_1_SeligSind {
     outputMidiFileTemp = new File(outDir, number + "_" + camelTitle + "Temp" + ".mid");
     outputSongFile = new File(outDir, number + "_" + camelTitle + ".xml");
 
-
   }
 
   private void process() throws InvalidMidiDataException, IOException, JAXBException {
@@ -125,8 +125,8 @@ public class Create_1_SeligSind {
     masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{11, 12, 13, 14}, 10, "Choir", loggingHandler); // 11
     masterSequence = InstrumentExchanger.process(masterSequence, 10, -1, 19, loggingHandler);
     // Track 11 - Violins I (empty)
-     masterSequence.createTrack(); //11
-     // Track 12 - Cello 1,2
+    masterSequence.createTrack(); //11
+    // Track 12 - Cello 1,2
     masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{16}, 12, "Cello 1 2", loggingHandler); // 13
     masterSequence = InstrumentExchanger.process(masterSequence, 12, -1, 42, loggingHandler);
     // Track 13 - Violas
@@ -139,8 +139,8 @@ public class Create_1_SeligSind {
     masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{18}, 15, "Contrabass", loggingHandler); // 16
     masterSequence = InstrumentExchanger.process(masterSequence, 15, 48, 43, loggingHandler);
 //
-    
-       // process the slurs
+
+    // process the slurs
     long startTick = 0;
     long lastTick = masterSequence.getTickLength();
     int noteOverlap = 480 / 16; // in MidiTicks
@@ -161,26 +161,25 @@ public class Create_1_SeligSind {
 
     masterSequence = Randomizer.process(masterSequence,
             new int[]{
-      0, //Director
-      0, //Track 1 -  Flutes
-      10, //Track 2 -  Oboe
-      10, //Track 3 -  Clarinet
-      10, //Track 4 -  Bassoon
-      10, //Track 5 -  Horns
-      0, //Track 6 -  Trumpet
-      0, //Track 7 -  Trombones
-      20, //Track 8 -  Timpani
-      35, //Track 9 -  Harp
-      0, //Track 10 - Choir
-      15, //Track 11 - Violins 1
-      30, //Track 12 - Violins 2
-      30, //Track 13 - Violas
-      15, //Track 14 - Celli
-      10, //Track 15 - Contrabass
-    },
+              0, //Director
+              0, //Track 1 -  Flutes
+              10, //Track 2 -  Oboe
+              10, //Track 3 -  Clarinet
+              10, //Track 4 -  Bassoon
+              10, //Track 5 -  Horns
+              0, //Track 6 -  Trumpet
+              0, //Track 7 -  Trombones
+              20, //Track 8 -  Timpani
+              35, //Track 9 -  Harp
+              0, //Track 10 - Choir
+              15, //Track 11 - Violins 1
+              30, //Track 12 - Violins 2
+              30, //Track 13 - Violas
+              15, //Track 14 - Celli
+              10, //Track 15 - Contrabass
+            },
             true,
             loggingHandler);
-
 
     // import the choir voices
     Sequence textSequence = MidiSystem.getSequence(voicesFile);
@@ -201,7 +200,6 @@ public class Create_1_SeligSind {
 
     voiceSequence = TrackMerger.process(voiceSequence, orchestraSequence, new int[]{14}, 0, "BassVoice", loggingHandler);
     voiceSequence = TrackMerger.process(voiceSequence, textSequence, new int[]{4}, 0, "BassText", loggingHandler);
-
 
     // merge voices into master
     masterSequence = TrackMerger.process(masterSequence, voiceSequence, new int[]{1, 2}, 0, "Sopran", loggingHandler); // 16
@@ -225,16 +223,17 @@ public class Create_1_SeligSind {
     double barLen = 4 * quarterLen;
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
-    
+
+    // add track 20; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, MetronomeCreator.perf2beats, loggingHandler);
+
     // write the sequence to file
     MidiSystem.write(masterSequence, 1, outputMidiFile);
 
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());
 
-
     //----------------------------------------------------------------------------------------
     // create the appropriate song object
-
     Song songObject = new Song();
     songObject.setName(description);
 
@@ -243,7 +242,6 @@ public class Create_1_SeligSind {
     mastertrack.setName(sequenceImporter.getTrackName(0));
     mastertrack.setMidiTrackIndex(0);
     mastertrack.setMidiChannel(sequenceImporter.getChannel(0));
-
 
     //create a super track that will collect all orchestra tracs
     MidiSynthesizerTrack orchestraSuperTrack = new MidiSynthesizerTrack();
@@ -311,6 +309,16 @@ public class Create_1_SeligSind {
     newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(false);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- Metronome
+    voiceBase++; //20
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
+    newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     songObject.marshal(new FileOutputStream(outputSongFile));
