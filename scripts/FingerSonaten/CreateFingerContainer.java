@@ -91,6 +91,16 @@ public class CreateFingerContainer {
     new ZipItem(
     new File(tempDir, "FingerSonaten/3_SonateI_3Grave.xml"),
     "FingerSonaten/3_SonateI_3Grave.xml",
+    true),
+    // ---- 4
+    new ZipItem(
+    new File(tempDir, "FingerSonaten/4_SonateI_4Presto.mid"),
+    "FingerSonaten/4_SonateI_4Presto.mid",
+    false),
+    // ---- 4
+    new ZipItem(
+    new File(tempDir, "FingerSonaten/4_SonateI_4Presto.xml"),
+    "FingerSonaten/4_SonateI_4Presto.xml",
     true),};
 
   private CreateFingerContainer() {
