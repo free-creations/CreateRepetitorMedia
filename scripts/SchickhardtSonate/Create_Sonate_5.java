@@ -95,6 +95,9 @@ public class Create_Sonate_5 {
     //... Bass track 2
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{4}, 6, "Git Bass", loggingHandler); //
     masterSequence.getTracks()[2].add(newProgramMessage(0, 6, 0));
+    //... Chords track 3
+    masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{6}, 7, "Chords", loggingHandler); //
+   // masterSequence.getTracks()[2].add(newProgramMessage(0, 6, 0));
 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
@@ -103,19 +106,19 @@ public class Create_Sonate_5 {
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
 
-    // add track 3; the metronome track
+    // add track 4; the metronome track
     masterSequence = MetronomeCreator.process(masterSequence, 0, loggingHandler);
-    
-        //... track 4 flute 1
+
+    //... track 5 flute 1
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{1}, 8, "Flute 1", loggingHandler); //
-    masterSequence.getTracks()[4].add(newProgramMessage(0, 8, 0));
-    //... track 5 flute 2
+    masterSequence.getTracks()[5].add(newProgramMessage(0, 8, 0));
+    //... track 6 flute 2
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{2}, 10, "Flute 2", loggingHandler); //
-    masterSequence.getTracks()[5].add(newProgramMessage(0, 10, 0));
+    masterSequence.getTracks()[6].add(newProgramMessage(0, 10, 0));
 
     // next copy all the orchestra tracks
-    for (int i = 1; i < orchestraSequence.getTracks().length; i++) {
-      masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
+    for (int i = 1; i < orchestraSequence.getTracks().length - 1; i++) {
+      masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, "Orch"+i, loggingHandler); //
     }
 
     System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
@@ -178,8 +181,18 @@ public class Create_Sonate_5 {
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
+    // -- Chords
+    voiceBase++; //4
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Chords");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(7);
+    newSongTrack.setInstrumentDescription("Harpsi");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
     // -- Metronome
-    voiceBase++; //3
+    voiceBase++; //4
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Metronome");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -190,7 +203,7 @@ public class Create_Sonate_5 {
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     // -- Flute 1
-    voiceBase++; //4
+    voiceBase++; //5
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Flute 1");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -200,7 +213,7 @@ public class Create_Sonate_5 {
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     // -- Flute 2
-    voiceBase++; //5
+    voiceBase++; //6
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Flute 2");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -210,8 +223,8 @@ public class Create_Sonate_5 {
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     //link all the orchestra tracks 
-    int orchestraBase = 4+2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    int orchestraEnd = 8+2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraBase = 7; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraEnd = 11; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     for (int i = orchestraBase; i <= orchestraEnd; i++) {
       MidiTrack songTrack = new MidiTrack();
       songTrack.setName(sequenceImporter.getTrackName(i));
