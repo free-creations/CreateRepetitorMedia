@@ -79,11 +79,9 @@ public class Create_3_Estate {
     outputMidiFile = new File(outDir, number + "_" + camelTitle + ".mid");
     outputSongFile = new File(outDir, number + "_" + camelTitle + ".xml");
 
-
   }
 
   private void process() throws InvalidMidiDataException, IOException, JAXBException {
-
 
     Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
     Sequence voicesSequence = MidiSystem.getSequence(voicesFileURL);
@@ -94,7 +92,6 @@ public class Create_3_Estate {
             orchestraSequence.getResolution());
 
     // first merge the director track from the voices
-
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{0}, -1, description, loggingHandler); //0 Master
 
     // define some note values
@@ -151,9 +148,7 @@ public class Create_3_Estate {
 
     masterSequence = Randomizer.process(masterSequence, new int[]{0, 80, 120, 60, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,}, loggingHandler);
 
-
     masterSequence = VolumeExpressionCleaner.process(masterSequence, loggingHandler);
-
 
     // merge the voices into the master sequence
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{1}, 0, "Sopran", loggingHandler); //16 sopr
@@ -165,25 +160,21 @@ public class Create_3_Estate {
     masterSequence = MidiUtil.insertSilence(masterSequence, 2 * bar);
     masterSequence = TrackMerger.process(masterSequence, introSequence, new int[]{1}, 9, "PreCount", loggingHandler); //
 
-
     // This is a hack....to make the track 0 as long as the whole sequence
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(orchestraSequence.getTickLength()));
+
+    // add track 21; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, loggingHandler);
 
 //    System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
 //    System.out.println("** Track 18 length " + masterSequence.getTracks()[18].ticks());
 //    System.out.println("** Sequence length " + masterSequence.getTickLength());
-
     // Write the file to disk
     MidiSystem.write(masterSequence, 1, outputMidiFile);
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());
 
-
-
-
-
     //----------------------------------------------------------------------------------------
     // create the approriate song object
-
     Song songObject = new Song();
     songObject.setName(description);
 
@@ -193,13 +184,12 @@ public class Create_3_Estate {
     mastertrack.setMidiTrackIndex(0);
     mastertrack.setMidiChannel(sequenceImporter.getChannel(0));
 
-
     //create a super track that will collect all orchestra tracs
     MidiSynthesizerTrack orchestraSuperTrack = new MidiSynthesizerTrack();
     orchestraSuperTrack.setName("Orchester");
     mastertrack.addSubtrack(orchestraSuperTrack);
     BuiltinSynthesizer OrchestraSynt = new BuiltinSynthesizer();
-    OrchestraSynt.setSoundbankfile("../Chorium.SF2");
+    OrchestraSynt.setSoundbankfile("../Vivaldi4Stagioni.sf2");
     orchestraSuperTrack.setSynthesizer(OrchestraSynt);
 
     //create a super track that will collect the voices tracs
@@ -207,7 +197,7 @@ public class Create_3_Estate {
     voicesSuperTrack.setName("Flöten");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
-    voicesSynt.setSoundbankfile("../mk_1_rhodes.sf2");
+    voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
     //link all the orchestra tracks 
@@ -265,6 +255,16 @@ public class Create_3_Estate {
     newSongTrack.setInstrumentDescription("Percussion");
     orchestraSuperTrack.addSubtrack(newSongTrack);
 
+    // -- link the metronome track (to the voices)
+    voiceBase++;
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());
 
@@ -282,7 +282,6 @@ public class Create_3_Estate {
     }
 
     return new MidiEvent(message, tick);
-
 
   }
 

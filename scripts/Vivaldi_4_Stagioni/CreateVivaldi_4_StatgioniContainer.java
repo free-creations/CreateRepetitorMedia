@@ -64,32 +64,32 @@ public class CreateVivaldi_4_StatgioniContainer {
     "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
-    // ---- Kyrie midi file (generated with "Create_1_Kyrie.java")
+    // ---- 
     new ZipItem(
     new File(tempDir, "Vivaldi_4_Stagioni/1_Primavera1.mid"),
     "Vivaldi_4_Stagioni/1_Primavera1.mid",
     false),
-    // ---- Kyrie xml file (generated with "Create_1_Kyrie.java")
+    // ---- 
     new ZipItem(
     new File(tempDir, "Vivaldi_4_Stagioni/1_Primavera1.xml"),
     "Vivaldi_4_Stagioni/1_Primavera1.xml",
     true),
     //--------------------------------------------------------------------------
-    // ---- Gloria midi file (generated with "Create_2_Gloria.java")
+    // ---- 
     new ZipItem(
     new File(tempDir, "Vivaldi_4_Stagioni/2_Primavera3.mid"),
     "Vivaldi_4_Stagioni/2_Primavera3.mid",
     false),
-    // ---- Gloria xml file (generated with "Create_2_Gloria.java")
+    // ----
     new ZipItem(
     new File(tempDir, "Vivaldi_4_Stagioni/2_Primavera3.xml"),
     "Vivaldi_4_Stagioni/2_Primavera3.xml",
     true),
     
-    /*
+    
       
     //--------------------------------------------------------------------------
-    // ---- Sanctus midi file (generated with "Create_3_Sanctus.java")
+    // ---- Sanctus midi file 
     new ZipItem(
     new File(tempDir, "3_Estate/3_Estate.mid"),
     "3_Estate/3_Estate.mid",
@@ -100,7 +100,7 @@ public class CreateVivaldi_4_StatgioniContainer {
     "3_Estate/3_Estate.xml",
     true),
     //--------------------------------------------------------------------------
-    // ---- Benedictus midi file (generated with "Create_4_Benedictus.java")
+    // ---- 
     new ZipItem(
     new File(tempDir, "4_Autunno/4_Autunno.mid"),
     "4_Autunno/4_Autunno.mid",
@@ -111,7 +111,7 @@ public class CreateVivaldi_4_StatgioniContainer {
     "4_Autunno/4_Autunno.xml",
     true),
     //--------------------------------------------------------------------------
-    // ---- Agnus_Dei midi file (generated with "Create_5_Agnus_Dei.java")
+    // ---- 
     new ZipItem(
     new File(tempDir, "5_Inverno/5_Inverno.mid"),
     "5_Inverno/5_Inverno.mid",
@@ -121,7 +121,7 @@ public class CreateVivaldi_4_StatgioniContainer {
     new File(tempDir, "5_Inverno/5_Inverno.xml"),
     "5_Inverno/5_Inverno.xml",
     true),
-    */
+    
   };
 
   private CreateVivaldi_4_StatgioniContainer() {

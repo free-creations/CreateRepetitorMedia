@@ -210,7 +210,7 @@ public class Create_4_Autunno {
     orchestraSuperTrack.setName("Orchester");
     mastertrack.addSubtrack(orchestraSuperTrack);
     BuiltinSynthesizer OrchestraSynt = new BuiltinSynthesizer();
-    OrchestraSynt.setSoundbankfile("../Chorium.SF2");
+    OrchestraSynt.setSoundbankfile("../Vivaldi4Stagioni.sf2");
     orchestraSuperTrack.setSynthesizer(OrchestraSynt);
 
     //create a super track that will collect the voices tracs
@@ -218,7 +218,7 @@ public class Create_4_Autunno {
     voicesSuperTrack.setName("Flöten");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
-    voicesSynt.setSoundbankfile("../mk_1_rhodes.sf2");
+   voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
     //link all the orchestra tracks 

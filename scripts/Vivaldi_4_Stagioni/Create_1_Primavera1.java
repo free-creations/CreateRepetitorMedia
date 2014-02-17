@@ -81,12 +81,9 @@ public class Create_1_Primavera1 {
     outputMidiFile = new File(outDir, number + "_" + camelTitle + ".mid");
     outputSongFile = new File(outDir, number + "_" + camelTitle + ".xml");
 
-
-
   }
 
   private void process() throws InvalidMidiDataException, IOException, JAXBException {
-
 
     Sequence orchestraSequence = MidiSystem.getSequence(orchestraFile);
     Sequence voicesSequence = MidiSystem.getSequence(voicesFile);
@@ -97,7 +94,6 @@ public class Create_1_Primavera1 {
             orchestraSequence.getResolution());
 
     // first merge the director track from the voices
-
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{0}, -1, description, loggingHandler); //0 Master
 
     //insert some silence into the orchestra sequence
@@ -105,10 +101,13 @@ public class Create_1_Primavera1 {
     long bar = 4 * quarter;
     long eight = quarter / 2;
 
-
     long newPos = bar - eight;
     long shiftDist = newPos - findFirstViolinoNote(orchestraSequence);
     orchestraSequence = MidiUtil.insertSilence(orchestraSequence, shiftDist);
+
+    // the tick of the first bar in the orchestraSequence
+    long startTick = bar;
+    System.out.println(">>>> starting at > " + tickTo4_4(startTick, 0, quarter));
 
     // remove pauses
     long toPos = 4 * bar - eight;
@@ -127,12 +126,15 @@ public class Create_1_Primavera1 {
     fromPos = 11 * bar + 3 * eight;
     toPos = 12 * bar - eight;
     orchestraSequence = MidiUtil.cut(orchestraSequence, fromPos, toPos);
+    System.out.println(">>>> remove pause from  "
+            + tickTo4_4(fromPos, startTick, quarter)
+            + " to "
+            + tickTo4_4(toPos, startTick, quarter));
     // remove everything afer the 14th bar ("Canto delli Ucelli" etc.)
     long cutPos = 13 * bar + 2 * quarter;
     orchestraSequence = MidiUtil.rightCut(orchestraSequence, cutPos);
 
     //randomize
-
     // transpose from E to F
     orchestraSequence = MidiUtil.transpose(orchestraSequence, 1);
 
@@ -158,9 +160,7 @@ public class Create_1_Primavera1 {
 
     masterSequence = Randomizer.process(masterSequence, new int[]{100, 100, 100, 100, 100, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30}, loggingHandler);
 
-
     masterSequence = VolumeExpressionCleaner.process(masterSequence, loggingHandler);
-
 
     // merge the voices into the master sequence
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{1}, 0, "Sopran", loggingHandler); //16 sopr
@@ -190,10 +190,8 @@ public class Create_1_Primavera1 {
     MidiSystem.write(masterSequence, 1, outputMidiFile);
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());
 
-
     //----------------------------------------------------------------------------------------
     // create the approriate song object
-
     Song songObject = new Song();
     songObject.setName(description);
 
@@ -202,7 +200,6 @@ public class Create_1_Primavera1 {
     mastertrack.setName(sequenceImporter.getTrackName(0));
     mastertrack.setMidiTrackIndex(0);
     mastertrack.setMidiChannel(sequenceImporter.getChannel(0));
-
 
     //create a super track that will collect all orchestra tracs
     MidiSynthesizerTrack orchestraSuperTrack = new MidiSynthesizerTrack();
@@ -306,7 +303,6 @@ public class Create_1_Primavera1 {
 
     return new MidiEvent(message, tick);
 
-
   }
 
   /**
@@ -330,6 +326,26 @@ public class Create_1_Primavera1 {
     } else {
       return 0;
     }
+  }
+
+  private String tickTo4_4(long actualTick, long startTick, long quarter) {
+    long tick = actualTick - startTick;
+    long barLen = 4 * quarter;
+    long eightLen = quarter / 2;
+    long barNum = tick / barLen;
+    long barRest = tick % barLen;
+    long quarterNum = barRest / quarter;
+    long quarterRest = barRest % quarter;
+    long eightNum = quarterRest / eightLen;
+    long eightRest = quarterRest % eightLen;
+    if (quarterRest == 0) {
+      return String.format("[%d | %d]", barNum + 1, quarterNum + 1);
+    }
+    if (eightRest == 0) {
+      return String.format("[%d | %d:%d/8]", barNum + 1, quarterNum + 1, eightNum);
+    }
+    return String.format("[%d | %d:%d/8 (%d)]", barNum + 1, quarterNum + 1, eightNum, eightRest);
+
   }
 
   /**
