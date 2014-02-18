@@ -83,7 +83,6 @@ public class Create_5_Inverno {
 
   private void process() throws InvalidMidiDataException, IOException, JAXBException {
 
-
     Sequence orchestraSequence = MidiSystem.getSequence(orchestraFileURL);
     Sequence voicesSequence = MidiSystem.getSequence(voicesFileURL);
     Sequence introSequence = MidiSystem.getSequence(introFileURL);
@@ -93,7 +92,6 @@ public class Create_5_Inverno {
             orchestraSequence.getResolution());
 
     // first merge the director track from the voices
-
     masterSequence = TrackMerger.process(masterSequence, voicesSequence, new int[]{0}, -1, description, loggingHandler); //0 Master
 
     // define some note values
@@ -131,7 +129,6 @@ public class Create_5_Inverno {
 
     masterSequence = Randomizer.process(masterSequence, new int[]{0, 80, 120, 60, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,}, loggingHandler);
 
-
     masterSequence = VolumeExpressionCleaner.process(masterSequence, loggingHandler);
 
     // merge the voices into the master sequence
@@ -144,9 +141,10 @@ public class Create_5_Inverno {
     masterSequence = MidiUtil.insertSilence(masterSequence, 2 * bar);
     masterSequence = TrackMerger.process(masterSequence, introSequence, new int[]{1}, 9, "PreCount", loggingHandler); //
 
-
     // This is a hack....to make the track 0 as long as the whole sequence
-    masterSequence.getTracks()[0].add(newEndOfTrackMessage(orchestraSequence.getTickLength()));
+    masterSequence.getTracks()[0].add(newEndOfTrackMessage(masterSequence.getTickLength()));
+    // add track 21; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, loggingHandler);
 
 //    System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
 //    System.out.println("** Track 18 length " + masterSequence.getTracks()[18].ticks());
@@ -156,10 +154,8 @@ public class Create_5_Inverno {
     MidiSystem.write(masterSequence, 1, outputMidiFile);
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());
 
-
     //----------------------------------------------------------------------------------------
     // create the approriate song object
-
     Song songObject = new Song();
     songObject.setName(description);
 
@@ -168,7 +164,6 @@ public class Create_5_Inverno {
     mastertrack.setName(sequenceImporter.getTrackName(0));
     mastertrack.setMidiTrackIndex(0);
     mastertrack.setMidiChannel(sequenceImporter.getChannel(0));
-
 
     //create a super track that will collect all orchestra tracs
     MidiSynthesizerTrack orchestraSuperTrack = new MidiSynthesizerTrack();
@@ -232,7 +227,6 @@ public class Create_5_Inverno {
     newSongTrack.setInstrumentDescription("Piano");
     voicesSuperTrack.addSubtrack(newSongTrack);
 
-
     // -- link the precount track (to the orchestra)
     voiceBase++;
     newSongTrack = new MidiTrack();
@@ -242,6 +236,15 @@ public class Create_5_Inverno {
     newSongTrack.setInstrumentDescription("Percussion");
     orchestraSuperTrack.addSubtrack(newSongTrack);
 
+    // -- link the metronome track (to the voices)
+    voiceBase++;
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Metronome");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
 
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());
@@ -260,7 +263,6 @@ public class Create_5_Inverno {
     }
 
     return new MidiEvent(message, tick);
-
 
   }
 

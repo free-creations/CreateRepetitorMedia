@@ -161,7 +161,7 @@ public class Create_3_Estate {
     masterSequence = TrackMerger.process(masterSequence, introSequence, new int[]{1}, 9, "PreCount", loggingHandler); //
 
     // This is a hack....to make the track 0 as long as the whole sequence
-    masterSequence.getTracks()[0].add(newEndOfTrackMessage(orchestraSequence.getTickLength()));
+    masterSequence.getTracks()[0].add(newEndOfTrackMessage(masterSequence.getTickLength()));
 
     // add track 21; the metronome track
     masterSequence = MetronomeCreator.process(masterSequence, loggingHandler);
