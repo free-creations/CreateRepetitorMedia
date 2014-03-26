@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package Blues;
+package Rondeaus;
 
 import de.free_creations.mediacontainer2.ContainerInfo;
 import java.io.*;
@@ -26,10 +26,11 @@ import java.util.zip.ZipOutputStream;
  *
  * @author harald
  */
-public class CreateBluesContainer {
+public class CreateRondeausContainer {
 
   private static final File tempDir = new File("../temp");
-  private static final String outFilename = "Blues.fmc";
+  private static final File resourceDir = new File("scripts/Rondeaus/resources");
+  private static final String outFilename = "Rondeaus.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
   private static class ZipItem {
@@ -50,62 +51,40 @@ public class CreateBluesContainer {
     tempContainerInfoFile,
     "META-INF/container.xml",
     false),
-    // ---- Boimortier.sf2 Sound Font (please copy it to the temp dir)
+    // ---- Hook.sf2 Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "Chorium.sf2"),
-    "Chorium.sf2",
+    new File(resourceDir, "Schickardt.sf2"),
+    "Schickardt.sf2",
     false),
-    // ---- Boimortier.sf2 Sound Font (please copy it to the temp dir)
+    // ---- Rhodes Sound Font (please copy it to the temp dir)
     new ZipItem(
-    new File(tempDir, "mk_1_rhodes.sf2"),
-    "mk_1_rhodes.sf2",
+    new File(resourceDir, "StringPiano.sf2"),
+    "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
-    // ---- 1 BluesInD.mid (create with BluesInD.java)
+    // ---- 1
     new ZipItem(
-    new File(tempDir, "Blues/1_BluesInD.mid"),
-    "Blues/1_BluesInD.mid",
+    new File(tempDir, "Rondeaus/1_Rondeau16.mid"),
+    "Rondeaus/1_Rondeau16.mid",
     false),
-    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    // ---- 1
     new ZipItem(
-    new File(tempDir, "Blues/1_BluesInD.xml"),
-    "Blues/1_BluesInD.xml",
+    new File(tempDir, "Rondeaus/1_Rondeau16.xml"),
+    "Rondeaus/1_Rondeau16.xml",
     true),
     //--------------------------------------------------------------------------
-    // ---- 2 BluesInA.mid (create with BluesInA.java)
+    // ---- 2
     new ZipItem(
-    new File(tempDir, "Blues/2_BluesInA.mid"),
-    "Blues/2_BluesInA.mid",
+    new File(tempDir, "Rondeaus/2_Rondeau17.mid"),
+    "Rondeaus/2_Rondeau17.mid",
     false),
-    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    // ---- 2
     new ZipItem(
-    new File(tempDir, "Blues/2_BluesInA.xml"),
-    "Blues/2_BluesInA.xml",
-    true),
-    //--------------------------------------------------------------------------
-    // ---- 3 Chuck Berry Blues in D
-    new ZipItem(
-    new File(tempDir, "Blues/3_ChuckBerryD.mid"),
-    "Blues/3_ChuckBerryD.mid",
-    false),
-    // ---- 3
-    new ZipItem(
-    new File(tempDir, "Blues/3_ChuckBerryD.xml"),
-    "Blues/3_ChuckBerryD.xml",
-    true),
-    //--------------------------------------------------------------------------
-    // ---- 4_ShoppingBlues.
-    new ZipItem(
-    new File(tempDir, "Blues/4_ShoppingBlues.mid"),
-    "Blues/4_ShoppingBlues.mid",
-    false),
-    // ---- 4
-    new ZipItem(
-    new File(tempDir, "Blues/4_ShoppingBlues.xml"),
-    "Blues/4_ShoppingBlues.xml",
+    new File(tempDir, "Rondeaus/2_Rondeau17.xml"),
+    "Rondeaus/2_Rondeau17.xml",
     true),};
 
-  private CreateBluesContainer() {
+  private CreateRondeausContainer() {
 
     if (!tempDir.exists()) {
       throw new RuntimeException("No temp Directory found.");
@@ -119,7 +98,7 @@ public class CreateBluesContainer {
    * @param args the command line arguments
    */
   public static void main(String[] args) throws Exception {
-    CreateBluesContainer processor = new CreateBluesContainer();
+    CreateRondeausContainer processor = new CreateRondeausContainer();
     System.out.println("############ creating container info.");
     processor.createContainerInfo();
     System.out.println("############ packing the files.");
