@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package Rondeaus;
+package AusgewaehlteDuette;
 
 import de.free_creations.mediacontainer2.ContainerInfo;
 import java.io.*;
@@ -26,11 +26,11 @@ import java.util.zip.ZipOutputStream;
  *
  * @author harald
  */
-public class CreateRondeausContainer {
+public class CreateAusgewaehlteDuetteContainer {
 
   private static final File tempDir = new File("../temp");
-  private static final File resourceDir = new File("scripts/Rondeaus/resources");
-  private static final String outFilename = "Rondeaus.fmc";
+  private static final File resourceDir = new File("scripts/AusgewaehlteDuette/resources");
+  private static final String outFilename = "AusgewaehlteDuette.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
   private static class ZipItem {
@@ -64,27 +64,27 @@ public class CreateRondeausContainer {
     //--------------------------------------------------------------------------
     // ---- 1
     new ZipItem(
-    new File(tempDir, "Rondeaus/1_Rondeau16.mid"),
-    "Rondeaus/1_Rondeau16.mid",
+    new File(tempDir, "AusgewaehlteDuette/1_Rondeau16.mid"),
+    "AusgewaehlteDuette/1_Rondeau16.mid",
     false),
     // ---- 1
     new ZipItem(
-    new File(tempDir, "Rondeaus/1_Rondeau16.xml"),
-    "Rondeaus/1_Rondeau16.xml",
+    new File(tempDir, "AusgewaehlteDuette/1_Rondeau16.xml"),
+    "AusgewaehlteDuette/1_Rondeau16.xml",
     true),
     //--------------------------------------------------------------------------
     // ---- 2
     new ZipItem(
-    new File(tempDir, "Rondeaus/2_Rondeau17.mid"),
-    "Rondeaus/2_Rondeau17.mid",
+    new File(tempDir, "AusgewaehlteDuette/2_Rondeau17.mid"),
+    "AusgewaehlteDuette/2_Rondeau17.mid",
     false),
     // ---- 2
     new ZipItem(
-    new File(tempDir, "Rondeaus/2_Rondeau17.xml"),
-    "Rondeaus/2_Rondeau17.xml",
+    new File(tempDir, "AusgewaehlteDuette/2_Rondeau17.xml"),
+    "AusgewaehlteDuette/2_Rondeau17.xml",
     true),};
 
-  private CreateRondeausContainer() {
+  private CreateAusgewaehlteDuetteContainer() {
 
     if (!tempDir.exists()) {
       throw new RuntimeException("No temp Directory found.");
@@ -98,7 +98,7 @@ public class CreateRondeausContainer {
    * @param args the command line arguments
    */
   public static void main(String[] args) throws Exception {
-    CreateRondeausContainer processor = new CreateRondeausContainer();
+    CreateAusgewaehlteDuetteContainer processor = new CreateAusgewaehlteDuetteContainer();
     System.out.println("############ creating container info.");
     processor.createContainerInfo();
     System.out.println("############ packing the files.");

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package Rondeaus;
+package AusgewaehlteDuette;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
@@ -39,12 +39,12 @@ public class Create_Rondeau16 {
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
-  final static private String piece = "Rondeaus";
+  final static private String piece = "AusgewaehlteDuette";
   final static private String description = "Rondeau 16";
   final static private String number = "1";
   final static private String camelTitle = "Rondeau16";
   final static private int resolution = 480;
-  static final private File resourceDir = new File("scripts/Rondeaus/resources");
+  static final private File resourceDir = new File("scripts/AusgewaehlteDuette/resources");
 
   private Create_Rondeau16() throws IOException {
     loggingHandler = null;
