@@ -60,6 +60,11 @@ public class CreateStrassenMusikContainer {
     new File(tempDir, "mk_1_rhodes.sf2"),
     "mk_1_rhodes.sf2",
     false),
+    // ---- Rhodes Sound Font (please copy it to the temp dir)
+    new ZipItem(
+    new File(tempDir, "StringPiano.sf2"),
+    "StringPiano.sf2",
+    false),
     //--------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------
@@ -116,6 +121,190 @@ public class CreateStrassenMusikContainer {
     new ZipItem(
     new File(tempDir, "StrassenMusik/5_NoSmoking.xml"),
     "StrassenMusik/5_NoSmoking.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/6_Mexico.mid"),
+    "StrassenMusik/6_Mexico.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/6_Mexico.xml"),
+    "StrassenMusik/6_Mexico.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/7_ColaRag.mid"),
+    "StrassenMusik/7_ColaRag.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/7_ColaRag.xml"),
+    "StrassenMusik/7_ColaRag.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/8_MelaniesMelancholy.mid"),
+    "StrassenMusik/8_MelaniesMelancholy.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/8_MelaniesMelancholy.xml"),
+    "StrassenMusik/8_MelaniesMelancholy.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/9_CoffeetimeBlues.mid"),
+    "StrassenMusik/9_CoffeetimeBlues.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/9_CoffeetimeBlues.xml"),
+    "StrassenMusik/9_CoffeetimeBlues.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/10_SalsaCuba.mid"),
+    "StrassenMusik/10_SalsaCuba.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/10_SalsaCuba.xml"),
+    "StrassenMusik/10_SalsaCuba.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/11_LimoRag.mid"),
+    "StrassenMusik/11_LimoRag.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/11_LimoRag.xml"),
+    "StrassenMusik/11_LimoRag.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/12_AtTheBasar.mid"),
+    "StrassenMusik/12_AtTheBasar.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/12_AtTheBasar.xml"),
+    "StrassenMusik/12_AtTheBasar.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/13_NoExchange.mid"),
+    "StrassenMusik/13_NoExchange.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/13_NoExchange.xml"),
+    "StrassenMusik/13_NoExchange.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/14_SouldOut.mid"),
+    "StrassenMusik/14_SouldOut.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/14_SouldOut.xml"),
+    "StrassenMusik/14_SouldOut.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/15_CafeAuLait.mid"),
+    "StrassenMusik/15_CafeAuLait.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/15_CafeAuLait.xml"),
+    "StrassenMusik/15_CafeAuLait.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/16_MyFirstBicycle.mid"),
+    "StrassenMusik/16_MyFirstBicycle.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/16_MyFirstBicycle.xml"),
+    "StrassenMusik/16_MyFirstBicycle.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/17_ILoveFriedPotatoes.mid"),
+    "StrassenMusik/17_ILoveFriedPotatoes.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/17_ILoveFriedPotatoes.xml"),
+    "StrassenMusik/17_ILoveFriedPotatoes.xml",
+    true), //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/18_SambaRio.mid"),
+    "StrassenMusik/18_SambaRio.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/18_SambaRio.xml"),
+    "StrassenMusik/18_SambaRio.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/19_DesireForFortune.mid"),
+    "StrassenMusik/19_DesireForFortune.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/19_DesireForFortune.xml"),
+    "StrassenMusik/19_DesireForFortune.xml",
+    true), //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/20_PizzaRag.mid"),
+    "StrassenMusik/20_PizzaRag.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/20_PizzaRag.xml"),
+    "StrassenMusik/20_PizzaRag.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/21_TangoLatino.mid"),
+    "StrassenMusik/21_TangoLatino.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/21_TangoLatino.xml"),
+    "StrassenMusik/21_TangoLatino.xml",
+    true), //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/22_SmileAWhile.mid"),
+    "StrassenMusik/22_SmileAWhile.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/22_SmileAWhile.xml"),
+    "StrassenMusik/22_SmileAWhile.xml",
     true),};
 
   private CreateStrassenMusikContainer() {

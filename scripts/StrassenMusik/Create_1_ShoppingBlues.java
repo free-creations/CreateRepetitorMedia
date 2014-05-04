@@ -17,6 +17,8 @@ package StrassenMusik;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
+import de.free_creations.importexport.MetronomeCreator;
+import static de.free_creations.importexport.MetronomeCreator.perf4beats;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -44,12 +46,13 @@ public class Create_1_ShoppingBlues {
   final static private String number = "1";
   final static private String camelTitle = "ShoppingBlues";
   final static private int resolution = 480;
-  static final private File resourceDir = new File("scripts/StrassenMusik/resources");
+  static final private File resourceDir = new File("/home/harald/Music/StrassenMusik");
+  static final private String inputFileName = "01_ShoppingBluesOrchestra.mid";
 
   private Create_1_ShoppingBlues() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "ShoppingBluesOrchestra.mid");
+    inputFile = new File(resourceDir, inputFileName);
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -84,6 +87,8 @@ public class Create_1_ShoppingBlues {
     for (int i = 0; i < orchestraTrackCount; i++) {
       masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
     }
+    // add track 7; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, perf4beats, loggingHandler);
 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
@@ -121,36 +126,16 @@ public class Create_1_ShoppingBlues {
     OrchestraSynt.setSoundbankfile("../Chorium.sf2");
     orchestraSuperTrack.setSynthesizer(OrchestraSynt);
 
-    //link all the orchestra tracks 
-    int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    for (int i = orchestraBase; i < 3; i++) {
-      MidiTrack songTrack = new MidiTrack();
-      songTrack.setName(sequenceImporter.getTrackName(i));
-      songTrack.setMidiTrackIndex(i);
-      songTrack.setMidiChannel(sequenceImporter.getChannel(i));
-      songTrack.setInstrumentDescription(sequenceImporter.getInstrumentDescription(i));
-      orchestraSuperTrack.addSubtrack(songTrack);
-    }
-    orchestraBase = 5; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    for (int i = orchestraBase; i < orchestraTrackCount; i++) {
-      MidiTrack songTrack = new MidiTrack();
-      songTrack.setName(sequenceImporter.getTrackName(i));
-      songTrack.setMidiTrackIndex(i);
-      songTrack.setMidiChannel(sequenceImporter.getChannel(i));
-      songTrack.setInstrumentDescription(sequenceImporter.getInstrumentDescription(i));
-      orchestraSuperTrack.addSubtrack(songTrack);
-    }
-
     //create a super track that will collect the voices tracs
     MidiSynthesizerTrack voicesSuperTrack = new MidiSynthesizerTrack();
     voicesSuperTrack.setName("Flutes");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
-    voicesSynt.setSoundbankfile("../mk_1_rhodes.sf2");
+    voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
     // link the voices
-    int voiceBase = 3; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int voiceBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     MidiTrack newSongTrack;
     // -- Flute 1
     newSongTrack = new MidiTrack();
@@ -161,12 +146,33 @@ public class Create_1_ShoppingBlues {
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
-    voiceBase = 4; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    // -- Flute 2
+    voiceBase++;
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Flute 2");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(3);
+    newSongTrack.setInstrumentDescription("Flute 2");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    //link all the orchestra tracks 
+    int orchestraBase = voiceBase + 1;
+    for (int i = orchestraBase; i < orchestraTrackCount; i++) {
+      MidiTrack songTrack = new MidiTrack();
+      songTrack.setName(sequenceImporter.getTrackName(i));
+      songTrack.setMidiTrackIndex(i);
+      songTrack.setMidiChannel(sequenceImporter.getChannel(i));
+      songTrack.setInstrumentDescription(sequenceImporter.getInstrumentDescription(i));
+      orchestraSuperTrack.addSubtrack(songTrack);
+    }
+    
+    
+    //link all the metronome
+    voiceBase = orchestraTrackCount;
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
     newSongTrack.setInstrumentDescription("Flute 2");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);

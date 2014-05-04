@@ -17,6 +17,8 @@ package StrassenMusik;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
+import de.free_creations.importexport.MetronomeCreator;
+import static de.free_creations.importexport.MetronomeCreator.perf4beats;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -44,12 +46,13 @@ public class Create_4_Loneliness {
   final static private String number = "4";
   final static private String camelTitle = "Loneliness";
   final static private int resolution = 480;
-  static final private File resourceDir = new File("scripts/StrassenMusik/resources");
+  static final private File resourceDir = new File("/home/harald/Music/StrassenMusik");
+  static final private String inputFileName = "04_LonelinessOrchestra.mid";
 
   private Create_4_Loneliness() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "LonelinessOrchestra.mid");
+    inputFile = new File(resourceDir, inputFileName);
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -84,6 +87,8 @@ public class Create_4_Loneliness {
     for (int i = 0; i < orchestraTrackCount; i++) {
       masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
     }
+    // add track 7; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, perf4beats, loggingHandler);
 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
@@ -126,7 +131,7 @@ public class Create_4_Loneliness {
     voicesSuperTrack.setName("Flutes");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
-    voicesSynt.setSoundbankfile("../mk_1_rhodes.sf2");
+    voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
     // link the voices
@@ -160,6 +165,17 @@ public class Create_4_Loneliness {
       songTrack.setInstrumentDescription(sequenceImporter.getInstrumentDescription(i));
       orchestraSuperTrack.addSubtrack(songTrack);
     }
+    
+    
+    //link all the metronome
+    voiceBase = orchestraTrackCount;
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Metronome");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(9);
+    newSongTrack.setInstrumentDescription("Flute 2");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
 
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());
