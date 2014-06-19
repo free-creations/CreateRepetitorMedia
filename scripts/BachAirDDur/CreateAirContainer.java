@@ -62,7 +62,7 @@ public class CreateAirContainer {
     "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
-    // ---- 1 Gravement.mid (create with Create_1_Gravement.java)
+    // ---- 1 
     new ZipItem(
     new File(tempDir, "BachAir/1_BachAir.mid"),
     "BachAir/1_BachAir.mid",
@@ -71,6 +71,39 @@ public class CreateAirContainer {
     new ZipItem(
     new File(tempDir, "BachAir/1_BachAir.xml"),
     "BachAir/1_BachAir.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "BachAir/2_BachGavotteI.mid"),
+    "BachAir/2_BachGavotteI.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "BachAir/2_BachGavotteI.xml"),
+    "BachAir/2_BachGavotteI.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 3
+    new ZipItem(
+    new File(tempDir, "BachAir/3_BachGavotteII.mid"),
+    "BachAir/3_BachGavotteII.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "BachAir/3_BachGavotteII.xml"),
+    "BachAir/3_BachGavotteII.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 4
+    new ZipItem(
+    new File(tempDir, "BachAir/4_BachBouree.mid"),
+    "BachAir/4_BachBouree.mid",
+    false),
+    // ---- v
+    new ZipItem(
+    new File(tempDir, "BachAir/4_BachBouree.xml"),
+    "BachAir/4_BachBouree.xml",
     true),};
 
   private CreateAirContainer() {

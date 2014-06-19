@@ -34,23 +34,23 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_Air {
+public class Create_Gavotte_II {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
   final static private String piece = "BachAir";
-  final static private String description = "BachAir";
-  final static private String number = "1";
-  final static private String camelTitle = "BachAir";
+  final static private String description = "Bach Gavotte II";
+  final static private String number = "3";
+  final static private String camelTitle = "BachGavotteII";
   final static private int resolution = 480;
   static final private File resourceDir = new File("scripts/BachAirDDur/resources");
 
-  private Create_Air() throws IOException {
+  private Create_Gavotte_II() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "AirOrchestra.mid");
+    inputFile = new File(resourceDir, "Gavotte_IIOrchestra-o.mid");
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -227,7 +227,7 @@ public class Create_Air {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_Air processor = new Create_Air();
+    Create_Gavotte_II processor = new Create_Gavotte_II();
     System.out.println("############ Creating \"" + number + " " + camelTitle + "\"");
     processor.process();
 
