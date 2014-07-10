@@ -82,6 +82,49 @@ public class CreateAusgewaehlteDuetteContainer {
     new ZipItem(
     new File(tempDir, "AusgewaehlteDuette/2_Rondeau17.xml"),
     "AusgewaehlteDuette/2_Rondeau17.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 18
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/18_Adagio.mid"),
+    "AusgewaehlteDuette/18_Adagio.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/18_Adagio.xml"),
+    "AusgewaehlteDuette/18_Adagio.xml",
+    true), //--------------------------------------------------------------------------
+    // ---- 21 
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/19_RondoGrazioso.mid"),
+    "AusgewaehlteDuette/19_RondoGrazioso.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/19_RondoGrazioso.xml"),
+    "AusgewaehlteDuette/19_RondoGrazioso.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 21 
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/21_Vivace.mid"),
+    "AusgewaehlteDuette/21_Vivace.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/21_Vivace.xml"),
+    "AusgewaehlteDuette/21_Vivace.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 21 
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/22_Fanfare.mid"),
+    "AusgewaehlteDuette/22_Fanfare.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/22_Fanfare.xml"),
+    "AusgewaehlteDuette/22_Fanfare.xml",
     true),};
 
   private CreateAusgewaehlteDuetteContainer() {
