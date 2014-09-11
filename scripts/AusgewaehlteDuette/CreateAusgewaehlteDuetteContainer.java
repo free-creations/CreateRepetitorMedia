@@ -125,7 +125,41 @@ public class CreateAusgewaehlteDuetteContainer {
     new ZipItem(
     new File(tempDir, "AusgewaehlteDuette/22_Fanfare.xml"),
     "AusgewaehlteDuette/22_Fanfare.xml",
-    true),};
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 23
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/23_Allegretto.mid"),
+    "AusgewaehlteDuette/23_Allegretto.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/23_Allegretto.xml"),
+    "AusgewaehlteDuette/23_Allegretto.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 25
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/25_Giga.mid"),
+    "AusgewaehlteDuette/25_Giga.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/25_Giga.xml"),
+    "AusgewaehlteDuette/25_Giga.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ---- 27_Larghetto.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27_Larghetto.mid"),
+    "AusgewaehlteDuette/27_Larghetto.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27_Larghetto.xml"),
+    "AusgewaehlteDuette/27_Larghetto.xml",
+    true), //
+  };
 
   private CreateAusgewaehlteDuetteContainer() {
 
