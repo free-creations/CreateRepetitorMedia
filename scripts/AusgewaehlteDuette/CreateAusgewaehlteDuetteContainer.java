@@ -159,6 +159,28 @@ public class CreateAusgewaehlteDuetteContainer {
     new File(tempDir, "AusgewaehlteDuette/27_Larghetto.xml"),
     "AusgewaehlteDuette/27_Larghetto.xml",
     true), //
+    //--------------------------------------------------------------------------
+    // ---- 27-2_Allegro.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27-2_Allegro.mid"),
+    "AusgewaehlteDuette/27-2_Allegro.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27-2_Allegro.xml"),
+    "AusgewaehlteDuette/27-2_Allegro.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ---- 27p_LarghettoPiano.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27p_LarghettoPiano.mid"),
+    "AusgewaehlteDuette/27p_LarghettoPiano.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27p_LarghettoPiano.xml"),
+    "AusgewaehlteDuette/27p_LarghettoPiano.xml",
+    true), //
   };
 
   private CreateAusgewaehlteDuetteContainer() {
