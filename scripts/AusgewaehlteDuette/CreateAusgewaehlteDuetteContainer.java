@@ -171,6 +171,17 @@ public class CreateAusgewaehlteDuetteContainer {
     "AusgewaehlteDuette/27-2_Allegro.xml",
     true), //
     //--------------------------------------------------------------------------
+    // ---- 27-3_Adagio.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27-3_Adagio.mid"),
+    "AusgewaehlteDuette/27-3_Adagio.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/27-3_Adagio.xml"),
+    "AusgewaehlteDuette/27-3_Adagio.xml",
+    true), //
+    //--------------------------------------------------------------------------
     // ---- 27p_LarghettoPiano.mid
     new ZipItem(
     new File(tempDir, "AusgewaehlteDuette/27p_LarghettoPiano.mid"),

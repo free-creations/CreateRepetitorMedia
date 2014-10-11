@@ -107,6 +107,16 @@ public class CreateAlleTastenContainer {
     new File(tempDir, "AlleTastenImSchrank/24_WinterAde.xml"),
     "AlleTastenImSchrank/24_WinterAde.xml",
     true), //--
+        // ---- 42_IchHabDieNachtGetraeumet.
+    new ZipItem(
+    new File(tempDir, "AlleTastenImSchrank/42_IchHabDieNachtGetraeumet.mid"),
+    "AlleTastenImSchrank/42_IchHabDieNachtGetraeumet.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "AlleTastenImSchrank/42_IchHabDieNachtGetraeumet.xml"),
+    "AlleTastenImSchrank/42_IchHabDieNachtGetraeumet.xml",
+    true), //--
   };
 
   private CreateAlleTastenContainer() {
