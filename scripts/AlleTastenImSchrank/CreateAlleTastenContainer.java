@@ -127,6 +127,16 @@ public class CreateAlleTastenContainer {
     new File(tempDir, "AlleTastenImSchrank/42_IchHabDieNachtGetraeumetAmoll.xml"),
     "AlleTastenImSchrank/42_IchHabDieNachtGetraeumetAmoll.xml",
     true), //--
+        // ---- 46_WorriedMan.
+    new ZipItem(
+    new File(tempDir, "AlleTastenImSchrank/46_WorriedMan.mid"),
+    "AlleTastenImSchrank/46_WorriedMan.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "AlleTastenImSchrank/46_WorriedMan.xml"),
+    "AlleTastenImSchrank/46_WorriedMan.xml",
+    true), //--
   };
 
   private CreateAlleTastenContainer() {

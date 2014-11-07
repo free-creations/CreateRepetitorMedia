@@ -59,7 +59,6 @@ public class MetronomeCreator {
       Track inputTrack = inputTracks[trackI];
       Track outputTrack = outputSequence.createTrack();
 
-
       for (int eventI = 0; eventI < inputTrack.size(); eventI++) {
         MidiEvent midEvent = inputTrack.get(eventI);
         outputTrack.add(midEvent);
@@ -103,7 +102,6 @@ public class MetronomeCreator {
     long remainingTicks = range - (count + 1) * barLength;
     int remainingBeats = (int) (remainingTicks / beatLength);
 
-
     for (long i = 0; i < count; i++) {
       createClicksMeasure(track, startTick, startTimeSig.getNumerator(), beatLength);
       startTick = startTick + barLength;
@@ -111,7 +109,6 @@ public class MetronomeCreator {
     if (remainingBeats > 0) {
       createClicksMeasure(track, startTick + count * barLength, remainingBeats, beatLength);
     }
-
 
   }
 
@@ -125,6 +122,9 @@ public class MetronomeCreator {
         return;
       case 4:
         create4ClicksMeasure(track, startTick, beatLength);
+        return;
+      case 12:
+        create4ClicksMeasure(track, startTick, 3*beatLength);
         return;
       case 6:
         create6ClicksMeasure(track, startTick, beatLength);

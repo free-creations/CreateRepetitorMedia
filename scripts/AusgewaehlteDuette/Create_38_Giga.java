@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package AlleTastenImSchrank;
+package AusgewaehlteDuette;
 
 import de.free_creations.importexport.ChannelCleaner;
+import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.MetronomeCreator;
-import static de.free_creations.importexport.MetronomeCreator.perf3beats;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -33,23 +33,23 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_42_IchHabDieNachtGetraeumet {
+public class Create_38_Giga {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
-  final static private String piece = "AlleTastenImSchrank";
-  final static private String description = "Worried Man";
-  final static private String number = "46";
-  final static private String camelTitle = "WorriedMan";
+  final static private String piece = "AusgewaehlteDuette";
+  final static private String description = "de Grant, Giga";
+  final static private String number = "38";
+  final static private String camelTitle = "Giga";
   final static private int resolution = 480;
-  static final private File resourceDir = new File("scripts/AlleTastenImSchrank/resources");
+  static final private File resourceDir = new File("scripts/AusgewaehlteDuette/resources");
 
-  private Create_42_IchHabDieNachtGetraeumet() throws IOException {
+  private Create_38_Giga() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "46_WorriedMan.mid");
+    inputFile = new File(resourceDir, "38_Giga.mid");
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -79,20 +79,22 @@ public class Create_42_IchHabDieNachtGetraeumet {
 
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
 
-    int orchestraTrackCount = orchestraSequence.getTracks().length;
-    //  copy all the tracks
-    for (int i = 0; i < orchestraTrackCount; i++) {
+    //  the orchestra tracks
+    for (int i = 0; i < orchestraSequence.getTracks().length; i++) {
       masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
     }
-    // add track 7; the metronome track
-    masterSequence = MetronomeCreator.process(masterSequence, perf3beats, loggingHandler);
 
+ 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
     double quarterLen = masterSequence.getResolution();
-    double barLen = 3 * quarterLen;
+    double barLen = 6 * quarterLen;
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
+
+    // add track 5; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, 0, loggingHandler);
+
 
     System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
     System.out.println("** Sequence length " + masterSequence.getTickLength());
@@ -120,32 +122,21 @@ public class Create_42_IchHabDieNachtGetraeumet {
     orchestraSuperTrack.setName("Orchester");
     mastertrack.addSubtrack(orchestraSuperTrack);
     BuiltinSynthesizer OrchestraSynt = new BuiltinSynthesizer();
-    OrchestraSynt.setSoundbankfile("../Chorium.sf2");
+    OrchestraSynt.setSoundbankfile("../Schickardt.sf2");
     orchestraSuperTrack.setSynthesizer(OrchestraSynt);
 
     //create a super track that will collect the voices tracs
     MidiSynthesizerTrack voicesSuperTrack = new MidiSynthesizerTrack();
-    voicesSuperTrack.setName("Solo");
+    voicesSuperTrack.setName("Voices");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
     voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
-    // link the voices
-    int voiceBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    MidiTrack newSongTrack;
-    // -- Flute 1
-    newSongTrack = new MidiTrack();
-    newSongTrack.setName("Piano");
-    newSongTrack.setMidiTrackIndex(voiceBase);
-    newSongTrack.setMidiChannel(1);
-    newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(true);
-    voicesSuperTrack.addSubtrack(newSongTrack);
-
-    //link all the orchestra tracks 
-    int orchestraBase = voiceBase + 1;
-    for (int i = orchestraBase; i < orchestraTrackCount; i++) {
+        //link all the orchestra tracks 
+    int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraEnd = 2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    for (int i = orchestraBase; i <= orchestraEnd; i++) {
       MidiTrack songTrack = new MidiTrack();
       songTrack.setName(sequenceImporter.getTrackName(i));
       songTrack.setMidiTrackIndex(i);
@@ -154,8 +145,29 @@ public class Create_42_IchHabDieNachtGetraeumet {
       orchestraSuperTrack.addSubtrack(songTrack);
     }
 
-    //link  the metronome
-    voiceBase = orchestraTrackCount;
+
+    MidiTrack newSongTrack;
+    int voiceBase  = 3;
+    // -- Diskant
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Flute 1");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(0);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+    // -- Bass
+    voiceBase++; //4
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Flute 2");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(1);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- Metronome
+    voiceBase++; //5
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Metronome");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -163,6 +175,8 @@ public class Create_42_IchHabDieNachtGetraeumet {
     newSongTrack.setInstrumentDescription("Metronome");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
+
+
 
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());
@@ -200,17 +214,12 @@ public class Create_42_IchHabDieNachtGetraeumet {
 
   /**
    * @param args the command line arguments
-   * @throws javax.sound.midi.InvalidMidiDataException
-   * @throws java.io.IOException
-   * @throws java.net.URISyntaxException
-   * @throws javax.xml.bind.JAXBException
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_42_IchHabDieNachtGetraeumet processor = new Create_42_IchHabDieNachtGetraeumet();
+    Create_38_Giga processor = new Create_38_Giga();
     System.out.println("############ Creating \"" + number + " " + camelTitle + "\"");
     processor.process();
 
   }
-
 }
