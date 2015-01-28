@@ -66,7 +66,40 @@ public class CreateStrassenMusikContainer {
     "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
-
+    //--------------------------------------------------------------------------
+    // ---- 00_GreenSleeves.
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/00_GreenSleeves.mid"),
+    "StrassenMusik/00_GreenSleeves.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/00_GreenSleeves.xml"),
+    "StrassenMusik/00_GreenSleeves.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 01_GreenSleevesMelody.
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/01_GreenSleevesMelody.mid"),
+    "StrassenMusik/01_GreenSleevesMelody.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/01_GreenSleevesMelody.xml"),
+    "StrassenMusik/01_GreenSleevesMelody.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 02_Follia.
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/02_Follia.mid"),
+    "StrassenMusik/02_Follia.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/02_Follia.xml"),
+    "StrassenMusik/02_Follia.xml",
+    true),
+    //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     // ---- ShoppingBlues.
     new ZipItem(
@@ -220,6 +253,17 @@ public class CreateStrassenMusikContainer {
     new ZipItem(
     new File(tempDir, "StrassenMusik/14_SouldOut.xml"),
     "StrassenMusik/14_SouldOut.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/14_1_SouldOutFDur.mid"),
+    "StrassenMusik/14_1_SouldOutFDur.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/14_1_SouldOutFDur.xml"),
+    "StrassenMusik/14_1_SouldOutFDur.xml",
     true),
     //--------------------------------------------------------------------------
     // ----

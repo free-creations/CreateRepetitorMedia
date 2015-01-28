@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package FelizNavidad;
+package StrassenMusik;
 
 import de.free_creations.importexport.ChannelCleaner;
+import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.MetronomeCreator;
-import static de.free_creations.importexport.MetronomeCreator.perf4beats;
+import static de.free_creations.importexport.MetronomeCreator.perf2beats;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -33,23 +34,23 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_FelizNavidad {
+public class Create_01_GreenSleevesMelody {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
-  final static private String piece = "FelizNavidad";
-  final static private String description = "FelizNavidad";
+  final static private String piece = "StrassenMusik";
+  final static private String description = "Green Sleeves Melody";
   final static private String number = "01";
-  final static private String camelTitle = "FelizNavidad";
+  final static private String camelTitle = "GreenSleevesMelody";
   final static private int resolution = 480;
-  static final private File resourceDir = new File("scripts/FelizNavidad/resources");
+  static final private File resourceDir = new File("scripts/StrassenMusik/resources");
 
-  private Create_FelizNavidad() throws IOException {
+  private Create_01_GreenSleevesMelody() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "FelizNavidadOrchestra.mid");
+    inputFile = new File(resourceDir, "01_GreensleevesMelody.mid");
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -79,20 +80,20 @@ public class Create_FelizNavidad {
 
     Sequence masterSequence = new Sequence(Sequence.PPQ, resolution);
 
-    int totalTrackCount = orchestraSequence.getTracks().length;
-    //  copy all the tracks
-    for (int i = 0; i < totalTrackCount; i++) {
+    //  the orchestra tracks
+    for (int i = 0; i < orchestraSequence.getTracks().length; i++) {
       masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
     }
-    // add track 7; the metronome track
-    masterSequence = MetronomeCreator.process(masterSequence, perf4beats, loggingHandler);
 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
     double quarterLen = masterSequence.getResolution();
-    double barLen = 4 * quarterLen;
+    double barLen = 6 * quarterLen;
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
+
+    // add track 8; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, perf2beats, loggingHandler);
 
     System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
     System.out.println("** Sequence length " + masterSequence.getTickLength());
@@ -125,17 +126,16 @@ public class Create_FelizNavidad {
 
     //create a super track that will collect the voices tracs
     MidiSynthesizerTrack voicesSuperTrack = new MidiSynthesizerTrack();
-    voicesSuperTrack.setName("Solo");
+    voicesSuperTrack.setName("Voices");
     mastertrack.addSubtrack(voicesSuperTrack);
     BuiltinSynthesizer voicesSynt = new BuiltinSynthesizer();
     voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
-    // link the voices
     //link all the orchestra tracks 
-    int orchestraBase = 1;
-    int orchestraTrackCount = 9;
-    for (int i = orchestraBase; i < orchestraBase + orchestraTrackCount; i++) {
+    int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraEnd = 2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    for (int i = orchestraBase; i <= orchestraEnd; i++) {
       MidiTrack songTrack = new MidiTrack();
       songTrack.setName(sequenceImporter.getTrackName(i));
       songTrack.setMidiTrackIndex(i);
@@ -144,40 +144,25 @@ public class Create_FelizNavidad {
       orchestraSuperTrack.addSubtrack(songTrack);
     }
 
-    //1 -- Melody
-    int voiceBase = orchestraBase + orchestraTrackCount;
     MidiTrack newSongTrack;
+    int voiceBase = 3;
+    // -- Piano
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Melody");
+    newSongTrack.setName("Piano");
     newSongTrack.setMidiTrackIndex(voiceBase);
-    newSongTrack.setMidiChannel(10);
+    newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
-    //2 -- piano acc
-    voiceBase = voiceBase + 1;
-    newSongTrack = new MidiTrack();
-    newSongTrack.setName("Piano Acc");
-    newSongTrack.setMidiTrackIndex(voiceBase);
-    newSongTrack.setMidiChannel(11);
-    newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(true);
-    voicesSuperTrack.addSubtrack(newSongTrack);
-    //3 -- piano acc
-    voiceBase = voiceBase + 1;
-    newSongTrack = new MidiTrack();
-    newSongTrack.setName("Melody 2");
-    newSongTrack.setMidiTrackIndex(voiceBase);
-    newSongTrack.setMidiChannel(12);
-    newSongTrack.setInstrumentDescription("Piano");
-    newSongTrack.setMute(true);
-    voicesSuperTrack.addSubtrack(newSongTrack);
-    //---Metronome
-    voiceBase = voiceBase + 1;
+
+
+
+    // -- Metronome
+    voiceBase++; //8
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Metronome");
     newSongTrack.setMidiTrackIndex(voiceBase);
-    newSongTrack.setMidiChannel(13);
+    newSongTrack.setMidiChannel(9);
     newSongTrack.setInstrumentDescription("Metronome");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
@@ -218,17 +203,12 @@ public class Create_FelizNavidad {
 
   /**
    * @param args the command line arguments
-   * @throws javax.sound.midi.InvalidMidiDataException
-   * @throws java.io.IOException
-   * @throws java.net.URISyntaxException
-   * @throws javax.xml.bind.JAXBException
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_FelizNavidad processor = new Create_FelizNavidad();
+    Create_01_GreenSleevesMelody processor = new Create_01_GreenSleevesMelody();
     System.out.println("############ Creating \"" + number + " " + camelTitle + "\"");
     processor.process();
 
   }
-
 }
