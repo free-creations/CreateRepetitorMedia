@@ -100,6 +100,28 @@ public class CreateStrassenMusikContainer {
     "StrassenMusik/02_Follia.xml",
     true),
     //--------------------------------------------------------------------------
+    // ---- 02_Follia.
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/02_1_FolliaAgogisch.mid"),
+    "StrassenMusik/02_1_FolliaAgogisch.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/02_1_FolliaAgogisch.xml"),
+    "StrassenMusik/02_1_FolliaAgogisch.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 03_FingerDivision.
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/03_FingerDivision.mid"),
+    "StrassenMusik/03_FingerDivision.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "StrassenMusik/03_FingerDivision.xml"),
+    "StrassenMusik/03_FingerDivision.xml",
+    true),
+    //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     // ---- ShoppingBlues.
     new ZipItem(

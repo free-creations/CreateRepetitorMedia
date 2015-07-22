@@ -69,8 +69,8 @@ public class ChannelCleaner {
    * "_directorChannel" : this channel is reserved for the director channel)
    */
   private ArrayList<Integer> trackChannels = new ArrayList<Integer>();
-  public final int _undefinedChannel = -1;
-  private final int _directorChannel = -2;
+  public static final int _undefinedChannel = -1;
+  private static final int _directorChannel = -2;
   /**
    * This array indicates for which Program (Musical instrument sound) each
    * track is reserved.

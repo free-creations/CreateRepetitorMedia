@@ -204,7 +204,29 @@ public class CreateAusgewaehlteDuetteContainer {
     new File(tempDir, "AusgewaehlteDuette/27p_LarghettoPiano.xml"),
     "AusgewaehlteDuette/27p_LarghettoPiano.xml",
     true), //
+    //--------------------------------------------------------------------------
+    // ---- 29_Williams.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/29_Williams.mid"),
+    "AusgewaehlteDuette/29_Williams.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/29_Williams.xml"),
+    "AusgewaehlteDuette/29_Williams.xml",
+    true), //
 
+    //--------------------------------------------------------------------------
+    // ---- 29_Williams.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/29_1_WilliamsSimple.mid"),
+    "AusgewaehlteDuette/29_1_WilliamsSimple.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/29_1_WilliamsSimple.xml"),
+    "AusgewaehlteDuette/29_1_WilliamsSimple.xml",
+    true), //
     //--------------------------------------------------------------------------
     // ---- 38_Giga.mid
     new ZipItem(
@@ -215,6 +237,28 @@ public class CreateAusgewaehlteDuetteContainer {
     new ZipItem(
     new File(tempDir, "AusgewaehlteDuette/38_Giga.xml"),
     "AusgewaehlteDuette/38_Giga.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ---- 46_Vivaldi.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/46_Vivaldi.mid"),
+    "AusgewaehlteDuette/46_Vivaldi.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/46_Vivaldi.xml"),
+    "AusgewaehlteDuette/46_Vivaldi.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ---- 31_Preludio.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/31_Preludio.mid"),
+    "AusgewaehlteDuette/31_Preludio.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/31_Preludio.xml"),
+    "AusgewaehlteDuette/31_Preludio.xml",
     true), //
   };
 

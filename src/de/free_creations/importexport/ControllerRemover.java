@@ -64,7 +64,7 @@ public class ControllerRemover {
       return message.getCommand() != ShortMessage.PROGRAM_CHANGE;
     }
     if (badControllerType == contPitchBend) {
-      return message.getCommand() != ShortMessage.PROGRAM_CHANGE;
+      return message.getCommand() != ShortMessage.PITCH_BEND;
     }
     return true;
 

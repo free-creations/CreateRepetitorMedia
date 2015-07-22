@@ -34,23 +34,23 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_02_Follia {
+public class Create_03_Finger {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
   final static private String piece = "StrassenMusik";
-  final static private String description = "Follia";
-  final static private String number = "02";
-  final static private String camelTitle = "Follia";
+  final static private String description = "Finger: Division on a Ground";
+  final static private String number = "03";
+  final static private String camelTitle = "FingerDivision";
   final static private int resolution = 480;
   static final private File resourceDir = new File("scripts/StrassenMusik/resources");
 
-  private Create_02_Follia() throws IOException {
+  private Create_03_Finger() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "02_Follia.mid");
+    inputFile = new File(resourceDir, "FingerFinal.mid");
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -134,7 +134,7 @@ public class Create_02_Follia {
 
     //link all the orchestra tracks 
     int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    int orchestraEnd = 2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraEnd = 5; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     for (int i = orchestraBase; i <= orchestraEnd; i++) {
       MidiTrack songTrack = new MidiTrack();
       songTrack.setName(sequenceImporter.getTrackName(i));
@@ -145,8 +145,8 @@ public class Create_02_Follia {
     }
 
     MidiTrack newSongTrack;
-    int voiceBase = 3;
-    // -- Piano
+    int voiceBase = orchestraEnd+1; //7
+    // -- Piano 1
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Piano1");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -155,8 +155,8 @@ public class Create_02_Follia {
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
-    voiceBase++;
-    // -- Piano
+    // -- Piano 2
+    voiceBase++; //8
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Piano2");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -166,7 +166,7 @@ public class Create_02_Follia {
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     // -- Metronome
-    voiceBase++; //8
+    voiceBase++; //9
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Metronome");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -214,7 +214,7 @@ public class Create_02_Follia {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_02_Follia processor = new Create_02_Follia();
+    Create_03_Finger processor = new Create_03_Finger();
     System.out.println("############ Creating \"" + number + " " + camelTitle + "\"");
     processor.process();
 

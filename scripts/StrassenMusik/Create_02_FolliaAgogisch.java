@@ -34,23 +34,23 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_02_Follia {
+public class Create_02_FolliaAgogisch {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
   final static private String piece = "StrassenMusik";
-  final static private String description = "Follia";
-  final static private String number = "02";
-  final static private String camelTitle = "Follia";
+  final static private String description = "Follia Agogisch";
+  final static private String number = "02_1";
+  final static private String camelTitle = "FolliaAgogisch";
   final static private int resolution = 480;
   static final private File resourceDir = new File("scripts/StrassenMusik/resources");
 
-  private Create_02_Follia() throws IOException {
+  private Create_02_FolliaAgogisch() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "02_Follia.mid");
+    inputFile = new File(resourceDir, "02_1_Folia.mid");
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -214,7 +214,7 @@ public class Create_02_Follia {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_02_Follia processor = new Create_02_Follia();
+    Create_02_FolliaAgogisch processor = new Create_02_FolliaAgogisch();
     System.out.println("############ Creating \"" + number + " " + camelTitle + "\"");
     processor.process();
 

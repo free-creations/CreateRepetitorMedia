@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package StrassenMusik;
+package Quantz;
 
 import de.free_creations.importexport.ChannelCleaner;
-import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.MetronomeCreator;
-import static de.free_creations.importexport.MetronomeCreator.perf3beats;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -34,23 +32,22 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_02_Follia {
+public class Create_03_Rigaudon {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
-  final static private String piece = "StrassenMusik";
-  final static private String description = "Follia";
-  final static private String number = "02";
-  final static private String camelTitle = "Follia";
+  final static private String piece = "QuantzSonataFDur";
+  final static private String description = "Quantz Sonata F-Dur";
+  final static private String number = "03";
+  final static private String camelTitle = "Rigaudon";
   final static private int resolution = 480;
-  static final private File resourceDir = new File("scripts/StrassenMusik/resources");
+  static final private File resourceDir = new File("scripts/Quantz/resources");
 
-  private Create_02_Follia() throws IOException {
+  private Create_03_Rigaudon() throws IOException {
     loggingHandler = null;
-
-    inputFile = new File(resourceDir, "02_Follia.mid");
+    inputFile = new File(resourceDir, "03_Rigaudon-o.mid");
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -88,12 +85,12 @@ public class Create_02_Follia {
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
     double quarterLen = masterSequence.getResolution();
-    double barLen = 3 * quarterLen;
+    double barLen = 4 * quarterLen;
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
 
-    // add track 8; the metronome track
-    masterSequence = MetronomeCreator.process(masterSequence, perf3beats, loggingHandler);
+    // add track 7; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence,  loggingHandler);
 
     System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
     System.out.println("** Sequence length " + masterSequence.getTickLength());
@@ -121,7 +118,7 @@ public class Create_02_Follia {
     orchestraSuperTrack.setName("Orchester");
     mastertrack.addSubtrack(orchestraSuperTrack);
     BuiltinSynthesizer OrchestraSynt = new BuiltinSynthesizer();
-    OrchestraSynt.setSoundbankfile("../Chorium.sf2");
+    OrchestraSynt.setSoundbankfile("../VivaldiTrios.sf2");
     orchestraSuperTrack.setSynthesizer(OrchestraSynt);
 
     //create a super track that will collect the voices tracs
@@ -134,7 +131,7 @@ public class Create_02_Follia {
 
     //link all the orchestra tracks 
     int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    int orchestraEnd = 2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    int orchestraEnd = 3; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     for (int i = orchestraBase; i <= orchestraEnd; i++) {
       MidiTrack songTrack = new MidiTrack();
       songTrack.setName(sequenceImporter.getTrackName(i));
@@ -145,28 +142,37 @@ public class Create_02_Follia {
     }
 
     MidiTrack newSongTrack;
-    int voiceBase = 3;
-    // -- Piano
+    int voiceBase = 4;
+    // -- Diskant
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Piano1");
+    newSongTrack.setName("Flute 1");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
-
-    voiceBase++;
-    // -- Piano
+    // -- 
+    voiceBase++; //5
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Piano2");
+    newSongTrack.setName("Flute 2");
     newSongTrack.setMidiTrackIndex(voiceBase);
-    newSongTrack.setMidiChannel(0);
+    newSongTrack.setMidiChannel(1);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- 
+    voiceBase++; //6
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Flute 3");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     // -- Metronome
-    voiceBase++; //8
+    voiceBase++; //7
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Metronome");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -214,7 +220,7 @@ public class Create_02_Follia {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_02_Follia processor = new Create_02_Follia();
+    Create_03_Rigaudon processor = new Create_03_Rigaudon();
     System.out.println("############ Creating \"" + number + " " + camelTitle + "\"");
     processor.process();
 

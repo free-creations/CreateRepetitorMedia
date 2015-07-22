@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import javax.sound.midi.*;
 
 /**
- * Removes unwanted Controller events from the input sequence.
+ * Shifts note-on events by some random time.
  *
  * @author Harald Postner
  */
@@ -38,6 +38,13 @@ public class Randomizer {
   final boolean velocityDependant;
   int[] tickDelays;
 
+  /**
+   * 
+   * @param inputSequence the input sequence
+   * @param maxDelay an array, indicating for each track a maximum value for the shift im milli seconds.
+   * @param velocityDependant if true, loud events will be shifted less than softer events.
+   * @throws InvalidMidiDataException 
+   */
   private Randomizer(Sequence inputSequence, int[] maxDelay, boolean velocityDependant) throws InvalidMidiDataException {
     if (inputSequence.getDivisionType() != Sequence.PPQ) {
       throw new InvalidMidiDataException("This division type is not (yet) implemented.");

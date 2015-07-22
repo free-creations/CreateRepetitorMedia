@@ -124,7 +124,7 @@ public class MetronomeCreator {
         create4ClicksMeasure(track, startTick, beatLength);
         return;
       case 12:
-        create4ClicksMeasure(track, startTick, 3*beatLength);
+        create4ClicksMeasure(track, startTick, 3 * beatLength);
         return;
       case 6:
         create6ClicksMeasure(track, startTick, beatLength);
@@ -137,8 +137,15 @@ public class MetronomeCreator {
   }
 
   private static void create2ClicksMeasure(Track track, long startTick, long beatLength) {
-    addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
-    addClick(track, startTick, beatLength, 1, HighWoodBlock, 64);
+    if ((choosenPrefs & perf4beats) != 0) {
+      addClick(track, startTick, beatLength / 2, 0, LowWoodBlock, 84);
+      addClick(track, startTick, beatLength / 2, 1, HighWoodBlock, 32);
+      addClick(track, startTick, beatLength / 2, 2, HighWoodBlock, 64);
+      addClick(track, startTick, beatLength / 2, 3, HighWoodBlock, 30);
+    } else {
+      addClick(track, startTick, beatLength, 0, LowWoodBlock, 84);
+      addClick(track, startTick, beatLength, 1, HighWoodBlock, 64);
+    }
 
   }
 
@@ -196,7 +203,7 @@ public class MetronomeCreator {
   private static void addClick(Track track, long startTick, long beatLength, int beatIdx, int percussionInstrument, int velocity) {
     long beatTick = startTick + (beatIdx * beatLength);
     track.add(makeNoteOnEvent(percussionInstrument, velocity, beatTick));
-    track.add(makeNoteOnEvent(percussionInstrument, 0, beatTick + beatLength - 1));
+    track.add(makeNoteOnEvent(percussionInstrument, 0, beatTick + beatLength - 16));
   }
 
   private static MidiMessage makeNoteOn(int percussionInstrument, int velocity) {

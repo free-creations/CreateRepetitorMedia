@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package StrassenMusik;
+package AusgewaehlteDuette;
 
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.MetronomeCreator;
-import static de.free_creations.importexport.MetronomeCreator.perf3beats;
 import de.free_creations.importexport.TrackMerger;
 import de.free_creations.midisong.*;
 import de.free_creations.midiutil.MidiUtil;
@@ -34,23 +33,23 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_02_Follia {
+public class Create_31_Preludio {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
-  final static private String piece = "StrassenMusik";
-  final static private String description = "Follia";
-  final static private String number = "02";
-  final static private String camelTitle = "Follia";
+  final static private String piece = "AusgewaehlteDuette";
+  final static private String description = "Correlli Preludio";
+  final static private String number = "31";
+  final static private String camelTitle = "Preludio";
   final static private int resolution = 480;
-  static final private File resourceDir = new File("scripts/StrassenMusik/resources");
+  static final private File resourceDir = new File("scripts/AusgewaehlteDuette/resources");
 
-  private Create_02_Follia() throws IOException {
+  private Create_31_Preludio() throws IOException {
     loggingHandler = null;
 
-    inputFile = new File(resourceDir, "02_Follia.mid");
+    inputFile = new File(resourceDir, "31_PreludioOrchestra.mid");
     if (!inputFile.exists()) {
       throw new RuntimeException(inputFile.getPath() + " not found.");
     }
@@ -85,6 +84,7 @@ public class Create_02_Follia {
       masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
     }
 
+ 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
     double quarterLen = masterSequence.getResolution();
@@ -92,8 +92,9 @@ public class Create_02_Follia {
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
 
-    // add track 8; the metronome track
-    masterSequence = MetronomeCreator.process(masterSequence, perf3beats, loggingHandler);
+    // add track 5; the metronome track
+    masterSequence = MetronomeCreator.process(masterSequence, 0, loggingHandler);
+
 
     System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
     System.out.println("** Sequence length " + masterSequence.getTickLength());
@@ -121,7 +122,7 @@ public class Create_02_Follia {
     orchestraSuperTrack.setName("Orchester");
     mastertrack.addSubtrack(orchestraSuperTrack);
     BuiltinSynthesizer OrchestraSynt = new BuiltinSynthesizer();
-    OrchestraSynt.setSoundbankfile("../Chorium.sf2");
+    OrchestraSynt.setSoundbankfile("../Schickardt.sf2");
     orchestraSuperTrack.setSynthesizer(OrchestraSynt);
 
     //create a super track that will collect the voices tracs
@@ -132,7 +133,7 @@ public class Create_02_Follia {
     voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
-    //link all the orchestra tracks 
+        //link all the orchestra tracks 
     int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     int orchestraEnd = 2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     for (int i = orchestraBase; i <= orchestraEnd; i++) {
@@ -144,29 +145,29 @@ public class Create_02_Follia {
       orchestraSuperTrack.addSubtrack(songTrack);
     }
 
+
     MidiTrack newSongTrack;
-    int voiceBase = 3;
-    // -- Piano
+    int voiceBase  = 3;
+    // -- Diskant
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Piano1");
+    newSongTrack.setName("Flute 1");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
-
-    voiceBase++;
-    // -- Piano
+    // -- Bass
+    voiceBase++; //4
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Piano2");
+    newSongTrack.setName("Flute 2");
     newSongTrack.setMidiTrackIndex(voiceBase);
-    newSongTrack.setMidiChannel(0);
+    newSongTrack.setMidiChannel(1);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
     // -- Metronome
-    voiceBase++; //8
+    voiceBase++; //5
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Metronome");
     newSongTrack.setMidiTrackIndex(voiceBase);
@@ -174,6 +175,8 @@ public class Create_02_Follia {
     newSongTrack.setInstrumentDescription("Metronome");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
+
+
 
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());
@@ -214,7 +217,7 @@ public class Create_02_Follia {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_02_Follia processor = new Create_02_Follia();
+    Create_31_Preludio processor = new Create_31_Preludio();
     System.out.println("############ Creating \"" + number + " " + camelTitle + "\"");
     processor.process();
 
