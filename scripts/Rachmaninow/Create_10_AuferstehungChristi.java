@@ -162,9 +162,9 @@ public class Create_10_AuferstehungChristi {
     int[] volume = {
       0, //  0 , director track
       // Forground
-      100, //  1 , S 1
-      100, //  2 , S 2
-      100, //  3 , S 3
+      127, //  1 , S 1
+      127, //  2 , S 2
+      127, //  3 , S 3
       100, //  4 , A 1 
       100, //  5 , A 2 
       100, //  6 , T 1 
