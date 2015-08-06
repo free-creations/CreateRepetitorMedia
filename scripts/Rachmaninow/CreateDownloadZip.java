@@ -79,24 +79,31 @@ public class CreateDownloadZip {
     new Piece("10_HymnOfTheResurection", "10_Auferstehung_Christi", "34"),
     new Piece("11_Magnificat", "11_Meine_Seele_lobpreise_den_Herrn", "37"),};
 
-  private static final String[] regularVoices = {
-    "01_sopranoOne",/*
-   "02_sopranoTwo",
-   "03_altoOne",
-   "04_altoTwo",
-   "05_tenoreOne",
-   "06_tenoreTwo",
-   "07_bassoOne",
-   "08_bassoTwo"*/};
+  private static class Voice {
 
-  private static final String[] extraVoices = {
-    "09_bassoThree",
-    "10_sopranoThree"
+    final public String regularVoice;
+    final public String replacementVoice;
+    final public String lyrics;
+
+    public Voice(String regularVoice, String replacementVoice, String lyrics) {
+      this.regularVoice = regularVoice;
+      this.replacementVoice = replacementVoice;
+      this.lyrics = lyrics;
+    }
+  }
+
+  private static final Voice[] allVoices = {
+    new Voice("01_sopranoOne", null, "sopranoLyrics"),
+    new Voice("02_sopranoTwo", null, "sopranoLyrics"),
+    new Voice("03_altoOne", null, "altoLyrics"),
+    new Voice("04_altoTwo", null, "altoLyrics"),
+    new Voice("05_tenoreOne", null, "tenoreLyrics"),
+    new Voice("06_tenoreTwo", null, "tenoreLyrics"),
+    new Voice("07_bassoOne", null, "bassoLyrics"),
+    new Voice("08_bassoTwo", null, "bassoLyrics"),
+    new Voice("09_bassoThree", "08_bassoTwo", "bassoLyrics"),
+    new Voice("10_sopranoThree", "02_sopranoTwo", "sopranoLyrics")
   };
-
-  private static final String[] extraVoicesReplacement = {
-    "08_bassoTwo",
-    "02_sopranoTwo",};
 
   private static class ZipItem {
 
@@ -111,49 +118,58 @@ public class CreateDownloadZip {
   }
 
   void createZipFiles() throws IOException {
-    for (String voice : regularVoices) {
-      PrintStream content = prepareContentList(voice);
-      File zipFile = new File(rootDir, "/downloads/rachmaninow" + voice + ".zip");
-      List<ZipItem> zipList = createZipList(voice, "", content);
+    for (Voice voice : allVoices) {
+      PrintStream content = prepareContentList(voice.regularVoice);
+      File zipFile = new File(rootDir, "/downloads/rachmaninow" + voice.regularVoice + ".zip");
+      List<ZipItem> zipList = createZipList(voice, content);
       closeContent(content);
-      packFiles(voice, zipList, zipFile);
-    }
-    for (int i = 0; i < extraVoices.length; i++) {
-      PrintStream content = prepareContentList(extraVoices[i]);
-      List<ZipItem> zipList = createZipList(extraVoices[i], extraVoicesReplacement[i], content);
-      File zipFile = new File(rootDir, "/downloads/rachmaninow" + extraVoices[i] + ".zip");
-      closeContent(content);
-      packFiles(extraVoices[i], zipList, zipFile);
+      packFiles(voice.regularVoice, zipList, zipFile);
     }
   }
 
-  List<ZipItem> createZipList(String voice, String replacementVoice, PrintStream content) {
+  List<ZipItem> createZipList(Voice voice, PrintStream content) {
     ArrayList<ZipItem> zipList = new ArrayList<>();
     zipList.add(new ZipItem(contentFile, contentName));
     int count = 0;
     for (Piece piece : AllPieces) {
       count++;
-      ZipItem musicItem = createZipItem(piece, voice, replacementVoice);
+      ZipItem musicItem = createMusicItem(piece, voice);
       zipList.add(musicItem);
       addContentEntry(content, count, musicItem.zipPath, piece.page);
+
+      ZipItem lyricItem = createLyricItem(piece, voice);
+      if (lyricItem != null) {
+        count++;
+        zipList.add(lyricItem);
+        addContentEntry(content, count, lyricItem.zipPath, piece.page);
+      }
     }
     return zipList;
   }
 
   void addContentEntry(PrintStream content, int count, String fileName, String page) {
-    content.printf("%2d)  %-42s Seite %s%n", count, fileName, page);
+    content.printf("%2d)  %-52s Seite %s%n", count, fileName, page);
   }
 
-  private ZipItem createZipItem(Piece piece, String voice, String replacementVoice) {
+  private ZipItem createMusicItem(Piece piece, Voice voice) {
     File sourceDir = new File(rootDir, piece.titleE + "/audio");
-    File sourceFile = new File(sourceDir, voice + ".mp3");
+    File sourceFile = new File(sourceDir, voice.regularVoice + ".mp3");
     if (!sourceFile.exists()) {
-      sourceFile = new File(sourceDir, replacementVoice + ".mp3");
+      sourceFile = new File(sourceDir, voice.replacementVoice + ".mp3");
     }
     if (!sourceFile.exists()) {
       throw new RuntimeException(sourceFile + " not found.");
     }
     return new ZipItem(sourceFile, piece.titleD + ".mp3");
+  }
+
+  private ZipItem createLyricItem(Piece piece, Voice voice) {
+    File sourceDir = new File(rootDir, piece.titleE + "/lyrics");
+    File sourceFile = new File(sourceDir, voice.lyrics + ".mp3");
+    if (!sourceFile.exists()) {
+      return null;
+    }
+    return new ZipItem(sourceFile, piece.titleD + "_Ausprache.mp3");
   }
 
   boolean checkFiles() {
@@ -177,11 +193,19 @@ public class CreateDownloadZip {
         return false;
       }
       boolean ok = true;
-      for (String voice : regularVoices) {
-        File voiceFile = new File(audioDir, voice + ".mp3");
+      for (Voice voice : allVoices) {
+        File voiceFile = new File(audioDir, voice.regularVoice + ".mp3");
         if (!voiceFile.exists()) {
-          ok = false;
-          System.err.println(voiceFile.getCanonicalPath() + " not found.");
+          if (voice.replacementVoice == null) {
+            ok = false;
+            System.err.println(voiceFile.getCanonicalPath() + " not found.");
+          } else {
+            voiceFile = new File(audioDir, voice.replacementVoice + ".mp3");
+            if (!voiceFile.exists()) {
+              ok = false;
+              System.err.println(voiceFile.getCanonicalPath() + " not found.");
+            }
+          }
         }
       }
       return ok;
@@ -195,7 +219,7 @@ public class CreateDownloadZip {
   private PrintStream prepareContentList(String voice) throws FileNotFoundException {
 
     PrintStream stream = new PrintStream(contentFile);
-    stream.printf(contentHeader, voice,new Date());
+    stream.printf(contentHeader, voice, new Date());
 
     return stream;
 
@@ -226,14 +250,6 @@ public class CreateDownloadZip {
 
   private void packFiles(String voice, List<ZipItem> filestozip, File zipfile) throws FileNotFoundException, IOException {
 
-    /*
-     System.out.println(" #### packing files for: " + voice);
-     for (ZipItem z : filestozip) {
-     System.out.println("     source: " + z.source);
-     System.out.println("       dest: " + z.zipPath);
-
-     }
-     */
     // Create a buffer for reading the files
     byte[] buf = new byte[1024];
     try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipfile))) {
