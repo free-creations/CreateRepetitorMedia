@@ -15,7 +15,6 @@
  */
 package RachmaninowRepetitor;
 
-
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.Randomizer;
@@ -42,18 +41,18 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_10_AuferstehungChristi {
+public class Create_07_SechsterPsalm {
 
   private final File inputFile;
   private File outputMidiFile;
   private File outputSongFile;
   private final Handler loggingHandler;
-  final static private String piece = "10_HymnOfTheResurection";
-  final static private String description = "10_HymnOfTheResurection";
+  final static private String piece = "07_ShortGloria";
+  final static private String description = "07_ShortGloria";
   final static private int resolution = 480;
   static final private File resourceDir = new File("../rachmaninow-vigil");
 
-  private Create_10_AuferstehungChristi() throws IOException {
+  private Create_07_SechsterPsalm() throws IOException {
     loggingHandler = null;
     File projectDir = new File(resourceDir, piece);
     if (!projectDir.exists()) {
@@ -99,12 +98,14 @@ public class Create_10_AuferstehungChristi {
     masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{0}, -1, null, loggingHandler); //
 
     // the background tracks
-    for (int i = 22; i < inputSequence.getTracks().length; i++) {
+    for (int i = 11; i < inputSequence.getTracks().length; i++) {
       masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{i}, -1, null, loggingHandler); //
     }
 
     // the solo tracks
-    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{19}, -1, null, loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{8}, -1, null, loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{9}, -1, null, loggingHandler); //
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{10}, -1, null, loggingHandler); //
 
     ChannelCleaner sequenceImporter = new ChannelCleaner(masterSequence, loggingHandler);
     masterSequence = sequenceImporter.getResult();
@@ -171,14 +172,13 @@ public class Create_10_AuferstehungChristi {
     };
     masterSequence = Randomizer.process(masterSequence, maxDelay, true, loggingHandler);
 
-    
-        // This is a hack....to make the track 0 as long as the whole sequence
+    // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
     double quarterLen = masterSequence.getResolution();
     double barLen = 4 * quarterLen;
     long fullSeqLen = (long) (barLen * (Math.ceil((rawSeqLen + quarterLen) / barLen)));
     masterSequence.getTracks()[0].add(newEndOfTrackMessage(fullSeqLen));
-    
+
     // Write the file to disk
     MidiSystem.write(masterSequence, 1, outputMidiFile);
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());
@@ -228,9 +228,29 @@ public class Create_10_AuferstehungChristi {
     int voiceBase = 5; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     MidiTrack newSongTrack;
-    // -- Bass
+    // -- Bass 1
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Basso 1");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(0);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+    // -- Bass 2
+    voiceBase++;
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Basso 2");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(0);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+    // -- Bass 3
+    voiceBase++;
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Basso 3");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
@@ -349,7 +369,7 @@ public class Create_10_AuferstehungChristi {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_10_AuferstehungChristi processor = new Create_10_AuferstehungChristi();
+    Create_07_SechsterPsalm processor = new Create_07_SechsterPsalm();
 
     processor.process();
 

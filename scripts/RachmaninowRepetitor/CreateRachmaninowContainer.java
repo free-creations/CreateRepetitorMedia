@@ -61,6 +61,51 @@ public class CreateRachmaninowContainer {
     "StringPiano.sf2",
     false),
     //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/04_OGladsomeLight.mid"),
+    "Rachmaninow/04_OGladsomeLight.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/04_OGladsomeLight.xml"),
+    "Rachmaninow/04_OGladsomeLight.xml",
+    true),    
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/07_ShortGloria.mid"),
+    "Rachmaninow/07_ShortGloria.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/07_ShortGloria.xml"),
+    "Rachmaninow/07_ShortGloria.xml",
+    true),
+    //--------------------------------------------------------------------------
+        // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/08_IntroSixPsalms.mid"),
+    "Rachmaninow/08_IntroSixPsalms.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/08_IntroSixPsalms.xml"),
+    "Rachmaninow/08_IntroSixPsalms.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/09_BlessedArtTou.mid"),
+    "Rachmaninow/09_BlessedArtTou.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/09_BlessedArtTou.xml"),
+    "Rachmaninow/09_BlessedArtTou.xml",
+    true),
+    //--------------------------------------------------------------------------
     // ---- .mid ()
     new ZipItem(
     new File(tempDir, "Rachmaninow/10_HymnOfTheResurection.mid"),
