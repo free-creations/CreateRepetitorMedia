@@ -21,8 +21,8 @@ import de.free_creations.importexport.Randomizer;
 import de.free_creations.importexport.SlurBinderB;
 import de.free_creations.importexport.TimeShifter;
 import de.free_creations.importexport.TrackMerger;
-import de.free_creations.importexport.VelocityCorrectionC;
-import de.free_creations.importexport.VelocityCorrectionD;
+import de.free_creations.importexport.VelocityCorrectionA;
+import de.free_creations.importexport.VelocityCorrectionB;
 import de.free_creations.midiutil.MidiUtil;
 import java.io.File;
 import java.io.IOException;
@@ -35,16 +35,16 @@ import javax.xml.bind.JAXBException;
  *
  * @author Harald Postner
  */
-public class Create_11_MeineSeeleLobpreiseDenHerrn {
+public class Create_12_DieGrosseLobpreisung {
 
   private final File inputFile;
   private File outputMidiFile;
   private final Handler loggingHandler;
-  final static private String piece = "11_Magnificat";
+  final static private String piece = "12_GreatGloria";
   final static private int resolution = 480;
   static final private File resourceDir = new File("../rachmaninow-vigil");
 
-  private Create_11_MeineSeeleLobpreiseDenHerrn() throws IOException {
+  private Create_12_DieGrosseLobpreisung() throws IOException {
     loggingHandler = null;
     File projectDir = new File(resourceDir, piece);
     if (!projectDir.exists()) {
@@ -78,10 +78,10 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
     masterSequence = sequenceImporter.getResult();
 
     //-- correct velocity values
-    int[] backgroundTracks = new int[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25};
-    masterSequence = VelocityCorrectionC.process(masterSequence, backgroundTracks, loggingHandler);
-    int[] pianoTracks = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    masterSequence = VelocityCorrectionD.process(masterSequence, pianoTracks, loggingHandler);
+    int[] backgroundTracks = new int[]{12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27};
+    masterSequence = VelocityCorrectionA.process(masterSequence, backgroundTracks, loggingHandler);
+    int[] pianoTracks = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    masterSequence = VelocityCorrectionB.process(masterSequence, pianoTracks, loggingHandler);
 
     // --- Time shift
     // values in ms.
@@ -89,35 +89,37 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
     long[] deltaTicks = {
       0, // 0, director
       // Forground
-      3, //  1 , S 1
-      3, //  2 , S 2
-      3, //  3 , S 3
-      3, //  4 , A 1 
-      3, //  5 , A 2 
-      3, //  6 , T 1 
-      3, //  7 , T 2 
-      3, //  8 , B 1
-      3, //  9 , B 2 
-      3, // 10 , B 3
+      0, //  1 , S 1
+      0, //  2 , S 2
+      0, //  3 , S 3
+      0, //  4 , A 1 
+      0, //  5 , A 2 
+      0, //  6 , T 1 
+      0, //  7 , T 2 
+      0, //  8 , T 3
+      0, //  9 , B 1
+      0, // 10 , B 2 
+      0, // 11 , B 3
 
       // Back ground -> 32 ms
-      20, // 11 , S 1 B
-      20, // 12 , S 2 B
-      20, // 13 , S 3 B
-      20, // 14 , A 1 B
-      20, // 15 , A 2 B 
-      20, // 16 , T 1 B 
-      20, // 17 , T 2 B
-      20, // 18 , B 1 B
-      20, // 19 , B 2 B     
-      20, // 20 , B 3 B      
-      20, // 21 , Solo B
+      20, // 12 , S 1 B
+      20, // 13 , S 2 B
+      20, // 14 , S 3 B
+      20, // 15 , A 1 B
+      20, // 16 , A 2 B 
+      20, // 17 , T 1 B 
+      20, // 18 , T 2 B
+      20, // 19 , T 3 B
+      20, // 20 , B 1 B
+      20, // 21 , B 2 B     
+      20, // 22 , B 3 B      
+      20, // 23 , Solo B
 
       // Organ
-      13, // 22 , Female 
-      13, // 23 , Male
-      13, // 24 , subbasss
-      0, // 25 , Solo Organ
+      13, // 24 , Female 
+      13, // 25 , Male
+      13, // 26 , subbasss
+      0, //  27, Solo Organ
     };
     masterSequence = TimeShifter.process(masterSequence, deltaTicks, loggingHandler);
 
@@ -133,6 +135,7 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
       64, //  5 , A 2 
       64, //  6 , T 1 
       64, //  7 , T 2 
+      64, //  7 , T 3 
       64, //  8 , B 1
       64, //  9 , B 2 
       64, // 10 , B 3
@@ -145,6 +148,7 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
       88, // 15 , A 2 B 
       54, // 16 , T 1 B 
       56, // 17 , T 2 B
+      56, // 17 , T 3 B
       80, // 18 , B 1 B
       84, // 19 , B 2 B     
       88, // 20 , B 3 B      
@@ -169,6 +173,7 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
       100, //  5 , A 2 
       100, //  6 , T 1 
       100, //  7 , T 2 
+      100, //  7 , T 3
       100, //  8 , B 1
       100, //  9 , B 2 
       100, // 10 , B 3
@@ -180,6 +185,7 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
       100, // 14 , A 1 B
       100, // 15 , A 2 B 
       100, // 16 , T 1 B 
+      100, // 17 , T 2 B
       100, // 17 , T 2 B
       100, // 18 , B 1 B
       100, // 19 , B 2 B     
@@ -205,28 +211,30 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
       0, //  5 , A 2 
       0, //  6 , T 1 
       0, //  7 , T 2 
-      0, //  8 , B 1
-      0, //  9 , B 2 
-      0, // 10 , B 3
+      0, //  8 , T 3
+      0, //  9 , B 1
+      0, // 10 , B 2 
+      0, // 11 , B 3
 
       // Back ground
-      0, // 11 , S 1 B
-      0, // 12 , S 2 B
-      0, // 13 , S 3 B
-      0, // 14 , A 1 B
-      0, // 15 , A 2 B 
-      0, // 16 , T 1 B 
-      0, // 17 , T 2 B
-      0, // 18 , B 1 B
-      0, // 19 , B 2 B     
-      0, // 20 , B 3 B      
-      0, // 21 , Solo B
+      0, // 12 , S 1 B
+      0, // 13 , S 2 B
+      0, // 14 , S 3 B
+      0, // 15 , A 1 B
+      0, // 16 , A 2 B 
+      0, // 17 , T 1 B 
+      0, // 18 , T 2 B
+      0, // 19 , T 3 B
+      0, // 20 , B 1 B
+      0, // 21 , B 2 B     
+      0, // 22 , B 3 B      
+      0, // 23 , Solo B
 
       // Organ
-      1, // 22 , Female 1/30 Fonds rec 8
-      1, // 23 , Male: 1/35 Soft pos. 16-8-4
-      0, // 24 , Male subbass: 0/ 15 Bourdon 16     
-      0, // 25 , Solo: 0/90 Petit Jeu
+      1, // 24 , Female 1/30 Fonds rec 8
+      1, // 25 , Male: 1/35 Soft pos. 16-8-4
+      0, // 26 , Male subbass: 0/ 15 Bourdon 16     
+      0, // 27 , Solo: 0/90 Petit Jeu
     };
 
     // --- bank select
@@ -234,35 +242,37 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
     int[] programm = {
       0, //  0 , director track
       // Forground Kawai CS7 Digitalpiano (5 Mellow Grand)
-      4, //  1 , S 1
-      4, //  2 , S 2
-      4, //  3 , S 3
-      4, //  4 , A 1 
-      4, //  5 , A 2 
-      4, //  6 , T 1 
-      4, //  7 , T 2 
-      4, //  8 , B 1
-      4, //  9 , B 2 
-      4, // 10 , B 3
+      0, //  1 , S 1
+      0, //  2 , S 2
+      0, //  3 , S 3
+      0, //  4 , A 1 
+      0, //  5 , A 2 
+      0, //  6 , T 1 
+      0, //  7 , T 2 
+      0, //  8 , T 3
+      0, //  9 , B 1
+      0, // 10 , B 2 
+      0, // 11 , B 3
 
       // Back ground Synth 4 Papelmedia_Ahh-Choir through calf Multi Chorus
-      0, // 11 , S 1 B
-      0, // 12 , S 2 B
-      0, // 13 , S 3 B
-      0, // 14 , A 1 B
-      0, // 15 , A 2 B 
-      0, // 16 , T 1 B 
-      0, // 17 , T 2 B
-      0, // 18 , B 1 B
-      0, // 19 , B 2 B     
-      0, // 20 , B 3 B      
-      0, // 21 , Solo B
+      0, // 12 , S 1 B
+      0, // 13 , S 2 B
+      0, // 14 , S 3 B
+      0, // 15 , A 1 B
+      0, // 16 , A 2 B 
+      0, // 17 , T 1 B 
+      0, // 18 , T 2 B
+      0, // 19 , T 3 B
+      0, // 20 , B 1 B
+      0, // 21 , B 2 B     
+      0, // 22 , B 3 B      
+      0, // 23 , Solo B
 
       // Organ
-      30, // 22 , Female 1/30 Fonds rec 8
-      35, // 23 , Male: 1/35 Soft pos. 16-8-4
-      15, // 24 , Male subbass: 0/ 15 Bourdon 16     
-      90, // 25 , Solo: 0/90 Petit Jeu
+      30, // 24 , Female 1/30 Fonds rec 8
+      35, // 25 , Male: 1/35 Soft pos. 16-8-4
+      15, // 26 , Male subbass: 0/ 15 Bourdon 16     
+      90, // 27 , Solo: 0/90 Petit Jeu
     };
     // --- create track initialization
     Track[] masterTracks = masterSequence.getTracks();
@@ -275,7 +285,6 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
         masterTracks[i].add(newBankSelectMessage(0, channel, bank[i]));
         masterTracks[i].add(newProgramMessage(1, channel, programm[i]));
       }
-
     }
 
     // --- Randomize
@@ -290,6 +299,7 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
       0, //  5 , A 2 
       0, //  6 , T 1 
       0, //  7 , T 2 
+      0, //  7 , T 3 
       0, //  8 , B 1
       0, //  9 , B 2 
       0, // 10 , B 3
@@ -299,18 +309,19 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
       100, // 12 , S 2 B
       100, // 13 , S 3 B
       20, // 14 , A 1 B
-      50, // 15 , A 2 B 
+      100, // 15 , A 2 B 
       20, // 16 , T 1 B 
-      50, // 17 , T 2 B
+      200, // 17 , T 2 B
+      200, // 17 , T 3 B
       20, // 18 , B 1 B
       30, // 19 , B 2 B     
       20, // 20 , B 3 B      
       20, // 21 , Solo B
 
       // Organ
-      50, // 22 , Female 
-      50, // 23 , Male
-      50, // 23 , subbasss
+      20, // 22 , Female 
+      20, // 23 , Male
+      20, // 23 , subbasss
       0, // 24 , Solo Organ
     };
     masterSequence = Randomizer.process(masterSequence, maxDelay, true, loggingHandler);
@@ -321,7 +332,6 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
     int noteOverlap = 480 / 8; // in MidiTicks -> 1/32
     int minimumRest = 480 / 2; // eighth rest
 
-    masterSequence = SlurBinderB.process(masterSequence, 11, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
     masterSequence = SlurBinderB.process(masterSequence, 12, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
     masterSequence = SlurBinderB.process(masterSequence, 13, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
     masterSequence = SlurBinderB.process(masterSequence, 14, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
@@ -332,10 +342,13 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
     masterSequence = SlurBinderB.process(masterSequence, 19, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
     masterSequence = SlurBinderB.process(masterSequence, 20, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
     masterSequence = SlurBinderB.process(masterSequence, 21, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
-
     masterSequence = SlurBinderB.process(masterSequence, 22, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
     masterSequence = SlurBinderB.process(masterSequence, 23, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
+
     masterSequence = SlurBinderB.process(masterSequence, 24, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
+    masterSequence = SlurBinderB.process(masterSequence, 25, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
+    masterSequence = SlurBinderB.process(masterSequence, 26, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
+    masterSequence = SlurBinderB.process(masterSequence, 27, startTick, lastTick, noteOverlap, minimumRest, loggingHandler);
 
 // Write the file to disk
     MidiSystem.write(masterSequence, 1, outputMidiFile);
@@ -358,20 +371,6 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
     return new MidiEvent(message, tick);
   }
 
-  private MidiEvent newBankSelectMessage(long tick, int channel, int bank) {
-    ShortMessage message = new ShortMessage();
-    try {
-      message.setMessage(ShortMessage.CONTROL_CHANGE,// command
-              channel,
-              MidiUtil.contBankSelect_MSB,
-              bank);
-    } catch (InvalidMidiDataException ex) {
-      throw new RuntimeException(ex);
-    }
-
-    return new MidiEvent(message, tick);
-  }
-
   private MidiEvent newProgramMessage(long tick, int channel, int programNumber) {
     ShortMessage message = new ShortMessage();
     try {
@@ -380,6 +379,20 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
               channel,
               programNumber,
               0);//not used
+    } catch (InvalidMidiDataException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    return new MidiEvent(message, tick);
+  }
+
+  private MidiEvent newBankSelectMessage(long tick, int channel, int bank) {
+    ShortMessage message = new ShortMessage();
+    try {
+      message.setMessage(ShortMessage.CONTROL_CHANGE,// command
+              channel,
+              MidiUtil.contBankSelect_MSB,
+              bank);
     } catch (InvalidMidiDataException ex) {
       throw new RuntimeException(ex);
     }
@@ -436,7 +449,7 @@ public class Create_11_MeineSeeleLobpreiseDenHerrn {
    */
   public static void main(String[] args) throws InvalidMidiDataException, IOException, URISyntaxException, JAXBException {
 
-    Create_11_MeineSeeleLobpreiseDenHerrn processor = new Create_11_MeineSeeleLobpreiseDenHerrn();
+    Create_12_DieGrosseLobpreisung processor = new Create_12_DieGrosseLobpreisung();
 
     processor.process();
 
