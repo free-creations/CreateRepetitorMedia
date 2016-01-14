@@ -117,7 +117,7 @@ public class CreateSonateContainer {
     "BoismortierSonate5/5_Allemande.xml",
     true),
     //--------------------------------------------------------------------------
-    // ---- 2 
+    // ---- 
     new ZipItem(
     new File(tempDir, "Boismortier Sonaten III-V/6_Legerement.mid"),
     "BoismortierSonate5/6_Legerement.mid",
@@ -126,6 +126,28 @@ public class CreateSonateContainer {
     new ZipItem(
     new File(tempDir, "Boismortier Sonaten III-V/6_Legerement.xml"),
     "BoismortierSonate5/6_Legerement.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Sonaten III-V/7_Lentement.mid"),
+    "BoismortierSonate5/7_Lentement.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Sonaten III-V/7_Lentement.xml"),
+    "BoismortierSonate5/7_Lentement.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Sonaten III-V/8_Gigue.mid"),
+    "BoismortierSonate5/8_Gigue.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Sonaten III-V/8_Gigue.xml"),
+    "BoismortierSonate5/8_Gigue.xml",
     true),};
 
   private CreateSonateContainer() {
