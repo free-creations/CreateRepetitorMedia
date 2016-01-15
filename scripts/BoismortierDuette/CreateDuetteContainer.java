@@ -71,9 +71,8 @@ public class CreateDuetteContainer {
     new ZipItem(
     new File(tempDir, "Boismortier Duette/01_Allemande.xml"),
     "Boismortier_Duette/01_Allemande.xml",
-    true), 
-    
-        //--------------------------------------------------------------------------
+    true),
+    //--------------------------------------------------------------------------
     // ---- 
     new ZipItem(
     new File(tempDir, "Boismortier Duette/02_Rondeau.mid"),
@@ -83,8 +82,18 @@ public class CreateDuetteContainer {
     new ZipItem(
     new File(tempDir, "Boismortier Duette/02_Rondeau.xml"),
     "Boismortier_Duette/02_Rondeau.xml",
-    true), 
-//--------------------------------------------------------------------------
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/03_Paysane.mid"),
+    "Boismortier_Duette/03_Paysane.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/03_Paysane.xml"),
+    "Boismortier_Duette/03_Paysane.xml",
+    true), //--------------------------------------------------------------------------
   };
 
   private CreateDuetteContainer() {
