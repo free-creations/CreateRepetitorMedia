@@ -93,8 +93,213 @@ public class CreateDuetteContainer {
     new ZipItem(
     new File(tempDir, "Boismortier Duette/03_Paysane.xml"),
     "Boismortier_Duette/03_Paysane.xml",
-    true), //--------------------------------------------------------------------------
-  };
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/04_Doucement.mid"),
+    "Boismortier_Duette/04_Doucement.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/04_Doucement.xml"),
+    "Boismortier_Duette/04_Doucement.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/05_Menuet_1.mid"),
+    "Boismortier_Duette/05_Menuet_1.mid",
+    false),
+    // ---- ----------------------------------------------------
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/05_Menuet_1.xml"),
+    "Boismortier_Duette/05_Menuet_1.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/06_Menuet_2.mid"),
+    "Boismortier_Duette/06_Menuet_2.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/06_Menuet_2.xml"),
+    "Boismortier_Duette/06_Menuet_2.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/07_Suite_2_1.mid"),
+    "Boismortier_Duette/07_Suite_2_1.mid",
+    false),
+    // ---- ----------------------------------------------------
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/07_Suite_2_1.xml"),
+    "Boismortier_Duette/07_Suite_2_1.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/08_Suite_2_2.mid"),
+    "Boismortier_Duette/08_Suite_2_2.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/08_Suite_2_2.xml"),
+    "Boismortier_Duette/08_Suite_2_2.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/09_Suite_2_3.mid"),
+    "Boismortier_Duette/09_Suite_2_3.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/09_Suite_2_3.xml"),
+    "Boismortier_Duette/09_Suite_2_3.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/11_Rigaudon_1.mid"),
+    "Boismortier_Duette/11_Rigaudon_1.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/11_Rigaudon_1.xml"),
+    "Boismortier_Duette/11_Rigaudon_1.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/12_Rigaudon_2.mid"),
+    "Boismortier_Duette/12_Rigaudon_2.mid",
+    false),
+    // ---- 1 Gravement.xml (create with Create_1_Gravement.java)
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/12_Rigaudon_2.xml"),
+    "Boismortier_Duette/12_Rigaudon_2.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/13_NaudotSuite1_1.mid"),
+    "Boismortier_Duette/13_NaudotSuite1_1.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/13_NaudotSuite1_1.xml"),
+    "Boismortier_Duette/13_NaudotSuite1_1.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/14_NaudotSuite1_2.mid"),
+    "Boismortier_Duette/14_NaudotSuite1_2.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/14_NaudotSuite1_2.xml"),
+    "Boismortier_Duette/14_NaudotSuite1_2.xml",
+    true),
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/21_Allemande.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/21_Allemande.mid"),
+    "Boismortier_Duette/21_Allemande.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/21_Allemande.xml"),
+    "Boismortier_Duette/21_Allemande.xml",
+    true),
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/22_Fanfare.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/22_Fanfare.mid"),
+    "Boismortier_Duette/22_Fanfare.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/22_Fanfare.xml"),
+    "Boismortier_Duette/22_Fanfare.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/23_Menuet.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/23_Menuet.mid"),
+    "Boismortier_Duette/23_Menuet.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/23_Menuet.xml"),
+    "Boismortier_Duette/23_Menuet.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/24_Courante.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/24_Courante.mid"),
+    "Boismortier_Duette/24_Courante.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/24_Courante.xml"),
+    "Boismortier_Duette/24_Courante.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/25_Rondeau.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/25_Rondeau.mid"),
+    "Boismortier_Duette/25_Rondeau.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/25_Rondeau.xml"),
+    "Boismortier_Duette/25_Rondeau.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/26_Pavannne.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/26_Pavannne.mid"),
+    "Boismortier_Duette/26_Pavannne.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/26_Pavannne.xml"),
+    "Boismortier_Duette/26_Pavannne.xml",
+    true),
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/27_Doucement.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/27_Doucement.mid"),
+    "Boismortier_Duette/27_Doucement.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/27_Doucement.xml"),
+    "Boismortier_Duette/27_Doucement.xml",
+    true),
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/28_Rigaudon_1.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/28_Rigaudon_1.mid"),
+    "Boismortier_Duette/28_Rigaudon_1.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/28_Rigaudon_1.xml"),
+    "Boismortier_Duette/28_Rigaudon_1.xml",
+    true),
+    // ---- /home/harald/NetBeansProjects/temp/Boismortier Duette/29_Rigaudon.mid
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/29_Rigaudon.mid"),
+    "Boismortier_Duette/29_Rigaudon.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "Boismortier Duette/29_Rigaudon.xml"),
+    "Boismortier_Duette/29_Rigaudon.xml",
+    true),};
 
   private CreateDuetteContainer() {
 

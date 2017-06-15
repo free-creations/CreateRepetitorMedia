@@ -103,7 +103,7 @@ public class VelocityCorrectionB {
             55, // f
             60,// ff
             70,// fff
-            128
+            80
           };
 
   /**

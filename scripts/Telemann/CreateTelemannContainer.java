@@ -93,6 +93,28 @@ public class CreateTelemannContainer {
     new ZipItem(
     new File(tempDir, "TelemannPartita/03_Aria4_CDurVerziert.xml"),
     "TelemannPartita/03_Aria4_CDurVerziert.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----  04 Aria  C-dur Begleitung
+    new ZipItem(
+    new File(tempDir, "TelemannPartita/04_Aria4_CDurBegleitung.mid"),
+    "TelemannPartita/04_Aria4_CDurBegleitung.mid",
+    false),
+    // ---- 1
+    new ZipItem(
+    new File(tempDir, "TelemannPartita/04_Aria4_CDurBegleitung.xml"),
+    "TelemannPartita/04_Aria4_CDurBegleitung.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ----  TelemannSonate1/10_Sonate_1_Largo.mid
+    new ZipItem(
+    new File(tempDir, "TelemannSonate1/10_Sonate_1_Largo.mid"),
+    "TelemannSonate1/10_Sonate_1_Largo.mid",
+    false),
+    // ---- 1
+    new ZipItem(
+    new File(tempDir, "TelemannSonate1/10_Sonate_1_Largo.xml"),
+    "TelemannSonate1/10_Sonate_1_Largo.xml",
     true),};
 
   private CreateTelemannContainer() {

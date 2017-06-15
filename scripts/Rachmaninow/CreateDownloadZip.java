@@ -70,14 +70,19 @@ public class CreateDownloadZip {
     new Piece("03_BlessedIsTheMan/2_psalm2", "03_2_Selig_ist_der_Mann_Psalm_2", " 9"),
     new Piece("03_BlessedIsTheMan/3_psalm3", "03_3_Selig_ist_der_Mann_Psalm_3", "10"),
     new Piece("03_BlessedIsTheMan/4_gloriaPatri", "03_4_Selig_ist_der_Mann_Gloria", "11"),
-    new Piece("04_OGladsomeLight", "04_Licht_der_Ruhe", "13"),
+    new Piece("04_OGladsomeLight/festival", "04_Licht_der_Ruhe", "13"),
     new Piece("05_NuncDimittis", "05_Herr_lass_deinen_Knecht", "16"),
     new Piece("06_AveMaria", "06_Ave_Maria", "19"),
     new Piece("07_ShortGloria", "07_Sechster_Psalm", "21"),
     new Piece("08_IntroSixPsalms", "08_Lobet_den_Namen_des_Herrn", "23"),
     new Piece("09_BlessedArtTou", "09_Gelobt_seist_Du_o_Herr", "26"),
-    new Piece("10_HymnOfTheResurection", "10_Auferstehung_Christi", "34"),
-    new Piece("11_Magnificat", "11_Meine_Seele_lobpreise_den_Herrn", "37"),};
+    new Piece("10_HymnOfTheResurection/festival", "10_Auferstehung_Christi", "34"),
+    new Piece("11_Magnificat/festival", "11_Meine_Seele_lobpreise_den_Herrn", "37"),
+    //
+    new Piece("12_GreatGloria/festival", "12_Die_grosse_Lobpreisung", "44"),
+    new Piece("13_TodaySalvationHasCome/festival", "13_Heute_ist_dasHeil_gekommen", "57"),
+    new Piece("14_ThouDidstRiseFromTheTomb/festival", "14_Auferstanden_vom_Grabe", "59"),
+    new Piece("15_ToTheeTheVictoriousLeader/festival", "15_Siegbringende_Heerführerin", "62"),};
 
   private static class Voice {
 
@@ -153,6 +158,11 @@ public class CreateDownloadZip {
 
   private ZipItem createMusicItem(Piece piece, Voice voice) {
     File sourceDir = new File(rootDir, piece.titleE + "/audio");
+    File alternateSourceDir = new File(rootDir, piece.titleE + "/audio/voices");
+    if (alternateSourceDir.exists()) {
+      sourceDir = alternateSourceDir;
+    }
+
     File sourceFile = new File(sourceDir, voice.regularVoice + ".mp3");
     if (!sourceFile.exists()) {
       sourceFile = new File(sourceDir, voice.replacementVoice + ".mp3");
@@ -184,6 +194,12 @@ public class CreateDownloadZip {
   boolean checkFilesDir(File dir) {
     try {
       File audioDir = new File(dir, "audio");
+      File alternateAudioDir = new File(dir, "audio/voices");
+
+      if (alternateAudioDir.exists()) {
+        audioDir = alternateAudioDir;
+      }
+
       if (!audioDir.exists()) {
         System.err.println(audioDir.getCanonicalPath() + " not found.");
         return false;

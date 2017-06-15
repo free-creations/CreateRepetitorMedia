@@ -71,7 +71,7 @@ public class CreateRachmaninowContainer {
     new ZipItem(
     new File(tempDir, "Rachmaninow/04_OGladsomeLight.xml"),
     "Rachmaninow/04_OGladsomeLight.xml",
-    true),    
+    true),
     //--------------------------------------------------------------------------
     // ---- .mid ()
     new ZipItem(
@@ -84,7 +84,7 @@ public class CreateRachmaninowContainer {
     "Rachmaninow/07_ShortGloria.xml",
     true),
     //--------------------------------------------------------------------------
-        // ---- .mid ()
+    // ---- .mid ()
     new ZipItem(
     new File(tempDir, "Rachmaninow/08_IntroSixPsalms.mid"),
     "Rachmaninow/08_IntroSixPsalms.mid",
@@ -115,6 +115,61 @@ public class CreateRachmaninowContainer {
     new ZipItem(
     new File(tempDir, "Rachmaninow/10_HymnOfTheResurection.xml"),
     "Rachmaninow/10_HymnOfTheResurection.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/11_Magnificat.mid"),
+    "Rachmaninow/11_Magnificat.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/11_Magnificat.xml"),
+    "Rachmaninow/11_Magnificat.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/12_GreatGloria.mid"),
+    "Rachmaninow/12_GreatGloria.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/12_GreatGloria.xml"),
+    "Rachmaninow/12_GreatGloria.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/13_TodaySalvationHasCome.mid"),
+    "Rachmaninow/13_TodaySalvationHasCome.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/13_TodaySalvationHasCome.xml"),
+    "Rachmaninow/13_TodaySalvationHasCome.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/14_ThouDidstRiseFromTheTomb.mid"),
+    "Rachmaninow/14_ThouDidstRiseFromTheTomb.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/14_ThouDidstRiseFromTheTomb.xml"),
+    "Rachmaninow/14_ThouDidstRiseFromTheTomb.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- .mid ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/15_ToTheeTheVictoriousLeader.mid"),
+    "Rachmaninow/15_ToTheeTheVictoriousLeader.mid",
+    false),
+    // ---- .xml ()
+    new ZipItem(
+    new File(tempDir, "Rachmaninow/15_ToTheeTheVictoriousLeader.xml"),
+    "Rachmaninow/15_ToTheeTheVictoriousLeader.xml",
     true),};
 
   private CreateRachmaninowContainer() {

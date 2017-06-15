@@ -29,7 +29,7 @@ import java.util.zip.ZipOutputStream;
 public class CreateHookContainer {
 
   private static final File tempDir = new File("../temp");
-  private static final File resourceDir =  new File("scripts/JamesHookTrios/resources");
+  private static final File resourceDir = new File("scripts/JamesHookTrios/resources");
   private static final String outFilename = "Hook_Trios.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
@@ -73,6 +73,18 @@ public class CreateHookContainer {
     "Hook_Trios/1_Allegro.xml",
     true),
     //--------------------------------------------------------------------------
+    // ---- 1_2_Andantino.mid 
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/1_2_Andantino.mid"),
+    "Hook_Trios/1_2_Andantino.mid",
+    false),
+    // ---- 1_2_Andantino.xml
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/1_2_Andantino.xml"),
+    "Hook_Trios/1_2_Andantino.xml",
+    true),
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     // ---- 2_Menuetto.mid
     new ZipItem(
     new File(tempDir, "Hook_Trios/2_Menuetto.mid"),
@@ -83,6 +95,18 @@ public class CreateHookContainer {
     new File(tempDir, "Hook_Trios/2_Menuetto.xml"),
     "Hook_Trios/2_Menuetto.xml",
     true),
+    //--------------------------------------------------------------------------
+    // ---- 3_1_Allegro.mid
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/3_1_Allegro.mid"),
+    "Hook_Trios/3_1_Allegro.mid",
+    false),
+    // ---- 3_1_Allegro.xml 
+    new ZipItem(
+    new File(tempDir, "Hook_Trios/3_1_Allegro.xml"),
+    "Hook_Trios/3_1_Allegro.xml",
+    true),
+    //----------------------------------------------------------------
     // ---- 3_Rondo.mid (create with Create_3Rondo.java)
     new ZipItem(
     new File(tempDir, "Hook_Trios/3_Rondo.mid"),
@@ -93,7 +117,6 @@ public class CreateHookContainer {
     new File(tempDir, "Hook_Trios/3_Rondo.xml"),
     "Hook_Trios/3_Rondo.xml",
     true),};
-
 
   private CreateHookContainer() {
 

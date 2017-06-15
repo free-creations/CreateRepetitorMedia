@@ -124,7 +124,11 @@ public class MetronomeCreator {
         create4ClicksMeasure(track, startTick, beatLength);
         return;
       case 12:
-        create4ClicksMeasure(track, startTick, 3 * beatLength);
+        if ((choosenPrefs & perf3beats) != 0) {
+          create6ClicksMeasure(track, startTick, 2 * beatLength);
+        } else {
+          create4ClicksMeasure(track, startTick, 3 * beatLength);
+        }
         return;
       case 6:
         create6ClicksMeasure(track, startTick, beatLength);

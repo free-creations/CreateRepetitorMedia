@@ -31,6 +31,7 @@ import java.util.zip.ZipOutputStream;
 public class CreateMissaAfricanaContainer {
 
   private static final File tempDir = new File("../temp");
+  private static final File deliveryDir = new File("/home/harald/Music/Repetitor");
   private static final String outFilename = "MissaAfricana.fmc";
   private static final File tempContainerInfoFile = new File(tempDir, "container.xml");
 
@@ -64,7 +65,7 @@ public class CreateMissaAfricanaContainer {
     false),
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    // ---- 01_AmazingGrace.
+    // ---- 01_Kyrie.mid
     new ZipItem(
     new File(tempDir, "MissaAfricana/01_Kyrie.mid"),
     "MissaAfricana/01_Kyrie.mid",
@@ -73,18 +74,65 @@ public class CreateMissaAfricanaContainer {
     new ZipItem(
     new File(tempDir, "MissaAfricana/01_Kyrie.xml"),
     "MissaAfricana/01_Kyrie.xml",
+    true),
+    //--------------------------------------------------------------------------
+    // ---- 02_Gloria.mid
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/02_Gloria.mid"),
+    "MissaAfricana/02_Gloria.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/02_Gloria.xml"),
+    "MissaAfricana/02_Gloria.xml",
+    true), //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    // ---- 03_Halleluja.mid
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/03_Halleluja.mid"),
+    "MissaAfricana/03_Halleluja.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/03_Halleluja.xml"),
+    "MissaAfricana/03_Halleluja.xml",
     true), 
+    
+    //--------------------------------------------------------------------------
+    // ---- 04_1_Sanctus.mid
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/04_1_Sanctus.mid"),
+    "MissaAfricana/04_1_Sanctus.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/04_1_Sanctus.xml"),
+    "MissaAfricana/04_1_Sanctus.xml",
+    true),     
+    //--------------------------------------------------------------------------
+    // ---- 04_1_Sanctus.mid
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/05_AgnusDei.mid"),
+    "MissaAfricana/05_AgnusDei.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "MissaAfricana/05_AgnusDei.xml"),
+    "MissaAfricana/05_AgnusDei.xml",
+    true),  
+    
+    
   //--------------------------------------------------------------------------
   //--------------------------------------------------------------------------
   };
 
   private CreateMissaAfricanaContainer() {
 
-    if (!tempDir.exists()) {
-      throw new RuntimeException("No temp Directory found.");
+    if (!deliveryDir.exists()) {
+      throw new RuntimeException("No delivery Directory found.");
     }
-    if (!tempDir.isDirectory()) {
-      throw new RuntimeException("../temp is not a directory.");
+    if (!deliveryDir.isDirectory()) {
+      throw new RuntimeException(deliveryDir.getPath() + " is not a directory.");
     }
   }
 
@@ -116,7 +164,8 @@ public class CreateMissaAfricanaContainer {
   private void packFiles(ZipItem[] filestozip) throws FileNotFoundException, IOException {
     // Create a buffer for reading the files
     byte[] buf = new byte[1024];
-    try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(new File(tempDir, outFilename)))) {
+    File outFile = new File(deliveryDir, outFilename);
+    try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(outFile))) {
       for (int i = 0; i < filestozip.length; i++) {
         try (FileInputStream in = new FileInputStream(filestozip[i].source)) {
           out.putNextEntry(new ZipEntry(filestozip[i].zipPath));
@@ -130,6 +179,7 @@ public class CreateMissaAfricanaContainer {
         }
       }
       out.close();
+      System.out.println("############ oput witten: "+outFile.getCanonicalPath());
     }
 
   }

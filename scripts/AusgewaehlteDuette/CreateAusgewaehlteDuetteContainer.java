@@ -149,6 +149,17 @@ public class CreateAusgewaehlteDuetteContainer {
     "AusgewaehlteDuette/25_Giga.xml",
     true), //
     //--------------------------------------------------------------------------
+    // ---- 26
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/26_Giga.mid"),
+    "AusgewaehlteDuette/26_Giga.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/26_Giga.xml"),
+    "AusgewaehlteDuette/26_Giga.xml",
+    true), //
+    //--------------------------------------------------------------------------
     // ---- 27_Larghetto.mid
     new ZipItem(
     new File(tempDir, "AusgewaehlteDuette/27_Larghetto.mid"),
@@ -205,6 +216,17 @@ public class CreateAusgewaehlteDuetteContainer {
     "AusgewaehlteDuette/27p_LarghettoPiano.xml",
     true), //
     //--------------------------------------------------------------------------
+    // ---- 28_Allegro.mid
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/28_Allegro.mid"),
+    "AusgewaehlteDuette/28_Allegro.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/28_Allegro.xml"),
+    "AusgewaehlteDuette/28_Allegro.xml",
+    true), //
+    //--------------------------------------------------------------------------
     // ---- 29_Williams.mid
     new ZipItem(
     new File(tempDir, "AusgewaehlteDuette/29_Williams.mid"),
@@ -259,6 +281,74 @@ public class CreateAusgewaehlteDuetteContainer {
     new ZipItem(
     new File(tempDir, "AusgewaehlteDuette/31_Preludio.xml"),
     "AusgewaehlteDuette/31_Preludio.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ---- 32_Aria.mid
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/32_Aria.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/32_Aria.xml
+
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/32_Aria.mid"),
+    "AusgewaehlteDuette/32_Aria.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/32_Aria.xml"),
+    "AusgewaehlteDuette/32_Aria.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ---- 32_Aria.mid
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/33_Piano.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/33_Piano.xml
+
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/33_Piano.mid"),
+    "AusgewaehlteDuette/33_Piano.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/33_Piano.xml"),
+    "AusgewaehlteDuette/33_Piano.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ----34_Chaconne.mid
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/34_Chaconne.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/34_Chaconne.xml
+
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/34_Chaconne.mid"),
+    "AusgewaehlteDuette/34_Chaconne.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/34_Chaconne.xml"),
+    "AusgewaehlteDuette/34_Chaconne.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ----35_Allegro
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/35_Allegro.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/35_Allegro.xml
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/35_Allegro.mid"),
+    "AusgewaehlteDuette/35_Allegro.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/35_Allegro.xml"),
+    "AusgewaehlteDuette/35_Allegro.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ----35_Allegro
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/36_GavottaVivace.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/36_GavottaVivace.xml
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/36_GavottaVivace.mid"),
+    "AusgewaehlteDuette/36_GavottaVivace.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/36_GavottaVivace.xml"),
+    "AusgewaehlteDuette/36_GavottaVivace.xml",
     true), //
   };
 

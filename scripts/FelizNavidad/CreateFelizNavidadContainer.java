@@ -68,7 +68,7 @@ public class CreateFelizNavidadContainer {
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
 
-    // ---- 46_WorriedMan. /home/harald/NetBeansProjects/temp/FelizNavidad/01_FelizNavidad.mid
+    // ----  /home/harald/NetBeansProjects/temp/FelizNavidad/01_FelizNavidad.mid
     new ZipItem(
     new File(tempDir, "FelizNavidad/01_FelizNavidad.mid"),
     "FelizNavidad/01_FelizNavidad.mid",
@@ -77,6 +77,26 @@ public class CreateFelizNavidadContainer {
     new ZipItem(
     new File(tempDir, "FelizNavidad/01_FelizNavidad.xml"),
     "FelizNavidad/01_FelizNavidad.xml",
+    true),
+    // ------ FelizNavidad/02_IchSteh.mid
+    new ZipItem(
+    new File(tempDir, "FelizNavidad/02_IchSteh.mid"),
+    "FelizNavidad/02_IchSteh.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "FelizNavidad/02_IchSteh.xml"),
+    "FelizNavidad/02_IchSteh.xml",
+    true),
+    // ------ FelizNavidad/03_IchSteh_Am.mid
+    new ZipItem(
+    new File(tempDir, "FelizNavidad/03_IchSteh_Am.mid"),
+    "FelizNavidad/03_IchSteh_Am.mid",
+    false),
+    // ---- 
+    new ZipItem(
+    new File(tempDir, "FelizNavidad/03_IchSteh_Am.xml"),
+    "FelizNavidad/03_IchSteh_Am.xml",
     true), //--
   };
 

@@ -84,7 +84,6 @@ public class Create_27_4_Allegro {
       masterSequence = TrackMerger.process(masterSequence, orchestraSequence, new int[]{i}, -1, null, loggingHandler); //
     }
 
- 
     // This is a hack....to make the track 0 as long as the whole sequence
     double rawSeqLen = masterSequence.getTickLength();
     double quarterLen = masterSequence.getResolution();
@@ -95,13 +94,20 @@ public class Create_27_4_Allegro {
     // add track 5; the metronome track
     masterSequence = MetronomeCreator.process(masterSequence, 0, loggingHandler);
 
-
     System.out.println("** Track 0 length " + masterSequence.getTracks()[0].ticks());
     System.out.println("** Sequence length " + masterSequence.getTickLength());
 
     ChannelCleaner sequenceImporter = new ChannelCleaner(masterSequence, loggingHandler);
     masterSequence = sequenceImporter.getResult();
-
+    
+    
+    // add pitch bend 
+    for (int i = 1; i < masterSequence.getTracks().length; i++) {
+      int channel = sequenceImporter.getChannel(i);
+      int shift = -656;
+      masterSequence.getTracks()[i].add(newPitchbendMessage(0, channel, shift));
+    }
+    
     // Write the file to disk
     MidiSystem.write(masterSequence, 1, outputMidiFile);
     System.out.println("############ Midi file is: " + outputMidiFile.getCanonicalPath());
@@ -133,7 +139,7 @@ public class Create_27_4_Allegro {
     voicesSynt.setSoundbankfile("../StringPiano.sf2");
     voicesSuperTrack.setSynthesizer(voicesSynt);
 
-        //link all the orchestra tracks 
+    //link all the orchestra tracks 
     int orchestraBase = 1; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     int orchestraEnd = 2; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     for (int i = orchestraBase; i <= orchestraEnd; i++) {
@@ -145,9 +151,8 @@ public class Create_27_4_Allegro {
       orchestraSuperTrack.addSubtrack(songTrack);
     }
 
-
     MidiTrack newSongTrack;
-    int voiceBase  = 3;
+    int voiceBase = 3;
     // -- Diskant
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Flute 1");
@@ -156,12 +161,22 @@ public class Create_27_4_Allegro {
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
-    // -- Bass
+    // -- Basso cont
     voiceBase++; //4
     newSongTrack = new MidiTrack();
     newSongTrack.setName("Basso cont.");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(1);
+    newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- Basso cont
+    voiceBase++; //5
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Basso cont.");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(2);
     newSongTrack.setInstrumentDescription("Piano");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
@@ -175,8 +190,6 @@ public class Create_27_4_Allegro {
     newSongTrack.setInstrumentDescription("Metronome");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
-
-
 
     songObject.marshal(new FileOutputStream(outputSongFile));
     System.out.println("############ Song file is: " + outputSongFile.getCanonicalPath());
@@ -205,6 +218,24 @@ public class Create_27_4_Allegro {
               channel,
               programNumber,
               0);//not used
+    } catch (InvalidMidiDataException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    return new MidiEvent(message, tick);
+  }
+  
+    private MidiEvent newPitchbendMessage(long tick, int channel, int value) {
+    ShortMessage message = new ShortMessage();
+    int offseted = value + 0x2000;
+
+    int lowByte = offseted & 0x7F;
+    int hiByte = (offseted & 0x3F80) >> 7;
+    try {
+      message.setMessage(ShortMessage.PITCH_BEND,// command
+              channel,
+              lowByte,
+              hiByte);//not used
     } catch (InvalidMidiDataException ex) {
       throw new RuntimeException(ex);
     }
