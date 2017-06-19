@@ -15,16 +15,12 @@
  */
 package SchmollMissaAfricanaRepetitor;
 
-import SchmollMissaAfricana.*;
-import Salome_MissaBrevis.*;
 import de.free_creations.importexport.ChannelCleaner;
 import de.free_creations.importexport.ControllerRemover;
 import de.free_creations.importexport.Randomizer;
 import de.free_creations.importexport.SlurBinderB;
 import de.free_creations.importexport.TimeShifter;
 import de.free_creations.importexport.TrackMerger;
-import de.free_creations.importexport.VelocityCorrectionA;
-import de.free_creations.importexport.VelocityCorrectionB;
 import de.free_creations.midisong.BuiltinSynthesizer;
 import de.free_creations.midisong.MasterTrack;
 import de.free_creations.midisong.MidiSynthesizerTrack;
@@ -93,7 +89,6 @@ public class Create_03_Halleluja {
 
     Sequence inputSequence = MidiSystem.getSequence(inputFile);
     System.out.println("############ Processing : " + inputFile.getCanonicalPath());
-
     // clean the volume and expression
     inputSequence = ControllerRemover.process(inputSequence, MidiUtil.contMainVolume_MSB, loggingHandler);
     inputSequence = ControllerRemover.process(inputSequence, ControllerRemover.contProgramChange, loggingHandler);
@@ -102,9 +97,9 @@ public class Create_03_Halleluja {
 
     //  copy and clean  the input sequence to make sure we have the correct resolution
     masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{0}, -1, null, loggingHandler);    // 0 => director track
-    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{1, 11}, -1, null, loggingHandler); // 1 => Soprano
-    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{2, 12}, -1, null, loggingHandler); // 2 => Alto
-    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{3, 13}, -1, null, loggingHandler); // 3 => Bariton
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{1, 11}, -1, "Soprano", loggingHandler); // 1 => Soprano
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{2, 12}, -1, "Alto", loggingHandler); // 2 => Alto
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{3, 13}, -1, "Maschio", loggingHandler); // 3 => Bariton
 
     // copy the remaining 
     for (int i = 4; i < 11; i++) {
@@ -194,8 +189,8 @@ public class Create_03_Halleluja {
       86, // 07 ,  acc Piano
       127, // 08 , bass guitar
 
-      56, // Percussion
-      100, // metronome
+      60, // Percussion
+      60, // metronome
     };
 
     // --- bank select
@@ -368,7 +363,7 @@ public class Create_03_Halleluja {
     // -- Bass
     voiceBase++;
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Bariton");
+    newSongTrack.setName("Maschio");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
@@ -376,10 +371,21 @@ public class Create_03_Halleluja {
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
+    // -- percussion
+    voiceBase = 9;
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Batteria");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(0);
+    newSongTrack.setInstrumentDescription("Percussion");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
     // -- Metronome
     voiceBase = 10;
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Metronome");
+    newSongTrack.setName("Metronomo");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
