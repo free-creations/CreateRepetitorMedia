@@ -360,11 +360,22 @@ public class Create_01_Kyrie {
     // -- Bass
     voiceBase++;
     newSongTrack = new MidiTrack();
-    newSongTrack.setName("Bariton");
+    newSongTrack.setName("Maschio");
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiTrackIndex(voiceBase);
     newSongTrack.setMidiChannel(0);
     newSongTrack.setInstrumentDescription("Piano");
+    newSongTrack.setMute(true);
+    voicesSuperTrack.addSubtrack(newSongTrack);
+
+    // -- percussion
+    voiceBase = 9;
+    newSongTrack = new MidiTrack();
+    newSongTrack.setName("Batteria");
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiTrackIndex(voiceBase);
+    newSongTrack.setMidiChannel(0);
+    newSongTrack.setInstrumentDescription("Percussion");
     newSongTrack.setMute(true);
     voicesSuperTrack.addSubtrack(newSongTrack);
 
