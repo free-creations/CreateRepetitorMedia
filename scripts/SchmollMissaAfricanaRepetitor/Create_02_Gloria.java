@@ -97,8 +97,8 @@ public class Create_02_Gloria {
 
     //  copy and clean  the input sequence to make sure we have the correct resolution
     masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{0}, -1, null, loggingHandler);    // 0 => director track
-    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{1, 11}, -1, "Soprano", loggingHandler); // 1 => Soprano
-    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{2, 12}, -1, "Alto", loggingHandler); // 2 => Alto
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{1, 12}, -1, "Soprano", loggingHandler); // 1 => Soprano
+    masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{2, 11}, -1, "Alto", loggingHandler); // 2 => Alto
     masterSequence = TrackMerger.process(masterSequence, inputSequence, new int[]{3, 13}, -1, "Maschio", loggingHandler); // 3 => Bariton
 
     // copy the remaining 

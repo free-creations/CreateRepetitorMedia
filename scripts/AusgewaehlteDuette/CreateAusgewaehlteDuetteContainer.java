@@ -350,6 +350,45 @@ public class CreateAusgewaehlteDuetteContainer {
     new File(tempDir, "AusgewaehlteDuette/36_GavottaVivace.xml"),
     "AusgewaehlteDuette/36_GavottaVivace.xml",
     true), //
+    //--------------------------------------------------------------------------
+    // ----37_Presto
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/37_Presto.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/37_Presto.xml
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/37_Presto.mid"),
+    "AusgewaehlteDuette/37_Presto.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/37_Presto.xml"),
+    "AusgewaehlteDuette/37_Presto.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ----38_GigueEnRondeau
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/38_GigueEnRondeau.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/38_GigueEnRondeau.xml
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/38_GigueEnRondeau.mid"),
+    "AusgewaehlteDuette/38_GigueEnRondeau.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/38_GigueEnRondeau.xml"),
+    "AusgewaehlteDuette/38_GigueEnRondeau.xml",
+    true), //
+    //--------------------------------------------------------------------------
+    // ----38_GigueEnRondeau
+    // Midi file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/38_GigueEnRondeau.mid
+    // Song file is: /home/harald/NetBeansProjects/temp/AusgewaehlteDuette/38_GigueEnRondeau.xml
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/39_Grave.mid"),
+    "AusgewaehlteDuette/39_Grave.mid",
+    false),
+    // ---- 2
+    new ZipItem(
+    new File(tempDir, "AusgewaehlteDuette/39_Grave.xml"),
+    "AusgewaehlteDuette/39_Grave.xml",
+    true), //
   };
 
   private CreateAusgewaehlteDuetteContainer() {
